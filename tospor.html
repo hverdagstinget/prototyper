@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tospor — Dok 8 mot regjeringens spor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f6f3ea; --ink:#1a1c16; --mute:#6e7268; --dok:#8b3a1a; --gov:#2c4a38; --line:#d8d4c6; --paper:#fffdf6; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:"Space Grotesk",system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:.95rem 1.15rem .2rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--ink); }
+    .top a { border-bottom:1px solid var(--ink); }
+    .rails { display:grid; grid-template-columns:1fr 1fr; height:8px; }
+    .rails i:first-child { background:var(--dok); }
+    .rails i:last-child { background:var(--gov); }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:"Source Serif 4",Georgia,serif; font-weight:500; font-size:clamp(2.2rem,8vw,3.5rem); line-height:.98; }
+    h1 em { font-style:italic; }
+    h2 { font-family:"Source Serif 4",Georgia,serif; font-size:1.5rem; margin:1.25rem 0 .4rem; }
+    .lede { font-family:"Source Serif 4",Georgia,serif; font-size:1.22rem; line-height:1.38; margin:.5rem 0 1.1rem; }
+    .k { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+    .pair { display:grid; grid-template-columns:1fr 1fr; gap:.55rem; margin:1rem 0; }
+    .col { padding:1rem .9rem; min-height:9rem; }
+    .col.dok { background:var(--dok); color:#f8ece4; }
+    .col.gov { background:var(--gov); color:#e8f0dc; }
+    .col h3 { font-family:"Source Serif 4",serif; font-size:1.55rem; margin:.2rem 0 .35rem; }
+    .col .k { opacity:.8; color:inherit; }
+    .item { display:block; padding:.85rem 0; border-bottom:1px solid var(--line); }
+    .item h3 { font-size:1.08rem; font-weight:700; margin:.12rem 0; }
+    .item p { font-size:.88rem; color:#3a3e36; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.8rem 0; text-align:center; }
+    .trip div { border-top:3px solid var(--ink); padding-top:.4rem; }
+    .trip b { display:block; font-family:"Source Serif 4",serif; font-size:2rem; line-height:.9; }
+    .trip span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .who { display:grid; grid-template-columns:5.2rem 1fr; gap:.8rem; margin:1rem 0; }
+    .who img { width:5.2rem; height:6.6rem; object-fit:cover; background:#d8d4c6; }
+    .faces { display:flex; flex-wrap:wrap; gap:.4rem; margin:.5rem 0 1rem; }
+    .faces span, .faces a { display:flex; align-items:center; gap:.3rem; background:#efe8d4; padding:.2rem .5rem .2rem .2rem; font-size:.8rem; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:1rem 0; }
+    .nums div { background:#efe8d4; padding:.6rem; }
+    .nums b { display:block; font-size:1.6rem; font-family:"Source Serif 4",serif; }
+    .nums span { font-size:.7rem; color:var(--mute); }
+    .stamp { display:inline-block; border:2px solid currentColor; padding:0 .35rem; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; }
+    .plank { background:#efe8d4; padding:.9rem 1rem; margin:.7rem 0; border-left:6px solid var(--dok); }
+    .plank.gov { border-left-color:var(--gov); }
+    .quiet { font-size:.84rem; color:var(--mute); margin:.5rem 0 1rem; line-height:1.45; }
+    .note { font-size:.9rem; line-height:1.45; margin:.4rem 0 1rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:#efe8d4; border-top:1px solid var(--line); }
+    nav.bar a { text-align:center; padding:.8rem .1rem; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    nav.bar a.on { color:var(--ink); font-weight:700; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    .empty { border:1px dashed var(--mute); padding:.8rem; margin:.8rem 0; font-size:.9rem; }
+    .rail { display:grid; grid-template-columns:5.5rem 1fr; gap:.5rem; padding:.45rem 0; border-bottom:1px dashed var(--line); font-size:.92rem; }
+    .rail b { font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    .chip { display:inline-block; background:#efe8d4; padding:.12rem .4rem; margin:.12rem .12rem 0 0; font-size:.78rem; }
+    .hero-row { display:flex; gap:.5rem; overflow:auto; margin:.6rem 0 1rem; }
+    .hero-row img { width:4.4rem; height:5.6rem; object-fit:cover; background:#d8d4c6; flex-shrink:0; }
+    .label-row { display:flex; gap:.4rem; flex-wrap:wrap; margin:.5rem 0 1rem; }
+    .door { display:flex; justify-content:space-between; align-items:baseline; padding:.5rem 0; border-bottom:1px solid var(--line); }
+    .door span { font-family:"Source Serif 4",serif; font-size:1.12rem; }
+    .pad1 { min-height:0; }
+    .pad2 { min-height:0; }
+    .pad3 { min-height:0; }
+    .pad4 { min-height:0; }
+    .pad5 { min-height:0; }
+    .pad6 { min-height:0; }
+    .pad7 { min-height:0; }
+    .pad8 { min-height:0; }
+    .pad9 { min-height:0; }
+    .pad10 { min-height:0; }
+    .pad11 { min-height:0; }
+    .pad12 { min-height:0; }
+    @media (max-width:520px) { .pair { grid-template-columns:1fr; } .who { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Tospor</b>
+    <span>Dok 8 · regjeringen</span>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="rails"><i></i><i></i></div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k" style="margin-top:1rem">To dører inn i salen · snapshot 2. sept 2026</p>
+      <h1>To spor. Ulike <em>utfall</em>.</h1>
+      <p class="lede">Representantforslag (Dok 8) kommer fra folk i salen og faller ofte. Budsjett og melding kommer fra regjeringen og blir oftere ferdig. Når det er votert, står borte.</p>
+      <div class="pair">
+        <a class="col dok" href="#dok8">
+          <p class="k">Spor 1 · Dok 8</p>
+          <h3>Representantene</h3>
+          <p>200211 klimaavgift: falt. 200400 og 200399: mottatt, ikke votert.</p>
+        </a>
+        <a class="col gov" href="#regjering">
+          <p class="k">Spor 2 · regjeringen</p>
+          <h3>Budsjett / melding</h3>
+          <p>200315, 200314, 200313. Ofte ferdig. 313 har 31 voteringer.</p>
+        </a>
+      </div>
+      <a class="item" href="#sak">
+        <p class="k">Dok 8 · 200211 · ferdigbehandlet</p>
+        <h3>Klimaavgifter — Liland, Indgaard, Sjursæther</h3>
+        <p>Komiteen 84, forslag 15, 70 borte. Ikke vedtatt. Typisk Dok 8-utfall.</p>
+      </a>
+      <article class="item">
+        <p class="k">Regjeringen · 200313 · ferdigbehandlet</p>
+        <h3>Skatte- og avgiftslovgivinga</h3>
+        <p>52 for / 49 mot / 68 borte. 31 voteringer. Typisk regjeringsspor.</p>
+      </article>
+      <p class="quiet">Uka: 0 voteringer. Siste votering 19. juni 2026. 144 saker ikke ferdig. A i regjering: 24 spørsmål. FrP: 1757.</p>
+    </section>
+
+    <section data-view="dok8" hidden>
+      <p class="k" style="margin-top:1rem">Spor 1 · representantforslag · Dokument 8</p>
+      <h1>De tok det opp. Salen sa ofte nei.</h1>
+      <p class="lede">Dok 8 er folkets spor inn i Stortinget — via representantene. Utfallet vises når det er votert. Borte står da.</p>
+      <a class="item" href="#sak">
+        <p class="k">200211 · MDG · ferdig · ikke vedtatt</p>
+        <h3>Klimaavgifter til befolkningen</h3>
+        <p>Komiteen 84 · forslag 15 · 70 borte. Fremmet 26. mars, ferdig 19. juni.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Sjursæther</span>
+        </div>
+      </a>
+      <article class="item">
+        <p class="k">200155 · Sp · ferdig · vedtatt</p>
+        <h3>Lavere bensin- og dieselpriser</h3>
+        <p>71 for / 28 mot / 70 borte. Vedum, Sætran, Pollestad, Lien, Fasteraune.</p>
+      </article>
+      <article class="item">
+        <p class="k">200124 · SV · ferdig · ikke vedtatt</p>
+        <h3>Kontantutbetaling</h3>
+        <p>Komiteen 84 mot forslag 17, 68 borte. Haltbrekken, Hammer, Fredlund, Hussein.</p>
+      </article>
+      <article class="item">
+        <p class="k">200084 · FrP · ferdig · ikke vedtatt som FrP ba om</p>
+        <h3>Energi og levekostnader</h3>
+        <p>Komiteen 68 mot FrP-forslag 29, 72 borte. Limi, Listhaug, Staahle, Grande, Jonsterhaug.</p>
+      </article>
+      <article class="item">
+        <p class="k">200400 · SV · mottatt · 0 voteringer</p>
+        <h3>Prediksjonsmarkeder og tilsyn</h3>
+        <p>Høyer-Berntsen, Eidsvoll, Fiskaa, Lie. Ingen utfall ennå. Ingen borte å telle.</p>
+      </article>
+      <article class="item">
+        <p class="k">200399 · Sp · mottatt</p>
+        <h3>Gasskraftverket i Hammerfest</h3>
+        <p>Vedum, Bentzen, Sveian. Mottatt 23. august. Før porten.</p>
+      </article>
+      <p class="plank">Dok 8 faller ofte fordi innstillingen vinner den alternative voteringen. Komiteen mot forslag. 70 borte er like synlig som 84.</p>
+    </section>
+
+    <section data-view="regjering" hidden>
+      <p class="k" style="margin-top:1rem">Spor 2 · budsjett og melding · regjeringen</p>
+      <h1>Regjeringens saker blir oftere <em>ferdige</em>.</h1>
+      <p class="lede">200315, 200314, 200313. Ingen navn som «fremmet» — from_label er Regjeringen. Bare 313 har voteringstall i snapshotet.</p>
+      <article class="item">
+        <p class="k">200315 · budsjett · ferdigbehandlet</p>
+        <h3>Tilleggsbevilgninger og omprioriteringer 2026</h3>
+        <p>Ingen voteringstall i snapshotet. Ferdig. Regjeringens spor.</p>
+        <span class="stamp">Ferdig</span>
+      </article>
+      <article class="item">
+        <p class="k">200314 · melding · ferdigbehandlet</p>
+        <h3>Revidert nasjonalbudsjett 2026</h3>
+        <p>Ingen voteringstall i snapshotet. Ferdig. RNB.</p>
+        <span class="stamp">Ferdig</span>
+      </article>
+      <article class="item">
+        <p class="k">200313 · budsjett · 31 voteringer · 19. juni</p>
+        <h3>Endringar i skatte- og avgiftslovgivinga</h3>
+        <p>Hovedvotering: 52 for / 49 mot / 68 borte. Mange FrP- og KrF-forslag falt underveis.</p>
+        <div class="trip">
+          <div><b>52</b><span>For</span></div>
+          <div><b>49</b><span>Mot</span></div>
+          <div><b>68</b><span>Borte</span></div>
+        </div>
+      </article>
+      <article class="item">
+        <p class="k">200335 · melding · ferdig</p>
+        <h3>Regulering av pensjonar i 2026</h3>
+        <p>Her brøt Moxnes linja (for FrP-forslag nr. 2, falt). Vår telling. 4 voteringer.</p>
+      </article>
+      <p class="plank gov">Regjeringssporet er ikke hemmelig. Det er bare et annet spor. Utfall og borte vises når det er votert — samme regel som Dok 8.</p>
+      <p class="quiet">A i regjering stiller 24 spørsmål. FrP 1757. Spørsmål er et tredje spor, ikke votering.</p>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k" style="margin-top:1rem">200211 på Dok 8-sporet</p>
+      <h1>Ett forslag. Hele flyten. Falt.</h1>
+      <p class="lede">Slik ser et representantforslag ut fra start til slutt. Utenforstående trenger dette sporet synlig.</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard · forslag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Sjursæther · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva · ordfører</span>
+      </div>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <div class="plank">
+        26. mars fremmet · 9. april referat og sendt komité · 12. juni innstilling · 19. juni votering ferdig. Vedtak: vedtas ikke.
+      </div>
+      <p class="note">Seks partier med komiteen. MDG, R, SV med forslaget. 0 avvik. To av tre fremmere borte. Peter Frølich ikke i lista. Vi vet ikke hvorfor.</p>
+      <p class="quiet">Sammenlign: 200155 (Dok 8, Sp) ble vedtatt 71–28–70. Samme dag, samme sal, annet utfall. Borte like førstklassig.</p>
+    </section>
+
+    <section data-view="apne" hidden>
+      <p class="k" style="margin-top:1rem">Mottatt · 144 saker · Dok 8 som ikke har votert</p>
+      <h1>Sporet som ikke er ferdig.</h1>
+      <p class="lede">Åpne representantforslag 200400–396. Ingen utfall. Derfor ingen borte. Vi later ikke som de er vedtatt.</p>
+      <article class="item">
+        <p class="k">200400 · SV</p>
+        <h3>Prediksjonsmarkeder og styrket tilsyn</h3>
+        <p>Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa, Kathy Lie.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/MIREHB" alt="">Mirell</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/SUNEID" alt="">Sunniva</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/INF" alt="">Ingrid</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/KATLIE" alt="">Kathy</span>
+        </div>
+      </article>
+      <article class="item">
+        <p class="k">200399 · Sp</p>
+        <h3>Gasskraftverket i Hammerfest</h3>
+        <p>Trygve Slagsvold Vedum, Bent-Joacim Bentzen, Ole Herman Sveian.</p>
+      </article>
+      <article class="item">
+        <p class="k">200398 · FrP</p>
+        <h3>Bolig og byggebransjen</h3>
+        <p>Wiborg, Limi, Njåstad, Larsen, Midtun.</p>
+      </article>
+      <article class="item">
+        <p class="k">200397 · KrF</p>
+        <h3>Handlingsplan mot aborttall</h3>
+        <p>Ystebø, Røse, Lossius. Hordaland: Joel Ystebø.</p>
+      </article>
+      <article class="item">
+        <p class="k">200396 · SV</p>
+        <h3>Et fritt Palestina</h3>
+        <p>Marthe Hammer, Ingrid Fiskaa, Marian Hussein. Hammer er Hordaland.</p>
+      </article>
+      <div class="empty">Ingen votering. Ingen 84/15/70. Ingen gjetning om hvorfor de står stille. Siste oppdatering 23. august 2026.</div>
+    </section>
+
+  </div>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Spor</a>
+    <a href="#dok8" data-tab="dok8">Dok 8</a>
+    <a href="#regjering" data-tab="regjering">Regjering</a>
+    <a href="#sak" data-tab="sak">200211</a>
+    <a href="#apne" data-tab="apne">Åpne</a>
+  </nav>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Borte = ingen registrert stemme. Vår telling for avvik.</footer>
+  <script>
+    const alias = {hjem:'hjem',dok8:'dok8',regjering:'regjering',regjeringen:'regjering',sak:'sak','200211':'sak',apne:'apne',mottatt:'apne','200315':'regjering','200314':'regjering','200313':'regjering','200400':'apne','200399':'apne'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
