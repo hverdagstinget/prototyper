@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vedtakene — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f3ead6; --ink:#1b1914; --mute:#6f6858; --line:#d9cdb0; --wax:#9c2a2a; --navy:#1d3557; --wait:#6a6558; --paper:#fff8e8; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    .wrap { max-width:42rem; margin:0 auto; min-height:100vh; padding-bottom:4.8rem; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:.85rem 1.1rem .4rem; font-family:"IBM Plex Mono",monospace;
+      font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute);
+    }
+    header.top strong { font-family:"EB Garamond",serif; font-size:1.35rem; letter-spacing:.02em; color:var(--ink); text-transform:none; }
+    header.top a { color:var(--navy); border-bottom:1px solid var(--navy); }
+    nav.bar {
+      display:grid; grid-template-columns:repeat(5,1fr); margin:0 1.1rem;
+      border-top:2px solid var(--ink); border-bottom:1px solid var(--ink);
+      position:sticky; top:0; background:var(--bg); z-index:5;
+    }
+    nav.bar a {
+      text-align:center; padding:.65rem .15rem; font-size:.62rem; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--mute); font-weight:600;
+    }
+    nav.bar a.on { color:var(--ink); background:#efe4c8; }
+    main { padding:1rem 1.1rem 2rem; }
+    h1 { font-family:"EB Garamond",Georgia,serif; font-weight:600; font-size:clamp(2rem,7vw,3.1rem); line-height:1.02; margin:.2rem 0 .55rem; }
+    h2 { font-family:"EB Garamond",serif; font-size:1.45rem; font-weight:600; margin:1.2rem 0 .4rem; }
+    .lede { font-family:"EB Garamond",serif; font-size:1.22rem; line-height:1.35; max-width:36rem; }
+    .kicker { font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+    .quiet { font-size:.82rem; color:var(--mute); border:1px dashed var(--line); padding:.5rem .65rem; margin:.7rem 0 1rem; }
+    .card {
+      display:block; background:var(--paper); border:1px solid var(--ink); padding:.9rem .9rem .85rem;
+      margin:0 0 .7rem; box-shadow:3px 3px 0 #cfc3a4;
+    }
+    .card h3 { font-family:"EB Garamond",serif; font-size:1.45rem; font-weight:600; line-height:1.1; margin:.2rem 0 .35rem; }
+    .card p { font-size:.92rem; color:#3a362e; line-height:1.4; }
+    .stamp {
+      display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.1em;
+      text-transform:uppercase; border:2px solid currentColor; padding:.12rem .4rem; font-weight:600;
+    }
+    .stamp.yes { color:var(--navy); } .stamp.no { color:var(--wax); } .stamp.wait { color:var(--wait); }
+    .triple { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.7rem 0 .2rem; text-align:center; }
+    .triple b { display:block; font-family:"EB Garamond",serif; font-size:1.85rem; line-height:1; }
+    .triple span { font-family:"IBM Plex Mono",monospace; font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    .who { display:grid; grid-template-columns:7rem 1fr; gap:1rem; margin:1rem 0; }
+    .who img { width:7rem; height:9rem; object-fit:cover; background:#ddd4c0; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin:.8rem 0; }
+    .nums div { border-top:1px solid var(--ink); padding-top:.35rem; }
+    .nums b { display:block; font-family:"EB Garamond",serif; font-size:1.7rem; line-height:1; }
+    .nums span { font-size:.7rem; color:var(--mute); }
+    .faces { display:flex; flex-wrap:wrap; gap:.4rem; margin:.5rem 0 .8rem; }
+    .faces span, .faces a {
+      display:flex; align-items:center; gap:.35rem; background:#efe4c8; padding:.2rem .5rem .2rem .2rem; font-size:.8rem;
+    }
+    .faces img { width:1.55rem; height:1.55rem; object-fit:cover; }
+    .prow {
+      display:grid; grid-template-columns:2.4rem 1fr 2rem 2rem 2rem; gap:.3rem;
+      font-size:.82rem; padding:.3rem 0; border-bottom:1px dashed var(--line); align-items:baseline;
+    }
+    .prow.head { font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    .tl { list-style:none; }
+    .tl li { display:flex; justify-content:space-between; padding:.4rem 0; border-bottom:1px solid var(--line); font-size:.92rem; }
+    footer.site { padding:1rem 1.1rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.45; }
+    .warn { font-size:.8rem; color:var(--mute); border-left:2px solid var(--wax); padding:.15rem 0 .15rem .65rem; margin:.8rem 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <strong>Vedtakene</strong>
+      <span>bare utfallet</span>
+      <a href="lyset.html">Alle</a>
+    </header>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Utfall</a>
+      <a href="#saker" data-tab="saker">Saker</a>
+      <a href="#sak" data-tab="sak">200211</a>
+      <a href="#hen" data-tab="hen">Erna</a>
+      <a href="#ikke-vedtatt" data-tab="ikke-vedtatt">Ikke vedtatt</a>
+    </nav>
+    <main>
+
+      <section data-view="hjem">
+        <p class="kicker">Hva ble det av det · sesjon 2025–2026</p>
+        <h1>Vedtatt, ikke vedtatt, eller ikke ennå.</h1>
+        <p class="lede">Hvert kort har tre ting: utfallet, borte-tallet, og hvem som fremmet. Ingenting pyntes ved å gjemme de som ikke stemte.</p>
+        <p class="quiet">Denne uken: 0 voteringer · 0 spørsmål · 0 saker. Siste votering 19. juni 2026. Siste stortingsmøte 1. september. PACE i Strasbourg er ikke et stortingsmøte.</p>
+
+        <a class="card" href="#sak">
+          <span class="stamp no">Ikke vedtatt</span>
+          <h3>Klimaavgifter til befolkningen</h3>
+          <p>200211 · Liland, Indgaard, Sjursæther (MDG). Flertall som bar komiteen: A + FrP + H + KrF + Sp + V. MDG + R + SV med forslaget. Dok 8:256 S, Innst. 458 S.</p>
+          <div class="triple">
+            <div><b>84</b><span>Komiteen</span></div>
+            <div><b>15</b><span>Forslaget</span></div>
+            <div><b>70</b><span>Borte</span></div>
+          </div>
+        </a>
+        <article class="card">
+          <span class="stamp yes">Vedtatt</span>
+          <h3>Lavere bensin- og dieselpriser</h3>
+          <p>200155 · Trygve Slagsvold Vedum, Siv Sætran, Geir Pollestad, Geir Inge Lien, Bengt Fasteraune (Sp). Ferdigbehandlet.</p>
+          <div class="triple">
+            <div><b>71</b><span>For</span></div>
+            <div><b>28</b><span>Mot</span></div>
+            <div><b>70</b><span>Borte</span></div>
+          </div>
+        </article>
+        <a class="card" href="#ikke-vedtatt">
+          <span class="stamp no">Ikke vedtatt</span>
+          <h3>Kontantutbetaling</h3>
+          <p>200124 · Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund, Marian Hussein. Ferdigbehandlet. Alternativ: komiteen mot forslag.</p>
+          <div class="triple">
+            <div><b>84</b><span>Komiteen</span></div>
+            <div><b>17</b><span>Forslaget</span></div>
+            <div><b>68</b><span>Borte</span></div>
+          </div>
+        </a>
+        <a class="card" href="#ikke-vedtatt">
+          <span class="stamp no">Ikke vedtatt</span>
+          <h3>Energipriser og levekostnader</h3>
+          <p>200084 · Hans Andreas Limi, Sylvi Listhaug, Tom Staahle, Hilde Grande, Martin Virkesdal Jonsterhaug (FrP). Ferdigbehandlet.</p>
+          <div class="triple">
+            <div><b>68</b><span>Komiteen</span></div>
+            <div><b>29</b><span>FrP-forslag</span></div>
+            <div><b>72</b><span>Borte</span></div>
+          </div>
+        </a>
+        <article class="card">
+          <span class="stamp yes">Vedtatt</span>
+          <h3>Skatte- og avgiftslovgivinga</h3>
+          <p>200313 · regjeringen. Ferdigbehandlet. 52 for, 49 mot — og 68 borte. Ikke 52–49 alene.</p>
+          <div class="triple">
+            <div><b>52</b><span>For</span></div>
+            <div><b>49</b><span>Mot</span></div>
+            <div><b>68</b><span>Borte</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <span class="stamp yes">Ferdig uten votering</span>
+          <h3>200315 og 200314</h3>
+          <p>Tilleggsbevilgninger og revidert nasjonalbudsjett. Ferdigbehandlet. Ingen votering, derfor ingen borte-telling.</p>
+        </article>
+        <article class="card">
+          <span class="stamp wait">Ikke ennå · mottatt</span>
+          <h3>Prediksjonsmarkeder</h3>
+          <p>200400 · Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa, Kathy Lie (SV). Mottatt er ikke ferdigbehandlet. 0 voteringer, ingen borte.</p>
+        </article>
+      </section>
+
+      <section data-view="saker">
+        <p class="kicker">665 saker · 475 med votering · 144 ikke ferdig</p>
+        <h1>Alle kortene har borte.</h1>
+        <p class="lede">Mottatt og ferdigbehandlet er to forskjellige stempel. Vi blander dem ikke.</p>
+        <article class="card">
+          <span class="stamp no">Ikke vedtatt · ferdigbehandlet</span>
+          <h3><a href="#sak">200211 Klimaavgifter</a></h3>
+          <p>MDG-trio. Komiteen 84, forslag 15, 70 borte. Votering 28509.</p>
+        </article>
+        <article class="card">
+          <span class="stamp yes">Vedtatt · ferdigbehandlet</span>
+          <h3>200155 Bensin og diesel</h3>
+          <p>Sp. 71 for / 28 mot / 70 borte.</p>
+        </article>
+        <article class="card">
+          <span class="stamp no">Ikke vedtatt · ferdigbehandlet</span>
+          <h3>200124 Kontant</h3>
+          <p>SV m.fl. Komiteen 84 vs 17, 68 borte.</p>
+        </article>
+        <article class="card">
+          <span class="stamp no">Ikke vedtatt · ferdigbehandlet</span>
+          <h3>200084 Energi FrP</h3>
+          <p>Komiteen 68 vs FrP 29, 72 borte.</p>
+        </article>
+        <article class="card">
+          <span class="stamp yes">Vedtatt · ferdigbehandlet</span>
+          <h3>200313 Skatte</h3>
+          <p>52 for / 49 mot / 68 borte.</p>
+        </article>
+        <article class="card">
+          <span class="stamp yes">Ferdig uten votering</span>
+          <h3>200315 / 200314</h3>
+          <p>Regjeringen. Ingen votering.</p>
+        </article>
+        <article class="card">
+          <span class="stamp wait">Mottatt · ikke ferdigbehandlet</span>
+          <h3>200400 Prediksjonsmarkeder</h3>
+          <p>SV-kvartett. 0 voteringer.</p>
+        </article>
+        <article class="card">
+          <span class="stamp wait">Mottatt · ikke ferdigbehandlet</span>
+          <h3>200399 Hammerfest gasskraft</h3>
+          <p>Trygve Slagsvold Vedum, Bent-Joacim Bentzen, Ole Herman Sveian (Sp).</p>
+        </article>
+        <article class="card">
+          <span class="stamp wait">Mottatt · ikke ferdigbehandlet</span>
+          <h3>200398 Bolig</h3>
+          <p>Erlend Wiborg, Hans Andreas Limi, Helge André Njåstad, Bjørn Larsen, Rune Midtun (FrP).</p>
+        </article>
+        <article class="card">
+          <span class="stamp wait">Mottatt · ikke ferdigbehandlet</span>
+          <h3>200397 Abortplan</h3>
+          <p>Joel Ystebø, Ida Lindtveit Røse, Jorunn Gleditsch Lossius (KrF).</p>
+        </article>
+        <article class="card">
+          <span class="stamp wait">Mottatt · ikke ferdigbehandlet</span>
+          <h3>200396 Palestina</h3>
+          <p>Marthe Hammer, Ingrid Fiskaa, Marian Hussein (SV).</p>
+        </article>
+      </section>
+
+      <section data-view="sak">
+        <p class="kicker">Sak 200211 · ferdigbehandlet · 19. juni 2026</p>
+        <h1>Vedtak: forslaget vedtas ikke.</h1>
+        <p class="lede">Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen. Fremmet av Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG).</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva Moflag · A · saksordfører</span>
+        </div>
+        <p class="kicker">Finanskomiteen · Dok 8:256 S · Innst. 458 S</p>
+        <div class="card" style="margin-top:.8rem">
+          <span class="stamp no">Ikke vedtatt</span>
+          <p style="margin-top:.5rem">Alternativ votering 28509. Komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Ikke grønt mot rødt.</p>
+          <div class="triple">
+            <div><b>84</b><span>Komiteen</span></div>
+            <div><b>15</b><span>Forslaget</span></div>
+            <div><b>70</b><span>Borte</span></div>
+          </div>
+          <p style="margin-top:.4rem;font-size:.82rem;color:var(--mute)">Borte = ingen registrert stemme.</p>
+        </div>
+        <h2>Parti 28509 · komiteen / forslag / borte · vår telling</h2>
+        <div class="prow head"><span></span><span>Parti</span><span>Kom</span><span>For</span><span>Bo</span></div>
+        <div class="prow"><span style="color:#E30613">A</span><span>Arbeiderpartiet</span><span>31</span><span>0</span><span>22</span></div>
+        <div class="prow"><span style="color:#003087">FrP</span><span>Fremskrittspartiet</span><span>29</span><span>0</span><span>18</span></div>
+        <div class="prow"><span style="color:#0065F1">H</span><span>Høyre</span><span>14</span><span>0</span><span>10</span></div>
+        <div class="prow"><span style="color:#F9C400">KrF</span><span>Kristelig Folkeparti</span><span>3</span><span>0</span><span>4</span></div>
+        <div class="prow"><span style="color:#00843D">Sp</span><span>Senterpartiet</span><span>5</span><span>0</span><span>4</span></div>
+        <div class="prow"><span style="color:#009640">V</span><span>Venstre</span><span>2</span><span>0</span><span>1</span></div>
+        <div class="prow"><span style="color:#6A8F00">MDG</span><span>Miljøpartiet De Grønne</span><span>0</span><span>5</span><span>3</span></div>
+        <div class="prow"><span style="color:#980C1E">R</span><span>Rødt</span><span>0</span><span>5</span><span>4</span></div>
+        <div class="prow"><span style="color:#C8102E">SV</span><span>Sosialistisk Venstreparti</span><span>0</span><span>5</span><span>4</span></div>
+        <p class="lede" style="margin-top:.8rem;font-size:1.1rem">Hvem dannet flertallet: A + FrP + H + KrF + Sp + V. De bar komiteen. Forslaget ble ikke vedtatt.</p>
+        <ul class="tl" style="margin-top:1rem">
+          <li><span>Fremmet</span><span>26. mars</span></li>
+          <li><span>Innstilling</span><span>12. juni</span></li>
+          <li><span>Votering</span><span>19. juni</span></li>
+          <li><span>Stemplet</span><span>vedtas ikke</span></li>
+        </ul>
+      </section>
+
+      <section data-view="hen">
+        <p class="kicker">Person · utfallet for én · ES</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1>Erna Solberg</h1>
+            <p class="lede">Høyre · Hordaland. I 28509: borte. Siste registrerte voteringer 19. juni: alle borte.</p>
+            <span class="stamp wait">Borte i 28509</span>
+          </div>
+        </div>
+        <div class="nums">
+          <div><b>249</b><span>for · vår telling</span></div>
+          <div><b>350</b><span>mot · vår telling</span></div>
+          <div><b>1121</b><span>borte · vår telling</span></div>
+        </div>
+        <div class="nums">
+          <div><b>8</b><span>avvik · vår telling</span></div>
+          <div><b>8</b><span>spørsmål · vår telling</span></div>
+          <div><b>mot</b><span>i 28460 · avvik</span></div>
+        </div>
+        <p class="warn">Borte = ingen registrert stemme. Vi oppgir ikke sykdom, pairing eller reise. Stortinget advarer mot å lese oppmøte som aktivitet — vi viser likevel 1121.</p>
+        <p style="font-size:.9rem;color:var(--mute)">Peter Frølich (H, Hordaland) er ikke i votering 28509. Vi sier «ikke i voteringen», ikke borte.</p>
+      </section>
+
+      <section data-view="ikke-vedtatt">
+        <p class="kicker">De som falt · ferdigbehandlet</p>
+        <h1>Ikke vedtatt.</h1>
+        <p class="lede">Tre representantforslag som gikk til votering og ikke ble vedtatt. Borte er med, så fallet ikke ser ut som 169–0.</p>
+        <a class="card" href="#sak">
+          <span class="stamp no">Ikke vedtatt</span>
+          <h3>Klimaavgift · 200211</h3>
+          <p>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG). Komiteen 84, forslag nr. 1 og 2 fra SV/R/MDG 15, 70 borte. Votering 28509.</p>
+        </a>
+        <article class="card">
+          <span class="stamp no">Ikke vedtatt</span>
+          <h3>Kontantutbetaling · 200124</h3>
+          <p>Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund, Marian Hussein. Komiteen 84 mot forslag 17, 68 borte.</p>
+        </article>
+        <article class="card">
+          <span class="stamp no">Ikke vedtatt</span>
+          <h3>Energi, FrP-forslaget · 200084</h3>
+          <p>Hans Andreas Limi, Sylvi Listhaug, Tom Staahle, Hilde Grande, Martin Virkesdal Jonsterhaug (FrP). Komiteen 68 mot FrP-forslag 29, 72 borte.</p>
+        </article>
+        <p class="caption" style="font-size:.85rem;color:var(--mute);margin-top:.8rem">Borte = ingen registrert stemme. 200315 og 200314 er ferdig uten votering — de hører ikke i denne listen.</p>
+      </section>
+
+
+      <section data-view="filter">
+        <p class="kicker">Filter · Stoppet eller vedtatt</p>
+        <h1>To bunker.</h1>
+        <p class="lede">Samme protokoll, delt på utfallet. Trykk bunken.</p>
+        <a class="card" href="#ikke-vedtatt">
+          <span class="stamp no">Stoppet</span>
+          <h3>Forslag som falt</h3>
+          <p>200211 klimaavgifter · 200124 kontant · 200084 energi. Komitélinja vant.</p>
+        </a>
+        <a class="card" href="#vedtatt">
+          <span class="stamp yes">Vedtatt</span>
+          <h3>Det som gikk gjennom</h3>
+          <p>200155 bensin 71 for / 28 mot / 70 borte · 200313 skatte 52 for / 49 mot / 68 borte.</p>
+        </a>
+        <p class="quiet">144 mottatt uten utfall ligger ikke i filteret. Mottatt er ikke et stempel ennå.</p>
+      </section>
+
+      <section data-view="vedtatt">
+        <p class="kicker">Filter · Vedtatt</p>
+        <h1>Vedtatt.</h1>
+        <p class="lede">Tilrådingen gikk gjennom. Vi har partifordeling på 28509, ikke på disse to.</p>
+        <article class="card">
+          <span class="stamp yes">Vedtatt · 70 borte</span>
+          <h3>Bensin og diesel · 200155</h3>
+          <p>Trygve Slagsvold Vedum, Siv Sætran, Geir Pollestad, Geir Inge Lien, Bengt Fasteraune. Sp-forslag. Innstillingen vedtatt. 71 for · 28 mot · 70 borte.</p>
+        </article>
+        <article class="card">
+          <span class="stamp yes">Vedtatt · 68 borte</span>
+          <h3>Skatte- og avgift · 200313</h3>
+          <p>52 for · 49 mot · 68 borte. 31 voteringer 19. juni. Tilrådingen gikk gjennom.</p>
+        </article>
+      </section>
+
+    </main>
+    <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  </div>
+  <script>
+    const alias = {hjem:'hjem',saker:'saker',sak:'sak','200211':'sak',hen:'hen',erna:'hen','ikke-vedtatt':'ikke-vedtatt',filter:'filter',stoppet:'ikke-vedtatt',vedtatt:'vedtatt'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => { const tabs=(a.dataset.tab||'').split(/\s+/); a.classList.toggle('on', tabs.includes(h)); });
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
