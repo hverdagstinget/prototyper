@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partilinja — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f4f5f2; --ink:#101214; --mute:#66707a; --line:#d8dcd6; --paper:#fff; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:Barlow,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .wrap { max-width:44rem; margin:0 auto; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:.85rem 1.1rem .25rem; font-size:.75rem; color:var(--mute);
+    }
+    header.top strong { font-family:"Barlow Condensed",sans-serif; font-size:1.55rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink); }
+    header.top a { color:#0065F1; border-bottom:1px solid #0065F1; font-weight:600; }
+    main { padding:.35rem 1.1rem 2rem; }
+    h1 { font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:clamp(2.1rem,8vw,3.3rem); letter-spacing:.01em; line-height:.95; text-transform:uppercase; margin:.15rem 0 .5rem; }
+    h2 { font-family:"Barlow Condensed",sans-serif; font-size:1.35rem; letter-spacing:.06em; text-transform:uppercase; margin:1.2rem 0 .4rem; }
+    .lede { font-size:1.05rem; line-height:1.45; max-width:38rem; }
+    .kicker { font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); font-weight:700; }
+    .quiet { font-size:.82rem; color:var(--mute); background:#e8ebe6; padding:.5rem .65rem; margin:.65rem 0 1rem; }
+    .row {
+      display:grid; grid-template-columns:8px 1fr; background:var(--paper); border:1px solid var(--line);
+      margin:0 0 .55rem; min-height:5.4rem;
+    }
+    .row > div { padding:.7rem .8rem .75rem; }
+    .row h3 { font-family:"Barlow Condensed",sans-serif; font-size:1.45rem; letter-spacing:.04em; text-transform:uppercase; line-height:1; }
+    .row .meta { font-size:.8rem; color:var(--mute); margin:.2rem 0 .45rem; }
+    .split { display:flex; gap:1rem; flex-wrap:wrap; font-size:.82rem; }
+    .split b { font-family:"Barlow Condensed",sans-serif; font-size:1.15rem; }
+    .score { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.8rem 0; }
+    .score div { background:var(--paper); border:1px solid var(--line); padding:.7rem .4rem; text-align:center; }
+    .score b { display:block; font-family:"Barlow Condensed",sans-serif; font-size:clamp(2rem,8vw,3.1rem); line-height:.9; }
+    .score span { font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .track { display:flex; height:1.3rem; background:#e4e7e2; overflow:hidden; margin-top:.35rem; }
+    .seg { height:100%; font-size:.68rem; font-weight:700; display:flex; align-items:center; padding:0 .35rem; color:#fff; }
+    .who { display:grid; grid-template-columns:7rem 1fr; gap:1rem; margin:1rem 0; }
+    .who img { width:7rem; height:9rem; object-fit:cover; background:#dde0da; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.45rem; margin:.7rem 0; }
+    .nums div { border-top:2px solid var(--ink); padding-top:.3rem; }
+    .nums b { display:block; font-family:"Barlow Condensed",sans-serif; font-size:1.85rem; line-height:1; }
+    .nums span { font-size:.7rem; color:var(--mute); }
+    .list a, .list article { display:block; padding:.75rem 0; border-bottom:1px solid var(--line); }
+    .list .nr { font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); font-weight:700; }
+    .list h3 { font-family:"Barlow Condensed",sans-serif; font-size:1.3rem; letter-spacing:.03em; text-transform:uppercase; }
+    .list p { font-size:.88rem; color:#3a4046; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.45rem 0 .7rem; }
+    .faces span, .faces a {
+      display:flex; align-items:center; gap:.3rem; background:var(--paper); border:1px solid var(--line);
+      padding:.18rem .45rem .18rem .18rem; font-size:.8rem;
+    }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; }
+    .grid24 { display:grid; grid-template-columns:repeat(auto-fill,minmax(9.2rem,1fr)); gap:.4rem; }
+    .mp { display:flex; gap:.4rem; align-items:center; background:var(--paper); border:1px solid var(--line); padding:.4rem; font-size:.8rem; }
+    .mp img { width:2.2rem; height:2.8rem; object-fit:cover; background:#dde0da; }
+    .mp small { display:block; color:var(--mute); font-size:.68rem; }
+    .warn { font-size:.8rem; color:var(--mute); border-left:3px solid #0065F1; padding:.1rem 0 .1rem .65rem; margin:.9rem 0; }
+    .q { font-size:.88rem; padding:.55rem 0; border-bottom:1px solid var(--line); }
+    .q b { display:block; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    nav.bar {
+      position:fixed; left:0; right:0; bottom:0; background:#fff;
+      display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid var(--line);
+    }
+    nav.bar a {
+      text-align:center; padding:.8rem .1rem; font-family:"Barlow Condensed",sans-serif;
+      font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); font-weight:700;
+    }
+    nav.bar a.on { color:#0065F1; }
+    footer.site { padding:1rem 1.1rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.45; }
+    @media (max-width:520px) { .who { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <strong>Partilinja</strong>
+      <span>ni aktører</span>
+      <a href="lyset.html">Alle</a>
+    </header>
+    <main>
+
+      <section data-view="hjem">
+        <p class="kicker">Sesjon 2025–2026 · vår telling · votering 28509</p>
+        <h1>Partiet som aktør.</h1>
+        <p class="lede">Hver rad: flertall for og mot denne sesjonen, og denne voteringens komiteen / forslag / borte. Ikke grønt mot rødt på de to alternativene.</p>
+        <p class="quiet">Denne uken: 0 voteringer. Siste votering 19. juni 2026. Siste stortingsmøte 1. september. PACE i Strasbourg er ikke et stortingsmøte.</p>
+
+        <a class="row" href="#hoyre">
+          <i style="background:#0065F1"></i>
+          <div>
+            <h3>Høyre · 24</h3>
+            <p class="meta">683 spørsmål · majoritet for 699 · majoritet mot 1097 · vår telling</p>
+            <div class="split"><span><b>14</b> komiteen</span><span><b>0</b> forslag</span><span><b>10</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:14;background:#0065F1">14</div><div class="seg" style="flex:10;background:#9aa3ad;color:#111">10</div></div>
+          </div>
+        </a>
+        <article class="row">
+          <i style="background:#E30613"></i>
+          <div>
+            <h3>Arbeiderpartiet · 41 · i regjering</h3>
+            <p class="meta">24 spørsmål · majoritet for 435 · majoritet mot 1361 · vår telling</p>
+            <div class="split"><span><b>31</b> komiteen</span><span><b>0</b> forslag</span><span><b>22</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:31;background:#E30613">31</div><div class="seg" style="flex:22;background:#9aa3ad;color:#111">22</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#003087"></i>
+          <div>
+            <h3>Fremskrittspartiet · 47</h3>
+            <p class="meta">1757 spørsmål · majoritet for 812 · majoritet mot 984 · vår telling</p>
+            <div class="split"><span><b>29</b> komiteen</span><span><b>0</b> forslag</span><span><b>18</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:29;background:#003087">29</div><div class="seg" style="flex:18;background:#9aa3ad;color:#111">18</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#980C1E"></i>
+          <div>
+            <h3>Rødt · 9</h3>
+            <p class="meta">294 spørsmål · majoritet for 850 · majoritet mot 946 · vår telling</p>
+            <div class="split"><span><b>0</b> komiteen</span><span><b>5</b> forslag</span><span><b>4</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:5;background:#980C1E">5</div><div class="seg" style="flex:4;background:#9aa3ad;color:#111">4</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#00843D"></i>
+          <div>
+            <h3>Senterpartiet · 9</h3>
+            <p class="meta">390 spørsmål · majoritet for 757 · majoritet mot 1037 · vår telling</p>
+            <div class="split"><span><b>5</b> komiteen</span><span><b>0</b> forslag</span><span><b>4</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:5;background:#00843D">5</div><div class="seg" style="flex:4;background:#9aa3ad;color:#111">4</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#C8102E"></i>
+          <div>
+            <h3>Sosialistisk Venstreparti · 9</h3>
+            <p class="meta">360 spørsmål · majoritet for 845 · majoritet mot 950 · vår telling</p>
+            <div class="split"><span><b>0</b> komiteen</span><span><b>5</b> forslag</span><span><b>4</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:5;background:#C8102E">5</div><div class="seg" style="flex:4;background:#9aa3ad;color:#111">4</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#6A8F00"></i>
+          <div>
+            <h3>Miljøpartiet De Grønne · 8</h3>
+            <p class="meta">278 spørsmål · majoritet for 907 · majoritet mot 889 · vår telling</p>
+            <div class="split"><span><b>0</b> komiteen</span><span><b>5</b> forslag</span><span><b>3</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:5;background:#6A8F00">5</div><div class="seg" style="flex:3;background:#9aa3ad;color:#111">3</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#F9C400"></i>
+          <div>
+            <h3>Kristelig Folkeparti · 7</h3>
+            <p class="meta">265 spørsmål · majoritet for 854 · majoritet mot 934 · vår telling</p>
+            <div class="split"><span><b>3</b> komiteen</span><span><b>0</b> forslag</span><span><b>4</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:3;background:#F9C400;color:#111">3</div><div class="seg" style="flex:4;background:#9aa3ad;color:#111">4</div></div>
+          </div>
+        </article>
+        <article class="row">
+          <i style="background:#009640"></i>
+          <div>
+            <h3>Venstre · 3</h3>
+            <p class="meta">129 spørsmål · majoritet for 927 · majoritet mot 841 · vår telling</p>
+            <div class="split"><span><b>2</b> komiteen</span><span><b>0</b> forslag</span><span><b>1</b> borte</span></div>
+            <div class="track"><div class="seg" style="flex:2;background:#009640">2</div><div class="seg" style="flex:1;background:#9aa3ad;color:#111">1</div></div>
+          </div>
+        </article>
+        <p class="lede" style="margin-top:1rem;font-size:.95rem;color:var(--mute)">Arbeiderpartiet i regjering, 41 medlemmer, 24 spørsmål. Fremskrittspartiet 47 medlemmer, 1757 spørsmål. Vår telling. Borte = ingen registrert stemme.</p>
+      </section>
+
+      <section data-view="saker">
+        <p class="kicker">Saker · partiet som reiste eller stanset</p>
+        <h1>Ni linjer, samme saker.</h1>
+        <p class="lede">Mottatt er ikke ferdigbehandlet. Når det er votert, følger tre tall: komiteen eller for/mot, og borte.</p>
+        <div class="list">
+          <a href="#sak">
+            <p class="nr">200211 · MDG fremmet · ferdigbehandlet · ikke vedtatt</p>
+            <h3>Klimaavgifter</h3>
+            <p>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG). Komiteen 84, forslag 15, 70 borte. A+FrP+H+Sp+V+KrF med komiteen.</p>
+          </a>
+          <article>
+            <p class="nr">200155 · Sp fremmet · ferdigbehandlet · vedtatt</p>
+            <h3>Bensin og diesel</h3>
+            <p>Trygve Slagsvold Vedum m.fl. 71 for / 28 mot / 70 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200124 · SV fremmet · ferdigbehandlet · ikke vedtatt</p>
+            <h3>Kontant</h3>
+            <p>Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund, Marian Hussein. Komiteen 84 vs 17, 68 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200084 · FrP fremmet · ferdigbehandlet · ikke vedtatt</p>
+            <h3>Energi</h3>
+            <p>Hans Andreas Limi, Sylvi Listhaug m.fl. Komiteen 68 vs FrP 29, 72 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200313 · regjeringen · ferdigbehandlet · vedtatt</p>
+            <h3>Skatte</h3>
+            <p>52 for / 49 mot / 68 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200400 · SV · mottatt</p>
+            <h3>Prediksjonsmarkeder</h3>
+            <p>Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa, Kathy Lie. 0 voteringer.</p>
+          </article>
+          <article>
+            <p class="nr">200399 · Sp · mottatt</p>
+            <h3>Hammerfest gasskraft</h3>
+            <p>Trygve Slagsvold Vedum, Bent-Joacim Bentzen, Ole Herman Sveian.</p>
+          </article>
+          <article>
+            <p class="nr">200398 · FrP · mottatt</p>
+            <h3>Bolig</h3>
+            <p>Erlend Wiborg, Hans Andreas Limi, Helge André Njåstad, Bjørn Larsen, Rune Midtun.</p>
+          </article>
+          <article>
+            <p class="nr">200397 · KrF · mottatt</p>
+            <h3>Abortplan</h3>
+            <p>Joel Ystebø, Ida Lindtveit Røse, Jorunn Gleditsch Lossius.</p>
+          </article>
+        </div>
+      </section>
+
+      <section data-view="sak">
+        <p class="kicker">Sak 200211 · partilinjer i 28509</p>
+        <h1>Ni partier, én votering.</h1>
+        <p class="lede">Representantforslag om klimaavgifter. Fremmet av Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG). Finanskomiteen. Saksordfører Tuva Moflag (A). Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva Moflag · A</span>
+        </div>
+        <div class="score">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslaget</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <p style="font-size:.85rem;color:var(--mute);margin-bottom:.8rem">Borte = ingen registrert stemme. Dok 8:256 S, Innst. 458 S. Alternativ: komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Vår telling under.</p>
+        <article class="row"><i style="background:#E30613"></i><div><h3>A 31 / 0 / 22</h3><p class="meta">I regjering. 24 spørsmål sesjonen. Vår telling.</p></div></article>
+        <article class="row"><i style="background:#003087"></i><div><h3>FrP 29 / 0 / 18</h3><p class="meta">1757 spørsmål sesjonen. Vår telling.</p></div></article>
+        <a class="row" href="#hoyre"><i style="background:#0065F1"></i><div><h3>H 14 / 0 / 10</h3><p class="meta">Ernas parti. 683 spørsmål. Vår telling.</p></div></a>
+        <article class="row"><i style="background:#F9C400"></i><div><h3>KrF 3 / 0 / 4</h3></div></article>
+        <article class="row"><i style="background:#00843D"></i><div><h3>Sp 5 / 0 / 4</h3></div></article>
+        <article class="row"><i style="background:#009640"></i><div><h3>V 2 / 0 / 1</h3></div></article>
+        <article class="row"><i style="background:#6A8F00"></i><div><h3>MDG 0 / 5 / 3</h3><p class="meta">Fremmet saken. 3 borte, deriblant Frøya.</p></div></article>
+        <article class="row"><i style="background:#980C1E"></i><div><h3>R 0 / 5 / 4</h3></div></article>
+        <article class="row"><i style="background:#C8102E"></i><div><h3>SV 0 / 5 / 4</h3></div></article>
+      </section>
+
+      <section data-view="hen">
+        <p class="kicker">Person på linja · Høyre · Hordaland</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1>Erna Solberg</h1>
+            <p class="lede">Høyre. I 28509: borte, mens partiet gikk 14 komiteen / 0 forslag / 10 borte.</p>
+          </div>
+        </div>
+        <div class="nums">
+          <div><b>249</b><span>for · vår telling</span></div>
+          <div><b>350</b><span>mot · vår telling</span></div>
+          <div><b>1121</b><span>borte · vår telling</span></div>
+        </div>
+        <div class="nums">
+          <div><b>8</b><span>avvik · vår telling</span></div>
+          <div><b>8</b><span>spørsmål · vår telling</span></div>
+          <div><b>mot</b><span>28460 · avvik</span></div>
+        </div>
+        <p class="warn">Borte = ingen registrert stemme. Stortinget advarer mot å lese oppmøte som aktivitet. 1121 vises likevel. Siste 19. juni: alle borte. Vi gjetter ikke hvorfor.</p>
+        <p style="font-size:.9rem;margin-top:.6rem"><a href="#hoyre" style="color:#0065F1;border-bottom:1px solid #0065F1;font-weight:700">Til Høyre-gruppen</a> · Peter Frølich: ikke i voteringen.</p>
+      </section>
+
+      <section data-view="hoyre">
+        <p class="kicker">Høyre · 24 medlemmer · votering 28509</p>
+        <h1>14 / 0 / 10</h1>
+        <p class="lede">Høyre gikk med komiteen. 14 komiteen, 0 forslag, 10 borte. Vår telling. Erna Solberg blant de borte. Valgdistriktets navn er Hordaland.</p>
+        <div class="score">
+          <div><b>14</b><span>Komiteen</span></div>
+          <div><b>0</b><span>Forslaget</span></div>
+          <div><b>10</b><span>Borte</span></div>
+        </div>
+        <p style="font-size:.85rem;color:var(--mute)">Sesjon: 24 medlemmer, 683 spørsmål, majoritet for 699, majoritet mot 1097. Vår telling.</p>
+        <h2>Hordaland i Høyre</h2>
+        <div class="grid24" style="margin-bottom:1rem">
+          <a class="mp" href="#hen"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div>Erna Solberg<small>borte i 28509</small></div></a>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div>Ove Trellevik<small>komiteen</small></div></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/PCF" alt=""><div>Peter Frølich<small>ikke i voteringen</small></div></div>
+        </div>
+        <h2>Flere i gruppen</h2>
+        <div class="grid24">
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/HEA" alt=""><div>Henrik Asheim<small>Akershus</small></div></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/NA" alt=""><div>Nikolai Astrup<small>Oslo</small></div></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/ERLL" alt=""><div>Erlend Larsen<small>Vestfold · spørsmål 26. aug</small></div></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/TROH" alt=""><div>Trond Helleland<small>Buskerud</small></div></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/IME" alt=""><div>Ine Eriksen Søreide<small>Oslo</small></div></div>
+        </div>
+        <h2>Siste spørsmål, 26. august</h2>
+        <div class="q"><b>Erlend Larsen · H · til landbruks- og matministeren</b>Skriftlig spørsmål 26. august. Totalt 4180 spørsmål i sesjonen.</div>
+        <div class="q"><b>Helge André Njåstad · FrP · to til næringsministeren</b>Ikke Høyre — vist her fordi det er de siste spørsmålene i lyset. Vår telling: FrP 1757, A i regjering 24.</div>
+        <div class="q"><b>Maren Grøthe · Sp · til klima- og miljøministeren</b>Skriftlig. 26. august.</div>
+        <p class="warn">Avvik på Høyre-linja, vår telling: Erna Solberg mot i 28460. Ove Trellevik 15 avvik, Mudassar Kapur 12, Mahmoud Farahmand 11, Peter Frølich 8.</p>
+      </section>
+
+    </main>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Linja</a>
+      <a href="#saker" data-tab="saker">Saker</a>
+      <a href="#sak" data-tab="sak">200211</a>
+      <a href="#hen" data-tab="hen">Erna</a>
+      <a href="#hoyre" data-tab="hoyre">Høyre</a>
+    </nav>
+    <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  </div>
+  <script>
+    const alias = {hjem:'hjem',saker:'saker',sak:'sak','200211':'sak',hen:'hen',erna:'hen',hoyre:'hoyre'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
