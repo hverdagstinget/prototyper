@@ -3,94 +3,273 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Løypa — sak 200211 — Hverdagstinget</title>
+  <title>Løypa — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #eef2e6; color: #1c2418; font-family: "Source Sans 3", system-ui, sans-serif; }
-    a { color: inherit; }
-    .top { padding: 1.1rem 6vw 0; font-size: .85rem; }
-    .top a { text-decoration: none; border-bottom: 1px solid #8aa078; }
-    .hero { padding: 1.4rem 6vw 1rem; max-width: 42rem; }
-    h1 { font-family: "DM Serif Display", Georgia, serif; font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1.05; font-weight: 400; }
-    .hero p { margin-top: .6rem; font-size: 1.05rem; line-height: 1.4; color: #3c4a34; }
-    .trail { position: relative; max-width: 38rem; margin: 0 6vw 2rem; padding-left: 1.4rem; }
-    .trail::before {
-      content: ""; position: absolute; left: .42rem; top: .4rem; bottom: 1.2rem;
-      width: 3px; background: #2c3a2a; border-radius: 2px;
+    :root { --bg:#eef3e4; --ink:#1a2414; --mute:#5a6850; --line:#c5d0b4; --done:#2c3a2a; --wait:#c4a35a; --paper:#f7faf0; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:Outfit,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    .shell { max-width:820px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:14px 18px 8px; font-size:13px; color:var(--mute);
     }
-    .step { position: relative; padding: 0 0 1.6rem 1.3rem; }
-    .dot {
-      position: absolute; left: -1.18rem; top: .15rem;
-      width: 1.15rem; height: 1.15rem; border-radius: 50%;
-      background: #2c3a2a; color: #eef2e6;
-      font-size: .7rem; font-weight: 700;
-      display: grid; place-items: center;
+    header.top b { font-family:Fraunces,Georgia,serif; font-size:22px; color:var(--ink); font-weight:700; }
+    header.top a { border-bottom:1px solid var(--line); }
+    nav.bar {
+      display:grid; grid-template-columns:repeat(4,1fr); margin:0 12px;
+      background:var(--done); color:#eef3e4; border-radius:14px; overflow:hidden;
+      position:sticky; top:8px; z-index:4;
     }
-    .step.done .dot { background: #2c3a2a; }
-    .when { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: #5a6a4e; font-weight: 700; }
-    h2 { font-family: "DM Serif Display", serif; font-size: 1.55rem; font-weight: 400; margin: .15rem 0 .25rem; }
-    .step p { color: #3c4a34; line-height: 1.4; }
-    .end {
-      background: #2c3a2a; color: #eef2e6;
-      margin: 0 6vw 2rem; padding: 1.2rem 1.2rem 1.3rem; max-width: 38rem;
+    nav.bar a { text-align:center; padding:10px 4px; font-size:12px; font-weight:600; letter-spacing:.04em; opacity:.65; }
+    nav.bar a.on { opacity:1; background:#3d5240; }
+    main { padding:18px 18px 48px; flex:1; }
+    [data-view][hidden] { display:none !important; }
+    h1 { font-family:Fraunces,Georgia,serif; font-size:clamp(1.8rem,5vw,2.8rem); line-height:1.05; font-weight:700; }
+    .lede { margin:.5rem 0 1.2rem; color:var(--mute); line-height:1.45; max-width:38rem; }
+    .trail-card {
+      background:var(--paper); border:1px solid var(--line); border-radius:16px;
+      padding:14px 14px 16px; margin-bottom:12px; display:block;
     }
-    .end h2 { font-size: 1.8rem; }
-    .end p { margin-top: .4rem; opacity: .9; }
-    footer { padding: 0 6vw 2.4rem; font-size: .8rem; color: #5a6a4e; }
-    footer a { color: #1c2418; }
+    .nr { font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); font-weight:600; }
+    .trail-card h2 { font-size:1.15rem; margin:4px 0 10px; }
+    .bar { display:flex; height:10px; background:#dce4d0; border-radius:99px; overflow:hidden; }
+    .bar i { display:block; height:100%; background:var(--done); }
+    .bar.wait i { background:var(--wait); }
+    .stops { display:flex; justify-content:space-between; margin-top:8px; font-size:10px; color:var(--mute); letter-spacing:.04em; text-transform:uppercase; }
+    .badge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+      padding:3px 8px; border-radius:99px; }
+    .ok { background:#d7e8d4; color:#234022; }
+    .no { background:#f1e4c0; color:#6a4e12; }
+    .stepper { margin:18px 0 8px; }
+    .step {
+      display:grid; grid-template-columns:48px 1fr; gap:12px; padding-bottom:22px; position:relative;
+    }
+    .step::before {
+      content:""; position:absolute; left:23px; top:36px; bottom:0; width:2px; background:var(--done);
+    }
+    .step:last-child::before { display:none; }
+    .num {
+      width:48px; height:48px; border-radius:50%; background:var(--done); color:#eef3e4;
+      display:grid; place-items:center; font-weight:800; font-size:16px;
+    }
+    .step h3 { font-size:1.05rem; }
+    .step p { color:var(--mute); font-size:14px; margin-top:2px; }
+    .cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .folk { display:flex; gap:12px; align-items:center; background:var(--paper); border:1px solid var(--line);
+      border-radius:16px; padding:12px; margin-bottom:10px; }
+    .folk img { width:64px; height:64px; border-radius:50%; object-fit:cover; background:#d0d8c4; }
+    .nums { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:10px; }
+    .nums div { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px; }
+    .nums b { display:block; font-size:22px; }
+    .nums span { font-size:11px; color:var(--mute); }
+    footer { padding:16px 18px 28px; font-size:12px; color:var(--mute); border-top:1px solid var(--line); }
+    .split { font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); margin:18px 0 8px; }
+    @media (max-width:640px) { .cols { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
-  <p class="top"><a href="index.html">Alle ti forslag</a> · Sak 200211</p>
-  <div class="hero">
-    <h1>Løypa for klimaavgiftene.</h1>
-    <p>Én sak. Fem poster. Fra representantforslag til ferdigbehandlet. Ingen andre saker her.</p>
+  <div class="shell">
+    <header class="top">
+      <b>Løypa</b>
+      <span>sesjon 2025–2026</span>
+      <a href="index.html">Alle ti</a>
+    </header>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Løyper</a>
+      <a href="#sak" data-tab="sak">Sak</a>
+      <a href="#saker" data-tab="saker">Saker</a>
+      <a href="#hen" data-tab="hen">Folk</a>
+    </nav>
+    <main>
+      <section data-view="hjem">
+        <h1>Hver sak er en sti.</h1>
+        <p class="lede">Fem stopp: fremmet, komité, innstilling, votering, ferdigbehandlet. Mottatt betyr at løypa så vidt har begynt. Ferdigbehandlet betyr at den er gått ut.</p>
+        <p class="lede">Stoppene er like for alle representantforslag. Budsjett og melding kan ha kortere spor. 200315 og 200314 er ferdig uten votering i denne listen — løypa er likevel gått ut.</p>
+
+        <a class="trail-card" href="#sak">
+          <span class="nr">200211 · 5 / 5</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Klimaavgifter til befolkningen</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+          <div class="stops"><span>Fremmet</span><span>Komité</span><span>Innstilling</span><span>Votering</span><span>Ferdig</span></div>
+        </a>
+        <div class="trail-card">
+          <span class="nr">200400 · 1 / 5</span>
+          <span class="badge no">Mottatt</span>
+          <h2>Prediksjonsmarkeder og styrket tilsyn</h2>
+          <div class="bar wait"><i style="width:20%"></i></div>
+          <div class="stops"><span>Mottatt</span><span>Komité</span><span>Innstilling</span><span>Votering</span><span>Ferdig</span></div>
+        </div>
+        <div class="trail-card">
+          <span class="nr">200315 · ferdig · 0 voteringer</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Tilleggsbevilgninger 2026</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="trail-card">
+          <span class="nr">200314 · melding</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Revidert nasjonalbudsjett 2026</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="trail-card">
+          <span class="nr">200313 · 31 voteringer</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Skatte- og avgiftslovgivinga</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="trail-card">
+          <span class="nr">200155 · 71 for</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Bensin- og dieselpriser</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="trail-card">
+          <span class="nr">200124 · komiteen 84 / forslag 17</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Kontantutbetaling</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+        <div class="trail-card">
+          <span class="nr">200084 · komiteen 68 / FrP 29</span>
+          <span class="badge ok">Ferdigbehandlet</span>
+          <h2>Energi og levekostnader</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </div>
+      </section>
+
+      <section data-view="sak">
+        <span class="badge ok">Ferdigbehandlet</span>
+        <p class="nr" style="margin-top:8px">Sak 200211 · Dok 8:256 S · Innst. 458 S · Finanskomiteen</p>
+        <h1>Klimaavgiftenes løype.</h1>
+        <p class="lede">Representantforslag fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Saksordfører Tuva Moflag (A). Fem stopp, alle passert. Forslaget ble ikke vedtatt.</p>
+        <div class="stepper">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <h3>Fremmet</h3>
+              <p>26. mars 2026. Dok 8:256 S (2025–2026).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <h3>Komité</h3>
+              <p>Referat 9. april. Samme dag sendt Finanskomiteen.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <h3>Innstilling</h3>
+              <p>12. juni 2026. Innst. 458 S. Saksordfører Tuva Moflag.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <h3>Votering</h3>
+              <p>19. juni 2026, votering 28509. Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Alternativ votering — ikke for mot mot.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">5</div>
+            <div>
+              <h3>Ferdigbehandlet</h3>
+              <p>Løypa er ferdig. Forslaget ble ikke vedtatt. Vedtak i samsvar med innstillingen.</p>
+            </div>
+          </div>
+        </div>
+        <p class="lede">Borte i voteringen betyr ingen registrert stemme. Erna Solberg: borte.</p>
+        <a class="folk" href="#hen">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="">
+          <div><strong>Erna Solberg</strong><br><span style="color:var(--mute);font-size:13px">Høyre · Hordaland · borte i stopp 4</span></div>
+        </a>
+      </section>
+
+      <section data-view="saker">
+        <h1>Kommende og tidligere.</h1>
+        <p class="lede">Splittet etter løypa, ikke etter dato. Mottatt er kommende. Ferdigbehandlet er tidligere.</p>
+        <p class="split">Kommende</p>
+        <div class="trail-card">
+          <span class="badge no">Mottatt</span>
+          <span class="nr"> · 200400 · 0 voteringer</span>
+          <h2>Prediksjonsmarkeder</h2>
+          <p class="lede" style="margin:0">Fra Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa og Kathy Lie (SV). Løypa har så vidt startet.</p>
+          <div class="bar wait"><i style="width:20%"></i></div>
+        </div>
+        <p class="split">Tidligere</p>
+        <a class="trail-card" href="#sak">
+          <span class="badge ok">Ferdigbehandlet</span>
+          <span class="nr"> · 200211</span>
+          <h2>Klimaavgifter</h2>
+          <div class="bar"><i style="width:100%"></i></div>
+        </a>
+        <div class="trail-card"><span class="badge ok">Ferdigbehandlet</span><span class="nr"> · 200315 · budsjett · 0 voteringer</span><h2>Tilleggsbevilgninger</h2></div>
+        <div class="trail-card"><span class="badge ok">Ferdigbehandlet</span><span class="nr"> · 200314 · melding</span><h2>Revidert nasjonalbudsjett</h2></div>
+        <div class="trail-card"><span class="badge ok">Ferdigbehandlet</span><span class="nr"> · 200313 · 31 voteringer · 52 for</span><h2>Skatte- og avgiftslovgivinga</h2></div>
+        <div class="trail-card"><span class="badge ok">Ferdigbehandlet</span><span class="nr"> · 200155 · 71 for</span><h2>Bensin og diesel</h2></div>
+        <div class="trail-card"><span class="badge ok">Ferdigbehandlet</span><span class="nr"> · 200124 · komiteen 84 / forslag 17</span><h2>Kontantutbetaling</h2></div>
+        <div class="trail-card"><span class="badge ok">Ferdigbehandlet</span><span class="nr"> · 200084 · komiteen 68 / FrP 29</span><h2>Energi og levekostnader</h2></div>
+      </section>
+
+      <section data-view="hen">
+        <h1>Folk langs stien.</h1>
+        <p class="lede">Tre roller i 200211: den som fremmet, den som bar innstillingen, og én som var borte i voteringen.</p>
+        <a class="folk" href="#sak">
+          <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">
+          <div>
+            <strong>Frøya Skjold Sjursæther</strong><br>
+            <span style="color:var(--mute);font-size:13px">MDG · Hordaland · FRYSJU · forslagsstiller med Ingrid Liland og Oda Indgaard</span>
+          </div>
+        </a>
+        <div class="folk">
+          <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">
+          <div>
+            <strong>Tuva Moflag</strong><br>
+            <span style="color:var(--mute);font-size:13px">Arbeiderpartiet · saksordfører · innstilling 12. juni</span>
+          </div>
+        </div>
+        <div class="folk">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="">
+          <div>
+            <strong>Erna Solberg</strong><br>
+            <span style="color:var(--mute);font-size:13px">Høyre · Hordaland · ES · borte i votering 28509</span>
+          </div>
+        </div>
+        <div class="nums">
+          <div><b>249</b><span>for · vår telling</span></div>
+          <div><b>350</b><span>mot · vår telling</span></div>
+          <div><b>1121</b><span>borte · vår telling</span></div>
+          <div><b>8</b><span>avvik · vår telling</span></div>
+        </div>
+        <p class="lede">8 spørsmål. Siste 19. juni: alle borte. Borte = ingen registrert stemme.</p>
+      </section>
+
+      <section data-view="folk">
+        <h1>Samme tre, i kortform.</h1>
+        <p class="lede">Løypa viser roller, ikke biografier. Åpne Erna for tallene.</p>
+        <a class="folk" href="#hen"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div><strong>Erna Solberg</strong><br><span style="color:var(--mute)">H · Hordaland</span></div></a>
+        <div class="folk"><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt=""><div><strong>Tuva Moflag</strong><br><span style="color:var(--mute)">A · ordfører 200211</span></div></div>
+        <div class="folk"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt=""><div><strong>Frøya Skjold Sjursæther</strong><br><span style="color:var(--mute)">MDG · forslagsstiller</span></div></div>
+      </section>
+    </main>
+    <footer>Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
   </div>
-  <ol class="trail">
-    <li class="step">
-      <span class="dot">1</span>
-      <p class="when">26. mars 2026</p>
-      <h2>Mottatt representantforslag</h2>
-      <p>Dok 8:256 S (2025–2026). Fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG). Om å dele ut statens inntekter fra klimaavgifter til befolkningen. Referert i Stortinget 9. april.</p>
-    </li>
-    <li class="step">
-      <span class="dot">2</span>
-      <p class="when">9. april 2026</p>
-      <h2>Finanskomiteen</h2>
-      <p>Sendt komité samme dag som referatet. Saksordfører Tuva Moflag (A). Emner: forurensning, avgifter.</p>
-    </li>
-    <li class="step">
-      <span class="dot">3</span>
-      <p class="when">12. juni 2026</p>
-      <h2>Innst. 458 S</h2>
-      <p>Innstilling avgitt fra finanskomiteen. Komiteens tilråding: forslaget vedtas ikke.</p>
-    </li>
-    <li class="step">
-      <span class="dot">4</span>
-      <p class="when">19. juni 2026</p>
-      <h2>Votering</h2>
-      <p>Debatt og votering 28509. Alternativ votering: Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte.</p>
-    </li>
-    <li class="step">
-      <span class="dot">5</span>
-      <p class="when">19. juni 2026</p>
-      <h2>Ferdigbehandlet</h2>
-      <p>Statusen er Ferdigbehandlet. Vedtak i samsvar med innstillingen. Dokument 8:256 S vedtas ikke.</p>
-    </li>
-  </ol>
-  <div class="end">
-    <h2>Forslaget vedtas ikke.</h2>
-    <p>Stortinget har behandlet et representantforslag fra MDG om å dele ut statens inntekter fra klimaavgifter til befolkningen. Løypa stopper her.</p>
-  </div>
-  <div class="hero" style="padding-top:0">
-    <p>Papirene i løypa: Dok 8:256 S, stortingsreferat 9. april, Innst. 458 S, stortingsreferat 19. juni. Saksordfører Tuva Moflag. Hordaland-representanten Frøya Skjold Sjursæther er medforslagsstiller; hun var borte i voteringen, uten at vi fyller inn hvorfor.</p>
-  </div>
-  <footer>
-    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-    <a href="index.html">Til oversikten</a>
-  </footer>
+  <script>
+    const tabOf = {hjem:'hjem',sak:'sak',saker:'saker',hen:'hen',folk:'hen'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1) || 'hjem';
+      if (!document.querySelector('[data-view="'+h+'"]')) h = 'hjem';
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === (tabOf[h]||'hjem')));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
 </body>
 </html>
