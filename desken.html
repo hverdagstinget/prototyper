@@ -6,132 +6,316 @@
   <title>Desken — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root { --bg:#1a1c1f; --panel:#23262b; --ink:#e6e4dc; --mute:#8b8d86; --line:#34383f; --acc:#e8c56a; --ok:#3dba7a; --wait:#7aa2d4; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #121311;
-      color: #e6e1d0;
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
-      font-size: 15px;
+    html, body { background: var(--bg); color: var(--ink); }
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; min-height: 100vh; padding-bottom: 4.6rem; }
+    a { color: inherit; }
+    [data-view][hidden] { display: none !important; }
+    .chrome {
+      display: flex; justify-content: space-between; align-items: center; gap: .6rem;
+      padding: .55rem .85rem; border-bottom: 1px solid var(--line); background: #14161a;
+      font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--mute);
     }
-    a { color: #e6d28a; }
-    .bar {
-      display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
-      padding: .7rem 1rem; background: #0c0d0b; border-bottom: 1px solid #2a2c26;
-      font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px;
-      color: #9aa08c;
-    }
-    .bar b { color: #e6d28a; font-weight: 600; }
-    .bar a { color: #9aa08c; text-decoration: none; }
-    .layout {
-      display: grid;
-      grid-template-columns: 18rem 1fr 16rem;
-      min-height: calc(100vh - 40px);
-    }
-    aside, .rail { padding: 1rem; border-right: 1px solid #2a2c26; }
-    .rail { border-right: 0; border-left: 1px solid #2a2c26; }
-    main { padding: 1.1rem 1.2rem 2rem; }
-    label { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8c927e; margin-bottom: .35rem; font-family: "IBM Plex Mono", monospace; }
+    .chrome b { color: var(--acc); letter-spacing: .08em; }
+    .chrome a { color: var(--ink); text-decoration: none; }
+    .wrap { max-width: 44rem; margin: 0 auto; padding: .8rem .85rem 2rem; }
+    h1 { font-size: 1.25rem; font-weight: 700; }
+    h2 { font-size: 1.02rem; font-weight: 700; margin: 1rem 0 .45rem; color: var(--acc); font-family: "IBM Plex Mono", monospace; letter-spacing: .04em; }
     .search {
-      width: 100%; background: #1b1c18; color: #f2edd8; border: 1px solid #3a3d34;
-      padding: .55rem .65rem; font: 500 14px "IBM Plex Mono", monospace;
+      display: flex; gap: .4rem; background: var(--panel); border: 1px solid var(--line); padding: .4rem;
     }
+    .search input {
+      flex: 1; background: #14161a; border: 0; color: var(--ink); padding: .55rem .65rem;
+      font-family: "IBM Plex Mono", monospace; font-size: .95rem;
+    }
+    .search button { background: var(--acc); color: #1a1c1f; border: 0; padding: .55rem .8rem; font-weight: 700; cursor: pointer; }
     .hit {
-      margin-top: .8rem; padding: .65rem; background: #1b1c18; border-left: 3px solid #e6d28a;
-      font-size: 13px; line-height: 1.4;
+      display: block; text-decoration: none; background: var(--panel); border: 1px solid var(--line);
+      padding: .75rem .8rem; margin-top: .5rem;
     }
-    h1 { font-size: 1.35rem; font-weight: 600; margin: .2rem 0 .6rem; }
-    .meta-grid {
-      display: grid; grid-template-columns: 9rem 1fr; gap: .35rem .7rem;
-      font-family: "IBM Plex Mono", monospace; font-size: 12.5px;
-      background: #1b1c18; padding: .8rem; margin-bottom: 1rem;
+    .hit.on { border-color: var(--acc); }
+    .hit .id { font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--acc); }
+    .hit h3 { font-size: 1rem; margin: .15rem 0 .25rem; }
+    .hit p { font-size: .85rem; color: var(--mute); }
+    .badge {
+      display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: .65rem; letter-spacing: .06em;
+      text-transform: uppercase; padding: .12rem .35rem; border: 1px solid currentColor; margin-right: .25rem;
     }
-    .meta-grid dt { color: #8c927e; }
+    .badge.done { color: var(--ok); }
+    .badge.open { color: var(--wait); }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { text-align: left; padding: .4rem .35rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--mute); font-weight: 500; width: 9.2rem; font-family: "IBM Plex Mono", monospace; font-size: .72rem; }
     .cite {
-      background: #0c0d0b; border: 1px dashed #5a5e4e; padding: .9rem;
-      font-family: "IBM Plex Mono", monospace; font-size: 13px; line-height: 1.55;
-      color: #f2edd8;
+      background: #14161a; border: 1px solid var(--line); padding: .7rem .75rem; margin: .45rem 0;
+      font-family: "IBM Plex Mono", monospace; font-size: .82rem; display: flex; justify-content: space-between; gap: .6rem; align-items: center;
     }
-    .cite button {
-      margin-top: .7rem; background: #e6d28a; color: #121311; border: 0;
-      padding: .4rem .7rem; font: 600 12px "IBM Plex Mono", monospace; cursor: default;
+    .cite button, .copybtn {
+      background: transparent; border: 1px solid var(--acc); color: var(--acc);
+      font-family: "IBM Plex Mono", monospace; font-size: .68rem; padding: .28rem .45rem; cursor: pointer; white-space: nowrap;
     }
-    h2 { font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: #8c927e; margin: 1.2rem 0 .5rem; font-family: "IBM Plex Mono", monospace; }
-    .num { font-size: 2.4rem; font-family: "IBM Plex Mono", monospace; color: #e6d28a; line-height: 1; }
-    .rail p, aside p { font-size: 13px; line-height: 1.4; color: #c4c0ae; }
-    .chip { display: inline-block; border: 1px solid #4a4e42; padding: .1rem .4rem; font-size: 11px; font-family: "IBM Plex Mono", monospace; margin: .15rem .15rem 0 0; }
-    footer { grid-column: 1/-1; padding: .8rem 1rem; font-size: 12px; color: #8c927e; border-top: 1px solid #2a2c26; }
-    @media (max-width: 960px) {
-      .layout { grid-template-columns: 1fr; }
-      aside, .rail { border: 0; border-bottom: 1px solid #2a2c26; }
+    .docs a {
+      display: block; padding: .55rem .2rem; border-bottom: 1px solid var(--line);
+      font-family: "IBM Plex Mono", monospace; font-size: .82rem; color: var(--ink);
     }
+    .src {
+      display: grid; grid-template-columns: 3.6rem 1fr; gap: .7rem; align-items: center;
+      padding: .65rem 0; border-bottom: 1px solid var(--line); text-decoration: none;
+    }
+    .src img { width: 3.6rem; height: 4.5rem; object-fit: cover; background: #333; }
+    .src h3 { font-size: .98rem; }
+    .src small { color: var(--mute); display: block; font-family: "IBM Plex Mono", monospace; font-size: .72rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 .8rem; color: var(--mute); font-size: .78rem; font-family: "IBM Plex Mono", monospace; }
+    nav.bar {
+      position: fixed; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(4, 1fr);
+      background: #121417; border-top: 1px solid var(--line);
+    }
+    nav.bar a {
+      text-align: center; text-decoration: none; padding: .7rem .2rem;
+      font-family: "IBM Plex Mono", monospace; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mute);
+    }
+    nav.bar a.on { color: var(--acc); }
+    footer.site { max-width: 44rem; margin: 0 auto; padding: 1rem .85rem 5.2rem; font-size: .72rem; color: var(--mute); font-family: "IBM Plex Mono", monospace; }
+    .decision { white-space: pre-wrap; background: #14161a; padding: .7rem .75rem; border-left: 3px solid var(--acc); font-size: .92rem; line-height: 1.4; margin: .6rem 0; }
+    .queue { font-size: .85rem; }
+    .queue article { padding: .55rem 0; border-bottom: 1px solid var(--line); }
+    .toast { display: none; position: fixed; bottom: 4.2rem; left: 50%; transform: translateX(-50%); background: var(--acc); color: #1a1c1f; padding: .35rem .7rem; font-size: .75rem; font-weight: 700; }
   </style>
 </head>
 <body>
-  <div class="bar">
-    <b>DESKEN</b>
-    <span>sesjon 2025-2026</span>
-    <span>sak 200211</span>
-    <span>vot 28509</span>
-    <span style="margin-left:auto"><a href="index.html">Alle ti forslag</a></span>
+  <div class="chrome">
+    <span><b>DESKEN</b> · sesjon 2025-2026 · snapshot 2. sept</span>
+    <a href="index.html">Alle ti</a>
   </div>
-  <div class="layout">
-    <aside>
-      <label for="q">Søk</label>
-      <input id="q" class="search" value="klimaavgift" readonly>
-      <div class="hit">
-        <strong>200211</strong> — Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen<br>
-        Dok 8:256 S · Innst. 458 S · Ferdigbehandlet
+  <div class="wrap">
+    <section data-view="hjem">
+      <h1>Søk</h1>
+      <p class="meta-row">Uka: 0 voteringer · 0 spørsmål · 0 saker · siste votering 19. juni · siste møte 1. sept</p>
+      <form class="search" action="#sak" onsubmit="location.hash='sak'; return false;">
+        <input value="klimaavgift" aria-label="Søk" readonly>
+        <button type="submit">Åpne treff</button>
+      </form>
+      <a class="hit on" href="#sak">
+        <p class="id">200211 · treff 1/1 på «klimaavgift»</p>
+        <h3>Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen</h3>
+        <p><span class="badge done">Ferdigbehandlet</span> 1 votering · 28509 · Dok 8:256 S · Innst. 458 S · vedtas ikke</p>
+      </a>
+      <h2>Relatert i køen</h2>
+      <a class="hit" href="#saker">
+        <p class="id">200155</p>
+        <h3>Lavere bensin- og dieselpriser</h3>
+        <p><span class="badge done">Ferdigbehandlet</span> 2 voteringer · 71 for</p>
+      </a>
+      <a class="hit" href="#saker">
+        <p class="id">200124</p>
+        <h3>Kontantutbetaling til befolkningen</h3>
+        <p><span class="badge done">Ferdigbehandlet</span> 2 voteringer · Komiteen 84 vs 17</p>
+      </a>
+      <a class="hit" href="#saker">
+        <p class="id">200084</p>
+        <h3>Energipriser og levekostnader</h3>
+        <p><span class="badge done">Ferdigbehandlet</span> 1 votering · Komiteen 68 vs FrP 29</p>
+      </a>
+      <p style="margin-top:.8rem;font-size:.85rem"><a href="#saker" style="color:var(--acc)">Hele sakskøen →</a></p>
+    </section>
+    <section data-view="saker" hidden>
+      <h1>Sakskø</h1>
+      <p class="meta-row">Blandet mottatt og ferdigbehandlet</p>
+      <div class="queue">
+        <article>
+          <p><span class="badge open">Mottatt</span> <span class="id" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--acc)">200400</span></p>
+          <h3>Prediksjonsmarkeder og styrket tilsyn</h3>
+          <p style="color:var(--mute)">SV: Høyer-Berntzen, Eidsvoll, Fiskaa, Lie · 0 voteringer · ikke ferdigbehandlet</p>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200315 · Budsjett · 0 voteringer</p>
+          <h3>Tilleggsbevilgninger statsbudsjettet 2026</h3>
+          <p style="color:var(--mute)">Regjeringen</p>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200314 · Melding · 0 voteringer</p>
+          <h3>Revidert nasjonalbudsjett 2026</h3>
+          <p style="color:var(--mute)">Regjeringen</p>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200313 · 31 voteringer · 52 for</p>
+          <h3>Endringar i skatte- og avgiftslovgivinga (S-delen)</h3>
+          <p style="color:var(--mute)">Regjeringen · 49 mot, 68 borte</p>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200211 · 1 votering · <a href="#sak" style="color:var(--acc)">åpne dossier</a></p>
+          <h3>Klimaavgifter til befolkningen</h3>
+          <p style="color:var(--mute)">Komiteen 84, forslag 15, 70 borte · vedtas ikke</p>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200155 · 2 voteringer · 71 for</p>
+          <h3>Lavere bensin- og dieselpriser</h3>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200124 · 2 voteringer · Komiteen 84 vs 17</p>
+          <h3>Kontantutbetaling</h3>
+        </article>
+        <article>
+          <p><span class="badge done">Ferdigbehandlet</span> 200084 · 1 votering · Komiteen 68 vs FrP 29</p>
+          <h3>Energipriser og levekostnader</h3>
+        </article>
       </div>
-      <h2>Flere treff i uka</h2>
-      <p>200155 bensin- og dieselpriser · 200124 kontantutbetaling · 200084 energipriser. Alle ferdigbehandlet 19. juni.</p>
-    </aside>
-    <main>
-      <label>Åpen sak</label>
-      <h1>Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen</h1>
-      <dl class="meta-grid">
-        <dt>saksnummer</dt><dd>256</dd>
-        <dt>sak-id</dt><dd>200211</dd>
-        <dt>status</dt><dd>Ferdigbehandlet</dd>
-        <dt>type</dt><dd>Representantforslag</dd>
-        <dt>komité</dt><dd>Finanskomiteen</dd>
-        <dt>ordfører</dt><dd>Tuva Moflag (A)</dd>
-        <dt>fra</dt><dd>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG)</dd>
-        <dt>votering</dt><dd>28509 · 19. juni 2026 · alternativ</dd>
-        <dt>utfall</dt><dd>Komiteen 84 · Forslag nr.1 og 2 fra SV, R og MDG 15 · 70 borte. Forslaget vedtas ikke.</dd>
-      </dl>
-      <h2>Sitatblokk</h2>
-      <div class="cite">
-        Stortinget har behandlet et representantforslag fra MDG om å dele ut statens inntekter fra klimaavgifter til befolkningen. Forslaget ble ikke vedtatt.<br><br>
-        Dokument 8:256 S (2025–2026) – Representantforslag fra stortingsrepresentantene Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther om å dele ut statens inntekter fra klimaavgifter til befolkningen – vedtas ikke.<br>
-        Innst. 458 S (2025–2026).<br>
-        <button type="button">Kopiert sitat (statisk)</button>
+    </section>
+    <section data-view="sak" hidden>
+      <p class="meta-row">SAK / 200211 / dossier</p>
+      <h1>Dele ut statens inntekter fra klimaavgifter til befolkningen</h1>
+      <p style="margin:.35rem 0 .6rem"><span class="badge done">Ferdigbehandlet</span> Representantforslag · Finanskomiteen</p>
+      <table>
+        <tr><th>ID</th><td>200211</td></tr>
+        <tr><th>Status</th><td>Ferdigbehandlet</td></tr>
+        <tr><th>Type</th><td>Representantforslag</td></tr>
+        <tr><th>Komité</th><td>Finanskomiteen</td></tr>
+        <tr><th>Saksordfører</th><td>Tuva Moflag (A)</td></tr>
+        <tr><th>Fra</th><td>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG)</td></tr>
+        <tr><th>Dokument</th><td>Dok 8:256 S (2025–2026)</td></tr>
+        <tr><th>Innstilling</th><td>Innst. 458 S (2025–2026)</td></tr>
+        <tr><th>Votering</th><td>28509 · 19. juni 2026 · alternativ</td></tr>
+        <tr><th>Resultat</th><td>Komiteen 84 · forslag nr. 1 og 2 fra SV, R og MDG 15 · 70 borte</td></tr>
+        <tr><th>decision_short</th><td>Forslaget ble ikke vedtatt.</td></tr>
+      </table>
+      <h2>decision_short</h2>
+      <div class="decision">Stortinget har behandlet et representantforslag fra Miljøpartiet De Grønne om å dele ut statens inntekter fra klimaavgifter til befolkningen.
+
+Forslaget ble ikke vedtatt.</div>
+      <h2>Sitater til saken</h2>
+      <div class="cite"><span>Dok 8:256 S (2025–2026)</span><button type="button" class="copybtn" data-copy="Dok 8:256 S (2025–2026)">Kopier sitat</button></div>
+      <div class="cite"><span>Innst. 458 S (2025–2026)</span><button type="button" class="copybtn" data-copy="Innst. 458 S (2025–2026)">Kopier sitat</button></div>
+      <h2>Saksgang</h2>
+      <table>
+        <tr><th>Fremmet</th><td>26. mars 2026</td></tr>
+        <tr><th>Referat</th><td>9. april 2026</td></tr>
+        <tr><th>Sendt komité</th><td>9. april 2026</td></tr>
+        <tr><th>Innstilling avgitt</th><td>12. juni 2026</td></tr>
+        <tr><th>Debatt + votering</th><td>19. juni 2026</td></tr>
+        <tr><th>Utfall</th><td>Forslaget vedtas ikke.</td></tr>
+      </table>
+      <p style="margin-top:.8rem;font-size:.85rem"><a href="#kilder" style="color:var(--acc)">Kilder og lenker →</a> · <a href="#folk" style="color:var(--acc)">Kilder: folk →</a></p>
+    </section>
+    <section data-view="kilder" hidden>
+      <p class="meta-row">KILDER / 200211</p>
+      <h1>Dokumenter og sitat</h1>
+      <p style="color:var(--mute);margin:.3rem 0 .7rem">Lenkene går til Stortinget. Kopier-knappene legger sitatet på utklippstavlen.</p>
+      <div class="docs">
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Representantforslag/2025-2026/dok8-202526-256s/">dok8-202526-256s · Dokument 8:256 S (2025–2026)</a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Innstillinger/Stortinget/2025-2026/inns-202526-458s/">inns-202526-458s · Innst. 458 S (2025–2026)</a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Referater/Stortinget/2025-2026/refs-202526-04-09/referatsaker/">refs-202526-04-09 · Stortingsreferat 9. april 2026</a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Referater/Stortinget/2025-2026/refs-202526-06-19/6">refs-202526-06-19 · Stortingsreferat 19. juni 2026</a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Saker/Sak/?p=200211">stortinget.no · sak 200211</a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Vedtak/Vedtak/Sak/?did=40037122&p=200211">vedtak 40037122 · vedtas ikke</a>
       </div>
-      <h2>Kilder</h2>
-      <p style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.6">
-        Dok 8:256 S (2025-2026)<br>
-        Innst. 458 S (2025-2026)<br>
-        stortinget.no/no/Saker-og-publikasjoner/Saker/Sak/?p=200211
-      </p>
-    </main>
-    <aside class="rail">
-      <h2>Snapshot</h2>
-      <p class="num">0</p>
-      <p>voteringer denne uken. Siste: 19. juni 2026.</p>
-      <h2>Emner i sesjonen</h2>
-      <span class="chip">Eu/eøs 65</span>
-      <span class="chip">Helsevesen 52</span>
-      <span class="chip">Kommunikasjonsteknologi 49</span>
-      <span class="chip">Grunnloven 42</span>
-      <span class="chip">Trygder 42</span>
-      <h2>Avvik, vår telling</h2>
-      <p>Moxnes (R), Sayed (KrF), Hammer (SV), Jonsterhaug (FrP), Alvær (A).</p>
-    </aside>
+      <h2>Kopier sitat</h2>
+      <div class="cite"><span>Dok 8:256 S (2025–2026)</span><button type="button" class="copybtn" data-copy="Dok 8:256 S (2025–2026)">Kopier sitat</button></div>
+      <div class="cite"><span>Innst. 458 S (2025–2026)</span><button type="button" class="copybtn" data-copy="Innst. 458 S (2025–2026)">Kopier sitat</button></div>
+      <div class="cite"><span>Dokument 8:256 S (2025–2026) – Representantforslag fra stortingsrepresentantene Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther om å dele ut statens inntekter fra klimaavgifter til befolkningen – vedtas ikke.</span><button type="button" class="copybtn" data-copy="Dokument 8:256 S (2025–2026) – Representantforslag fra stortingsrepresentantene Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther om å dele ut statens inntekter fra klimaavgifter til befolkningen – vedtas ikke.">Kopier sitat</button></div>
+      <h2>Partitall 28509</h2>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:.82rem;line-height:1.55">A 31/0/22 · FrP 29/0/18 · H 14/0/10 · KrF 3/0/4 · MDG 0/5/3 · R 0/5/4 · SV 0/5/4 · Sp 5/0/4 · V 2/0/1<br>Kolonner: Komiteen / forslag / borte. Alternativ votering.</p>
+    </section>
+    <section data-view="folk" hidden>
+      <p class="meta-row">KILDER / FOLK / 200211</p>
+      <h1>Folk på saken</h1>
+      <a class="src" href="#hen">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h3>Erna Solberg</h3>
+          <small>H · Hordaland · erna.solberg@stortinget.no · borte i 28509</small>
+        </div>
+      </a>
+      <div class="src">
+        <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="Tuva Moflag">
+        <div>
+          <h3>Tuva Moflag</h3>
+          <small>A · saksordfører · Finanskomiteen</small>
+        </div>
+      </div>
+      <div class="src">
+        <img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="Ingrid Liland">
+        <div>
+          <h3>Ingrid Liland</h3>
+          <small>MDG · forslagsstiller</small>
+        </div>
+      </div>
+      <div class="src">
+        <img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="Oda Indgaard">
+        <div>
+          <h3>Oda Indgaard</h3>
+          <small>MDG · forslagsstiller</small>
+        </div>
+      </div>
+      <div class="src">
+        <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther">
+        <div>
+          <h3>Frøya Skjold Sjursæther</h3>
+          <small>MDG · Hordaland · forslagsstiller · borte i 28509</small>
+        </div>
+      </div>
+    </section>
+    <section data-view="hen" hidden>
+      <p class="meta-row">PERSON / ES</p>
+      <div class="src" style="border:0;align-items:start">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1>Erna Solberg</h1>
+          <small>Høyre · Hordaland · erna.solberg@stortinget.no</small>
+        </div>
+      </div>
+      <table>
+        <tr><th>Voteringer</th><td>1720 · vår telling</td></tr>
+        <tr><th>For</th><td>249</td></tr>
+        <tr><th>Mot</th><td>350</td></tr>
+        <tr><th>Borte</th><td>1121</td></tr>
+        <tr><th>Avvik</th><td>8 · vår telling</td></tr>
+        <tr><th>Spørsmål</th><td>8</td></tr>
+      </table>
+      <h2>Siste stemmer 19. juni</h2>
+      <div class="queue">
+        <article><p>28509 · 200211 klimaavgifter · <b>ingen registrert stemme</b></p></article>
+        <article><p>28508 · 200155 bensin og diesel · <b>ingen registrert stemme</b></p></article>
+        <article><p>28505 · 200124 kontantutbetaling · <b>ingen registrert stemme</b></p></article>
+      </div>
+    </section>
   </div>
-  <footer>
-    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-    <a href="index.html">Til oversikten</a>
-  </footer>
+  <div class="toast" id="toast">Kopiert</div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  <nav class="bar">
+    <a href="#hjem" data-nav="hjem">Søk</a>
+    <a href="#sak" data-nav="sak">Sak</a>
+    <a href="#kilder" data-nav="kilder">Kilder</a>
+    <a href="#folk" data-nav="folk">Folk</a>
+  </nav>
+  <script>
+    (function () {
+      var home = 'hjem';
+      var parent = { hjem: 'hjem', saker: 'hjem', sak: 'sak', kilder: 'kilder', folk: 'folk', hen: 'folk' };
+      function go() {
+        var id = (location.hash || '#' + home).slice(1) || home;
+        document.querySelectorAll('[data-view]').forEach(function (v) {
+          v.hidden = v.getAttribute('data-view') !== id;
+        });
+        document.querySelectorAll('nav.bar a').forEach(function (a) {
+          a.classList.toggle('on', a.getAttribute('data-nav') === (parent[id] || id));
+        });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+      document.querySelectorAll('.copybtn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var t = btn.getAttribute('data-copy') || '';
+          if (navigator.clipboard) navigator.clipboard.writeText(t);
+          var toast = document.getElementById('toast');
+          toast.style.display = 'block';
+          setTimeout(function () { toast.style.display = 'none'; }, 1200);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
