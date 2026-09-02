@@ -6,145 +6,279 @@
   <title>Utfall — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root { --bg:#0e0f0c; --slip:#f4eedc; --ink:#12130f; --amber:#e8c56a; --mute:#8a8678; --line:#2a2c26; --ok:#3dba7a; --no:#e35d4a; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      background: #0e0f12;
-      color: #f4efe6;
-      font-family: "IBM Plex Sans", system-ui, sans-serif;
-    }
+    html, body { background: var(--bg); color: var(--slip); }
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; min-height: 100vh; padding-bottom: 4.6rem; }
     a { color: inherit; }
-    .wrap {
-      max-width: 46rem;
-      margin: 0 auto;
-      padding: 1.2rem 1.1rem 2.5rem;
-    }
+    [data-view][hidden] { display: none !important; }
     .top {
-      display: flex; justify-content: space-between; gap: 1rem;
-      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
-      color: #8b8578; margin-bottom: 1.6rem;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .7rem 1rem; border-bottom: 1px solid var(--line);
+      font-family: "IBM Plex Mono", monospace; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute);
     }
-    .top a { color: #cfc8b8; text-decoration: none; border-bottom: 1px solid #3a3832; }
-    .slip {
-      background: #efe7d4;
-      color: #14110c;
-      padding: 1.6rem 1.3rem 1.4rem;
-      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    .top b { color: var(--amber); letter-spacing: .2em; }
+    .top a { color: var(--slip); text-decoration: none; }
+    .wrap { max-width: 40rem; margin: 0 auto; padding: 0 1rem 2rem; }
+    h1.display { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.6rem, 10vw, 4.4rem); letter-spacing: .04em; line-height: .9; margin: .9rem 0 .5rem; }
+    .quiet {
+      background: #161712; border: 1px solid var(--amber); color: var(--amber);
+      font-family: "IBM Plex Mono", monospace; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+      padding: .55rem .7rem; margin: .4rem 0 1rem;
     }
+    .verdict {
+      display: block; text-decoration: none; padding: .85rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .verdict .k {
+      font-family: "IBM Plex Mono", monospace; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber);
+    }
+    .verdict h2 { font-family: "Bebas Neue", sans-serif; font-size: clamp(1.6rem, 6vw, 2.4rem); line-height: .95; margin: .15rem 0 .2rem; }
+    .verdict p { color: #c9c3ae; font-size: .95rem; }
     .stamp {
-      display: inline-block;
-      border: 3px solid #1a1712;
-      padding: .15rem .55rem .08rem;
-      font-family: Anton, sans-serif;
-      font-size: 1.05rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      transform: rotate(-2deg);
-      margin-bottom: 1.1rem;
+      display: inline-block; font-family: "Bebas Neue", sans-serif; letter-spacing: .08em;
+      border: 2px solid currentColor; padding: .05rem .4rem .02rem; font-size: 1.05rem; transform: rotate(-2deg);
     }
-    .meta { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: #5d5648; }
-    h1 {
-      font-family: Anton, sans-serif;
-      font-size: clamp(2.6rem, 11vw, 5.4rem);
-      line-height: .9;
-      letter-spacing: .01em;
-      text-transform: uppercase;
-      margin: .55rem 0 1.1rem;
+    .stamp.fall { color: var(--amber); }
+    .stamp.win { color: var(--ok); }
+    .stamp.wait { color: #9aa0a8; }
+    .slip {
+      background: var(--slip); color: var(--ink); padding: 1.1rem 1rem 1.2rem; margin: .8rem 0;
+      box-shadow: 4px 6px 0 #000; font-family: "IBM Plex Mono", monospace;
     }
-    .scores { display: grid; gap: .55rem; }
-    .row {
-      display: grid;
-      grid-template-columns: 6.2rem 1fr;
-      align-items: end;
-      border-top: 2px solid #14110c;
-      padding-top: .35rem;
+    .slip h3 { font-family: "Bebas Neue", sans-serif; font-size: 1.8rem; letter-spacing: .06em; }
+    .big { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .4rem; margin: .8rem 0; text-align: center; }
+    .big b { display: block; font-family: "Bebas Neue", sans-serif; font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: .85; }
+    .big span { font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; }
+    .prow {
+      display: grid; grid-template-columns: 2.6rem 1fr 2.2rem 2.2rem 2.2rem; gap: .3rem;
+      font-size: .82rem; padding: .28rem 0; border-bottom: 1px dashed #cfc7b0; align-items: baseline;
     }
-    .num {
-      font-family: Anton, sans-serif;
-      font-size: clamp(3rem, 12vw, 5.2rem);
-      line-height: .8;
+    .prow.head { font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: #6a6558; }
+    .list a, .list article {
+      display: block; padding: .75rem 0; border-bottom: 1px solid var(--line); text-decoration: none;
     }
-    .lab { font-size: .95rem; font-weight: 600; padding-bottom: .25rem; }
-    .lab small { display: block; font-weight: 400; color: #5d5648; font-size: .78rem; margin-top: .1rem; }
-    .note {
-      margin-top: 1.3rem;
-      font-size: .95rem;
-      line-height: 1.45;
+    .list h3 { font-size: 1.05rem; font-weight: 700; }
+    .list .meta { font-family: "IBM Plex Mono", monospace; font-size: .72rem; color: var(--mute); margin-bottom: .2rem; }
+    .score { display: flex; gap: .8rem; font-family: "IBM Plex Mono", monospace; font-size: .9rem; margin-top: .9rem; }
+    .score div { flex: 1; background: #161712; padding: .7rem; text-align: center; }
+    .score b { display: block; font-family: "Bebas Neue", sans-serif; font-size: 2.1rem; color: var(--amber); }
+    .hero-p { display: grid; grid-template-columns: 5.6rem 1fr; gap: .8rem; align-items: center; margin: .6rem 0 1rem; }
+    .hero-p img { width: 5.6rem; height: 7rem; object-fit: cover; filter: grayscale(1) contrast(1.15); background: #333; }
+    nav.bar {
+      position: fixed; left: 0; right: 0; bottom: 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: #080907; border-top: 1px solid var(--line);
     }
-    .night {
-      margin-top: 1.8rem;
-      color: #c9c2b3;
-      font-size: .95rem;
-      line-height: 1.5;
+    nav.bar a {
+      text-align: center; text-decoration: none; padding: .75rem .2rem;
+      font-family: "IBM Plex Mono", monospace; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute);
     }
-    .night h2 {
-      font-family: Anton, sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin-bottom: .4rem;
-      color: #f4efe6;
-    }
-    .night dl { display: grid; grid-template-columns: 7.5rem 1fr; gap: .25rem 1rem; font-size: .88rem; }
-    .night dt { color: #8b8578; }
-    footer { margin-top: 2.4rem; font-size: .78rem; color: #8b8578; line-height: 1.5; }
-    footer a { color: #cfc8b8; }
-    @media (max-width: 520px) {
-      .row { grid-template-columns: 1fr; }
-      .night dl { grid-template-columns: 1fr; }
-    }
+    nav.bar a.on { color: var(--amber); }
+    footer.site { max-width: 40rem; margin: 0 auto; padding: 1.2rem 1rem 5.2rem; font-size: .75rem; color: var(--mute); font-family: "IBM Plex Mono", monospace; }
+    footer.site a { color: var(--amber); }
+    .tl { list-style: none; font-size: .92rem; }
+    .tl li { display: flex; justify-content: space-between; gap: .6rem; padding: .4rem 0; border-bottom: 1px solid var(--line); }
+    @media (max-width: 420px) { .prow { grid-template-columns: 2.2rem 1fr 1.8rem 1.8rem 1.8rem; font-size: .75rem; } }
   </style>
 </head>
 <body>
+  <div class="top">
+    <b>Utfall</b>
+    <a href="index.html">Alle ti</a>
+  </div>
   <div class="wrap">
-    <div class="top">
-      <a href="index.html">Alle ti forslag</a>
-      <span>Votering 28509</span>
-    </div>
 
-    <article class="slip">
-      <div class="stamp">Ikke vedtatt</div>
-      <p class="meta">19. juni 2026 · Sak 200211 · Alternativ votering</p>
-      <h1>Forslaget ble ikke vedtatt.</h1>
-      <div class="scores">
-        <div class="row">
-          <div class="num">84</div>
-          <div class="lab">Komiteen<small>Vinner. Tilrådingen står. Forslaget vedtas ikke.</small></div>
-        </div>
-        <div class="row">
-          <div class="num">15</div>
-          <div class="lab">Forslag nr. 1 og 2 fra SV, R og MDG<small>Taperen i den alternative voteringen.</small></div>
-        </div>
-        <div class="row">
-          <div class="num">70</div>
-          <div class="lab">Borte<small>Ingen registrert stemme. Vi gjetter ikke hvorfor.</small></div>
-        </div>
-      </div>
-      <p class="note">Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen. Fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG). Finanskomiteen. Dok 8:256 S, Innst. 458 S. Ferdigbehandlet.</p>
-    </article>
-
-    <section class="night">
-      <h2>Slik sto partiene</h2>
-      <p style="margin-bottom:.7rem">Vår telling fra Stortingets votering. Tallene er Komiteen / forslaget / borte — ikke for og mot.</p>
-      <dl>
-        <dt>Arbeiderpartiet</dt><dd>31 Komiteen · 0 forslag · 22 borte</dd>
-        <dt>FrP</dt><dd>29 Komiteen · 0 forslag · 18 borte</dd>
-        <dt>Høyre</dt><dd>14 Komiteen · 0 forslag · 10 borte</dd>
-        <dt>KrF</dt><dd>3 Komiteen · 0 forslag · 4 borte</dd>
-        <dt>Senterpartiet</dt><dd>5 Komiteen · 0 forslag · 4 borte</dd>
-        <dt>Venstre</dt><dd>2 Komiteen · 0 forslag · 1 borte</dd>
-        <dt>MDG</dt><dd>0 Komiteen · 5 forslag · 3 borte</dd>
-        <dt>Rødt</dt><dd>0 Komiteen · 5 forslag · 4 borte</dd>
-        <dt>SV</dt><dd>0 Komiteen · 5 forslag · 4 borte</dd>
-      </dl>
+    <section data-view="hjem">
+      <h1 class="display">Siste utfall</h1>
+      <p class="quiet">Ingen nye utfall siden 19. juni. Uka: 0 voteringer · 0 spørsmål · 0 saker</p>
+      <a class="verdict" href="#sak">
+        <p class="k">200211 · votering 28509 · 19. juni</p>
+        <h2>Klimaavgift <span class="stamp fall">Ikke vedtatt</span></h2>
+        <p>Komiteen 84 — forslag nr. 1 og 2 fra SV, R og MDG 15 — 70 borte.</p>
+      </a>
+      <a class="verdict" href="#saker">
+        <p class="k">200313 · 31 voteringer · 19. juni</p>
+        <h2>Skatte- og avgift <span class="stamp win">52 for</span></h2>
+        <p>49 mot, 68 borte. Tilrådingen gikk gjennom.</p>
+      </a>
+      <a class="verdict" href="#saker">
+        <p class="k">200155 · 2 voteringer</p>
+        <h2>Bensin og diesel <span class="stamp win">71 for</span></h2>
+        <p>28 mot, 70 borte.</p>
+      </a>
+      <a class="verdict" href="#saker">
+        <p class="k">200124 · alternativ</p>
+        <h2>Kontantutbetaling <span class="stamp fall">Ikke vedtatt</span></h2>
+        <p>Komiteen 84 — forslag 17 — 68 borte.</p>
+      </a>
+      <a class="verdict" href="#saker">
+        <p class="k">200084 · alternativ</p>
+        <h2>Energipriser <span class="stamp fall">FrP falt</span></h2>
+        <p>Komiteen 68 — forslag nr. 1 fra FrP 29 — 72 borte.</p>
+      </a>
+      <a class="verdict" href="#saker">
+        <p class="k">200400 · mottatt</p>
+        <h2>Prediksjonsmarkeder <span class="stamp wait">Ingen utfall</span></h2>
+        <p>Fra SV. Mottatt. 0 voteringer. Ikke ferdigbehandlet.</p>
+      </a>
+      <p style="margin-top:1rem;color:var(--mute);font-size:.85rem">475 saker med votering · 665 saker · sesjon 2025–2026</p>
     </section>
 
-    <footer>
-      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-      <a href="index.html">Til oversikten</a>
-    </footer>
+    <section data-view="saker" hidden>
+      <h1 class="display">Saker etter utfall</h1>
+      <p style="color:var(--mute);margin-bottom:.8rem">Sortert på resultatet, ikke på type.</p>
+      <div class="list">
+        <a href="#sak">
+          <p class="meta">Ikke vedtatt · ferdigbehandlet · 200211</p>
+          <h3>Klimaavgifter til befolkningen</h3>
+          <p>Komiteen 84 vs forslag 15. Votering 28509.</p>
+        </a>
+        <article>
+          <p class="meta">Ikke vedtatt · ferdigbehandlet · 200124</p>
+          <h3>Kontantutbetaling</h3>
+          <p>Komiteen 84 vs forslag 17.</p>
+        </article>
+        <article>
+          <p class="meta">Ikke vedtatt · ferdigbehandlet · 200084</p>
+          <h3>Energipriser og levekostnader</h3>
+          <p>Komiteen 68 vs FrP 29.</p>
+        </article>
+        <article>
+          <p class="meta">Vedtatt 52–49 · ferdigbehandlet · 200313</p>
+          <h3>Skatte- og avgiftslovgivinga</h3>
+          <p>31 voteringer. 52 for, 49 mot.</p>
+        </article>
+        <article>
+          <p class="meta">Vedtatt 71–28 · ferdigbehandlet · 200155</p>
+          <h3>Lavere bensin- og dieselpriser</h3>
+          <p>2 voteringer.</p>
+        </article>
+        <article>
+          <p class="meta">Ferdig uten votering · 200315</p>
+          <h3>Tilleggsbevilgninger statsbudsjettet 2026</h3>
+          <p>Regjeringen. Budsjett. 0 voteringer.</p>
+        </article>
+        <article>
+          <p class="meta">Ferdig uten votering · 200314</p>
+          <h3>Revidert nasjonalbudsjett 2026</h3>
+          <p>Regjeringen. Melding. 0 voteringer.</p>
+        </article>
+        <article>
+          <p class="meta">Ingen utfall · mottatt · 200400</p>
+          <h3>Prediksjonsmarkeder</h3>
+          <p>SV. 0 voteringer. Mottatt er ikke ferdigbehandlet.</p>
+        </article>
+      </div>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-top:.9rem">Sak 200211 · sluttresultat</p>
+      <h1 class="display">Forslaget vedtas ikke</h1>
+      <p>Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen. Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG). Finanskomiteen. Saksordfører Tuva Moflag (A). Dok 8:256 S (2025–2026), Innst. 458 S. Ferdigbehandlet.</p>
+      <div class="slip">
+        <h3>Votering 28509</h3>
+        <p>19. juni 2026 · alternativ</p>
+        <div class="big">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslag 1 og 2</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <p>Komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Ikke for/mot-farger.</p>
+        <p style="margin-top:.6rem"><a href="#votering">Full tavle →</a></p>
+      </div>
+      <ul class="tl">
+        <li><span>Fremmet</span><span>26. mars</span></li>
+        <li><span>Referat / komité</span><span>9. april</span></li>
+        <li><span>Innstilling</span><span>12. juni</span></li>
+        <li><span>Debatt + votering</span><span>19. juni</span></li>
+        <li><span>Utfall</span><span>vedtas ikke</span></li>
+      </ul>
+    </section>
+
+    <section data-view="votering" hidden>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-top:.9rem">Tavle · 28509</p>
+      <h1 class="display">84 — 15 — 70</h1>
+      <p>Alternativ votering 19. juni. Komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Sak 200211. <a href="#sak" style="color:var(--amber)">Til saken</a></p>
+      <div class="slip">
+        <div class="big">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslag</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <div class="prow head"><span>P</span><span>Parti</span><span>Kom</span><span>For</span><span>Bte</span></div>
+        <div class="prow"><span>A</span><span>Arbeiderpartiet</span><span>31</span><span>0</span><span>22</span></div>
+        <div class="prow"><span>FrP</span><span>Fremskrittspartiet</span><span>29</span><span>0</span><span>18</span></div>
+        <div class="prow"><span>H</span><span>Høyre</span><span>14</span><span>0</span><span>10</span></div>
+        <div class="prow"><span>KrF</span><span>Kristelig Folkeparti</span><span>3</span><span>0</span><span>4</span></div>
+        <div class="prow"><span>MDG</span><span>Miljøpartiet De Grønne</span><span>0</span><span>5</span><span>3</span></div>
+        <div class="prow"><span>R</span><span>Rødt</span><span>0</span><span>5</span><span>4</span></div>
+        <div class="prow"><span>SV</span><span>Sosialistisk Venstreparti</span><span>0</span><span>5</span><span>4</span></div>
+        <div class="prow"><span>Sp</span><span>Senterpartiet</span><span>5</span><span>0</span><span>4</span></div>
+        <div class="prow"><span>V</span><span>Venstre</span><span>2</span><span>0</span><span>1</span></div>
+        <p style="margin-top:.7rem;font-size:.72rem">Kolonnene er Komiteen / Forslag / Borte. Borte = ingen registrert stemme.</p>
+      </div>
+    </section>
+
+    <section data-view="hen" hidden>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-top:.9rem">Folk · scoreboard</p>
+      <div class="hero-p">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1 class="display" style="margin:0;font-size:2.6rem">Erna Solberg</h1>
+          <p>Høyre · Hordaland · erna.solberg@stortinget.no</p>
+        </div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--mute)">Vår telling · 1720 voteringer · 8 avvik · 8 spørsmål</p>
+      <div class="score">
+        <div><b>249</b>for</div>
+        <div><b>350</b>mot</div>
+        <div><b>1121</b>borte</div>
+      </div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;margin:1.2rem 0 .4rem;letter-spacing:.06em">19. juni · tre nuller</h2>
+      <div class="list">
+        <a href="#sak">
+          <p class="meta">28509 · klimaavgifter</p>
+          <h3>Borte</h3>
+        </a>
+        <article>
+          <p class="meta">28508 · bensin og diesel</p>
+          <h3>Borte</h3>
+        </article>
+        <article>
+          <p class="meta">28505 · kontantutbetaling</p>
+          <h3>Borte</h3>
+        </article>
+      </div>
+      <p style="margin-top:.8rem;color:var(--mute);font-size:.85rem">Ingen nye utfall siden 19. juni.</p>
+    </section>
   </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  <nav class="bar">
+    <a href="#hjem" data-nav="hjem">Siste</a>
+    <a href="#saker" data-nav="saker">Saker</a>
+    <a href="#votering" data-nav="votering">Votering</a>
+    <a href="#hen" data-nav="hen">Folk</a>
+  </nav>
+  <script>
+    (function () {
+      var home = 'hjem';
+      var parent = { hjem: 'hjem', saker: 'saker', sak: 'saker', votering: 'votering', hen: 'hen' };
+      function go() {
+        var id = (location.hash || '#' + home).slice(1) || home;
+        document.querySelectorAll('[data-view]').forEach(function (v) {
+          v.hidden = v.getAttribute('data-view') !== id;
+        });
+        document.querySelectorAll('nav.bar a').forEach(function (a) {
+          a.classList.toggle('on', a.getAttribute('data-nav') === (parent[id] || id));
+        });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
 </body>
 </html>
