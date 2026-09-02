@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fremmet — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f7f0e4; --ink:#2a2318; --mute:#7a6e5c; --line:#e2d6c2; --raise:#4a6b1e; --paper:#fffaf1; --mdg:#6A8F00; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:"DM Sans",system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .wrap { max-width:40rem; margin:0 auto; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:1rem 1.15rem .3rem; font-size:.75rem; color:var(--mute);
+    }
+    header.top strong { font-family:"DM Serif Display",serif; font-size:1.45rem; color:var(--ink); }
+    header.top a { color:var(--raise); border-bottom:1px solid var(--raise); }
+    main { padding:.4rem 1.15rem 2rem; }
+    h1 { font-family:"DM Serif Display",Georgia,serif; font-weight:400; font-size:clamp(2.1rem,8vw,3.2rem); line-height:1.02; margin:.15rem 0 .5rem; }
+    h2 { font-family:"DM Serif Display",serif; font-size:1.45rem; font-weight:400; margin:1.35rem 0 .45rem; }
+    .lede { font-size:1.05rem; line-height:1.45; color:#3d3428; max-width:36rem; }
+    .kicker { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--raise); font-weight:700; }
+    .quiet { font-size:.82rem; color:var(--mute); background:#efe6d4; padding:.55rem .7rem; margin:.7rem 0 1.1rem; }
+    .raiser {
+      background:var(--paper); border:1px solid var(--line); padding:.95rem .9rem; margin:0 0 .7rem;
+    }
+    .raiser h3 { font-family:"DM Serif Display",serif; font-size:1.4rem; font-weight:400; margin:.15rem 0 .4rem; }
+    .raiser p { font-size:.9rem; color:#4a4338; line-height:1.4; }
+    .faces { display:flex; flex-wrap:wrap; gap:.4rem; margin:.45rem 0 .55rem; }
+    .faces span, .faces a {
+      display:flex; align-items:center; gap:.35rem; background:#efe6d4;
+      padding:.22rem .5rem .22rem .22rem; font-size:.8rem; border-radius:99px;
+    }
+    .faces img { width:1.6rem; height:1.6rem; object-fit:cover; border-radius:50%; background:#ddd; }
+    .tag {
+      display:inline-block; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
+      padding:.15rem .4rem; border:1px solid currentColor;
+    }
+    .tag.dead { color:#8a3b22; } .tag.open { color:#6a5a28; } .tag.pass { color:var(--raise); }
+    .triple { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.35rem; margin:.55rem 0 0; text-align:center; }
+    .triple b { display:block; font-family:"DM Serif Display",serif; font-size:1.7rem; line-height:1; }
+    .triple span { font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    .who { display:grid; grid-template-columns:7.2rem 1fr; gap:1rem; margin:1rem 0; }
+    .who img { width:7.2rem; height:9.2rem; object-fit:cover; background:#e2d6c2; }
+    .nums { display:grid; grid-template-columns:repeat(2,1fr); gap:.5rem; }
+    .nums div { border-top:1px solid var(--ink); padding-top:.35rem; }
+    .nums b { display:block; font-family:"DM Serif Display",serif; font-size:1.7rem; }
+    .nums span { font-size:.72rem; color:var(--mute); }
+    .list a, .list article { display:block; padding:.85rem 0; border-bottom:1px solid var(--line); }
+    .list .nr { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--raise); font-weight:700; }
+    .list h3 { font-family:"DM Serif Display",serif; font-size:1.25rem; font-weight:400; margin:.1rem 0 .2rem; }
+    nav.bar {
+      position:fixed; left:0; right:0; bottom:0; background:var(--bg);
+      display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid var(--line);
+    }
+    nav.bar a {
+      text-align:center; padding:.8rem .15rem; font-size:.62rem; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--mute); font-weight:700;
+    }
+    nav.bar a.on { color:var(--raise); }
+    footer.site { padding:1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.45; }
+    .party { margin:0 0 .55rem; }
+    .party .hd { display:flex; justify-content:space-between; font-size:.8rem; margin-bottom:.2rem; }
+    .track { display:flex; height:1.2rem; background:#e8dcc8; overflow:hidden; }
+    .seg { height:100%; font-size:.65rem; font-weight:700; display:flex; align-items:center; padding:0 .35rem; }
+    .kom { background:#5c5344; color:#f7f0e4; }
+    .alt { background:var(--mdg); color:#fff; }
+    .bor { background:#cfc3ae; color:#3a3228; }
+    .warn { font-size:.8rem; color:var(--mute); border-left:2px solid var(--raise); padding:.1rem 0 .1rem .65rem; margin:.8rem 0; }
+    @media (max-width:520px) { .who { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <strong>Fremmet</strong>
+      <span>hvem løftet saken</span>
+      <a href="lyset.html">Alle</a>
+    </header>
+    <main>
+
+      <section data-view="hjem">
+        <p class="kicker">Folk som reiste saken · ikke sakene først</p>
+        <h1>Hvem tok det opp?</h1>
+        <p class="lede">Navn og parti, alltid. Så: gikk det gjennom, falt det, eller ligger det som mottatt. Borte følger med hvis det ble votert.</p>
+        <p class="quiet">Denne uken: 0 voteringer · 0 spørsmål · 0 saker. Siste votering 19. juni 2026. Siste stortingsmøte 1. september. PACE i Strasbourg er ikke et stortingsmøte.</p>
+
+        <article class="raiser">
+          <span class="tag dead">Falt · ferdigbehandlet</span>
+          <h3>MDG-trioen</h3>
+          <div class="faces">
+            <a href="#sak"><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland · MDG</a>
+            <a href="#sak"><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard · MDG</a>
+            <a href="#sak"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther · MDG</a>
+          </div>
+          <p>200211 klimaavgifter. Dok 8:256 S. Finanskomiteen, saksordfører Tuva Moflag (A).</p>
+          <div class="triple">
+            <div><b>84</b><span>Komiteen</span></div>
+            <div><b>15</b><span>Forslaget</span></div>
+            <div><b>70</b><span>Borte</span></div>
+          </div>
+        </article>
+
+        <article class="raiser">
+          <span class="tag open">Mottatt · ikke ferdigbehandlet</span>
+          <h3>SV-kvartetten</h3>
+          <div class="faces">
+            <span><img src="https://test.hverdagstinget.no/api/photos/MIREHB" alt="">Mirell Høyer-Berntsen · SV</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/SUNEID" alt="">Sunniva Holmås Eidsvoll · SV</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/INF" alt="">Ingrid Fiskaa · SV</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/KATLIE" alt="">Kathy Lie · SV</span>
+          </div>
+          <p>200400 prediksjonsmarkeder. 0 voteringer. Ingen borte ennå — saken er mottatt.</p>
+        </article>
+
+        <article class="raiser">
+          <span class="tag open">Mottatt · ikke ferdigbehandlet</span>
+          <h3>KrF-trioen</h3>
+          <div class="faces">
+            <span><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt="">Joel Ystebø · KrF</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/IDARSE" alt="">Ida Lindtveit Røse · KrF</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/JLO" alt="">Jorunn Gleditsch Lossius · KrF</span>
+          </div>
+          <p>200397 handlingsplan abort. Mottatt. 0 voteringer.</p>
+        </article>
+
+        <article class="raiser">
+          <span class="tag open">Mottatt · ikke ferdigbehandlet</span>
+          <h3>FrP om bolig</h3>
+          <div class="faces">
+            <span><img src="https://test.hverdagstinget.no/api/photos/EW" alt="">Erlend Wiborg · FrP</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/HLI" alt="">Hans Andreas Limi · FrP</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="">Helge André Njåstad · FrP</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/BLA" alt="">Bjørn Larsen · FrP</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/RUNMID" alt="">Rune Midtun · FrP</span>
+          </div>
+          <p>200398 bolig og byggebransjen. Mottatt. 0 voteringer.</p>
+        </article>
+
+        <article class="raiser">
+          <span class="tag open">Mottatt · ikke ferdigbehandlet</span>
+          <h3>Sp om gasskraft</h3>
+          <div class="faces">
+            <span><img src="https://test.hverdagstinget.no/api/photos/TMV" alt="">Trygve Slagsvold Vedum · Sp</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/BENBEN" alt="">Bent-Joacim Bentzen · Sp</span>
+            <span><img src="https://test.hverdagstinget.no/api/photos/OHJ" alt="">Ole Herman Sveian · Sp</span>
+          </div>
+          <p>200399 Hammerfest gasskraftverk. Mottatt. 0 voteringer.</p>
+        </article>
+
+        <article class="raiser">
+          <span class="tag pass">Regjeringen · ferdigbehandlet</span>
+          <h3>Regjeringsforslag</h3>
+          <p>200313 skatte- og avgiftslovgivinga: 52 for, 49 mot, 68 borte. 200315 og 200314 ferdig uten votering. Arbeiderpartiet i regjering, 41 medlemmer, 24 spørsmål denne sesjonen — vår telling. FrP stilte 1757.</p>
+        </article>
+        <p><a href="#dok8" style="color:var(--raise);border-bottom:1px solid var(--raise);font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Alle representantforslag · Dok 8</a></p>
+      </section>
+
+      <section data-view="saker">
+        <p class="kicker">Saker etter hvem som reiste dem</p>
+        <h1>Fra folk, til salen.</h1>
+        <p class="lede">Representantforslag og regjeringsforslag i samme liste, merket mottatt eller ferdigbehandlet.</p>
+        <div class="list">
+          <a href="#sak">
+            <p class="nr">200211 · MDG · ferdigbehandlet · falt</p>
+            <h3>Klimaavgifter</h3>
+            <p>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther. Komiteen 84, forslag 15, 70 borte.</p>
+          </a>
+          <article>
+            <p class="nr">200155 · Sp · ferdigbehandlet · vedtatt</p>
+            <h3>Bensin og diesel</h3>
+            <p>Trygve Slagsvold Vedum m.fl. 71 for / 28 mot / 70 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200124 · SV m.fl. · ferdigbehandlet · falt</p>
+            <h3>Kontantutbetaling</h3>
+            <p>Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund, Marian Hussein. Komiteen 84 vs 17, 68 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200084 · FrP · ferdigbehandlet · falt</p>
+            <h3>Energipriser</h3>
+            <p>Hans Andreas Limi, Sylvi Listhaug m.fl. Komiteen 68 vs FrP 29, 72 borte.</p>
+          </article>
+          <article>
+            <p class="nr">200313 · regjeringen · ferdigbehandlet · vedtatt</p>
+            <h3>Skatte- og avgiftslovgivinga</h3>
+            <p>52 for / 49 mot / 68 borte.</p>
+          </article>
+          <a href="#dok8">
+            <p class="nr">200400–200396 · mottatt</p>
+            <h3>Fem åpne representantforslag</h3>
+            <p>SV, Sp, FrP, KrF, SV. Ingen votering ennå.</p>
+          </a>
+        </div>
+      </section>
+
+      <section data-view="sak">
+        <p class="kicker">Sak 200211 · fremmet 26. mars · votert 19. juni</p>
+        <h1>Tre navn under forslaget.</h1>
+        <p class="lede">Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG) fremmet representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard · MDG</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther · MDG</span>
+        </div>
+        <p style="font-size:.9rem;color:var(--mute);margin:.4rem 0 1rem">Finanskomiteen. Saksordfører Tuva Moflag (A). Dok 8:256 S (2025–2026), Innst. 458 S. Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva Moflag · A · saksordfører</span>
+        </div>
+        <span class="tag dead">Falt</span>
+        <div class="triple" style="margin-top:.7rem">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslag 1 og 2</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <p style="font-size:.82rem;color:var(--mute);margin:.5rem 0 1rem">Borte = ingen registrert stemme. Frøya, som fremmet, var borte i 28509. Vi gjetter ikke hvorfor.</p>
+        <h2>Parti 28509 · vår telling</h2>
+        <div class="party"><div class="hd"><span>A</span><span>31 / 0 / 22</span></div><div class="track"><div class="seg kom" style="flex:31"></div><div class="seg bor" style="flex:22"></div></div></div>
+        <div class="party"><div class="hd"><span>FrP</span><span>29 / 0 / 18</span></div><div class="track"><div class="seg kom" style="flex:29"></div><div class="seg bor" style="flex:18"></div></div></div>
+        <div class="party"><div class="hd"><span>H</span><span>14 / 0 / 10</span></div><div class="track"><div class="seg kom" style="flex:14"></div><div class="seg bor" style="flex:10"></div></div></div>
+        <div class="party"><div class="hd"><span>KrF</span><span>3 / 0 / 4</span></div><div class="track"><div class="seg kom" style="flex:3"></div><div class="seg bor" style="flex:4"></div></div></div>
+        <div class="party"><div class="hd"><span>Sp</span><span>5 / 0 / 4</span></div><div class="track"><div class="seg kom" style="flex:5"></div><div class="seg bor" style="flex:4"></div></div></div>
+        <div class="party"><div class="hd"><span>V</span><span>2 / 0 / 1</span></div><div class="track"><div class="seg kom" style="flex:2"></div><div class="seg bor" style="flex:1"></div></div></div>
+        <div class="party"><div class="hd"><span>MDG</span><span>0 / 5 / 3</span></div><div class="track"><div class="seg alt" style="flex:5"></div><div class="seg bor" style="flex:3"></div></div></div>
+        <div class="party"><div class="hd"><span>R</span><span>0 / 5 / 4</span></div><div class="track"><div class="seg alt" style="flex:5"></div><div class="seg bor" style="flex:4"></div></div></div>
+        <div class="party"><div class="hd"><span>SV</span><span>0 / 5 / 4</span></div><div class="track"><div class="seg alt" style="flex:5"></div><div class="seg bor" style="flex:4"></div></div></div>
+      </section>
+
+      <section data-view="hen">
+        <p class="kicker">En som ikke fremmet 200211 · ES</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1>Erna Solberg</h1>
+            <p class="lede">Høyre, Hordaland. Ikke blant forslagsstillerne. I votering 28509: borte.</p>
+          </div>
+        </div>
+        <div class="nums">
+          <div><b>249</b><span>for · vår telling</span></div>
+          <div><b>350</b><span>mot · vår telling</span></div>
+          <div><b>1121</b><span>borte · vår telling</span></div>
+          <div><b>8</b><span>avvik · vår telling</span></div>
+          <div><b>8</b><span>spørsmål · vår telling</span></div>
+          <div><b>0</b><span>forslag 200211</span></div>
+        </div>
+        <p class="warn">Borte = ingen registrert stemme. Stortinget advarer mot å lese oppmøte som aktivitet. Vi viser 1121 likevel. Siste 19. juni: alle borte.</p>
+        <p style="margin-top:.8rem;font-size:.9rem">Avvik inkluderer mot i votering 28460. Peter Frølich (H) er ikke i 28509: ikke i voteringen.</p>
+      </section>
+
+      <section data-view="dok8">
+        <p class="kicker">Dokument 8 · representantforslag</p>
+        <h1>Dok 8, med navn.</h1>
+        <p class="lede">Hvem som reiste det, om det gikk gjennom, falt, eller ligger som mottatt — og borte hvis det er votert.</p>
+        <article class="raiser">
+          <span class="tag dead">Falt</span>
+          <h3>Dok 8:256 S · 200211</h3>
+          <p>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG). Ferdigbehandlet. Komiteen 84, forslag 15, 70 borte.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag open">Mottatt</span>
+          <h3>200400 prediksjonsmarkeder</h3>
+          <p>Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa, Kathy Lie (SV). Ikke ferdigbehandlet. 0 voteringer.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag open">Mottatt</span>
+          <h3>200399 Hammerfest gasskraft</h3>
+          <p>Trygve Slagsvold Vedum, Bent-Joacim Bentzen, Ole Herman Sveian (Sp). Mottatt.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag open">Mottatt</span>
+          <h3>200398 bolig</h3>
+          <p>Erlend Wiborg, Hans Andreas Limi, Helge André Njåstad, Bjørn Larsen, Rune Midtun (FrP). Mottatt.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag open">Mottatt</span>
+          <h3>200397 abortplan</h3>
+          <p>Joel Ystebø, Ida Lindtveit Røse, Jorunn Gleditsch Lossius (KrF). Mottatt.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag open">Mottatt</span>
+          <h3>200396 Palestina</h3>
+          <p>Marthe Hammer, Ingrid Fiskaa, Marian Hussein (SV). Mottatt.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag dead">Falt</span>
+          <h3>200124 kontant</h3>
+          <p>Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund, Marian Hussein. Komiteen 84 vs 17, 68 borte.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag dead">Falt</span>
+          <h3>200084 energi FrP</h3>
+          <p>Hans Andreas Limi, Sylvi Listhaug, Tom Staahle, Hilde Grande, Martin Virkesdal Jonsterhaug. Komiteen 68 vs 29, 72 borte.</p>
+        </article>
+        <article class="raiser">
+          <span class="tag pass">Vedtatt</span>
+          <h3>200155 bensin</h3>
+          <p>Trygve Slagsvold Vedum, Siv Sætran, Geir Pollestad, Geir Inge Lien, Bengt Fasteraune (Sp). 71 for / 28 mot / 70 borte.</p>
+        </article>
+      </section>
+
+    </main>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Folk</a>
+      <a href="#saker" data-tab="saker">Saker</a>
+      <a href="#sak" data-tab="sak">200211</a>
+      <a href="#hen" data-tab="hen">Erna</a>
+      <a href="#dok8" data-tab="dok8">Dok 8</a>
+    </nav>
+    <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  </div>
+  <script>
+    const alias = {hjem:'hjem',saker:'saker',sak:'sak','200211':'sak',hen:'hen',erna:'hen',dok8:'dok8',apne:'dok8'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
