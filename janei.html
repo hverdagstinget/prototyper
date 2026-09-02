@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ja nei — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --ink: #f4f1ea;
+      --mute: #8a867c;
+      --line: #2a2a28;
+      --kom: #3d6bb5;
+      --for: #c45c32;
+      --bor: #4a4a48;
+      --paper: #ece7dc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Source Sans 3", system-ui, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    [data-view][hidden] { display: none !important; }
+    .wrap {
+      max-width: 56rem;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 16px 8px;
+      font-size: 12px;
+      color: var(--mute);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    header.top strong {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .08em;
+      color: var(--ink);
+    }
+    header.top a { color: var(--ink); border-bottom: 1px solid var(--line); }
+    nav.bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 4;
+    }
+    nav.bar a {
+      text-align: center;
+      padding: 11px 4px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    nav.bar a.on { color: var(--ink); border-bottom: 2px solid var(--ink); }
+    main { padding: 20px 16px 48px; flex: 1; }
+    h1 {
+      font-family: "Archivo Black", sans-serif;
+      font-size: clamp(1.8rem, 6vw, 3.2rem);
+      letter-spacing: -.02em;
+      line-height: .95;
+      text-transform: uppercase;
+    }
+    h2 {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: 1.4rem 0 .5rem;
+    }
+    .kicker {
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .lede {
+      max-width: 38rem;
+      margin: .5rem 0 1.1rem;
+      color: #c9c4b8;
+      line-height: 1.45;
+    }
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 8px 0 16px;
+      font-size: 13px;
+    }
+    .sw {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .grid9 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .bloc {
+      background: #141413;
+      border: 1px solid var(--line);
+      padding: 12px;
+      min-height: 118px;
+    }
+    .bloc .nm {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .stack {
+      display: flex;
+      height: 64px;
+      overflow: hidden;
+    }
+    .stack i { display: block; }
+    .stack .k { background: var(--kom); }
+    .stack .f { background: var(--for); }
+    .stack .b { background: var(--bor); }
+    .cnt {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-top: 6px;
+      color: var(--mute);
+      font-variant-numeric: tabular-nums;
+    }
+    .totals {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+    .totals div { border-top: 3px solid var(--line); padding-top: 8px; }
+    .totals b {
+      display: block;
+      font-family: "Archivo Black", sans-serif;
+      font-size: 2.6rem;
+      line-height: .9;
+    }
+    .totals.eq .a { border-color: var(--kom); }
+    .totals.eq .b { border-color: var(--for); }
+    .totals.eq .c { border-color: #8a8a86; }
+    .slice {
+      display: grid;
+      grid-template-columns: 84fr 15fr 70fr;
+      height: 48px;
+      margin: 14px 0;
+    }
+    .slice div { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .col3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .col3 article {
+      border: 1px solid var(--line);
+      padding: 14px;
+      min-height: 160px;
+    }
+    .col3 h3 {
+      font-family: "Archivo Black", sans-serif;
+      font-size: .85rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .list a, .list .row {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .meta { font-size: 13px; color: var(--mute); line-height: 1.45; }
+    .her { display: flex; gap: 16px; flex-wrap: wrap; }
+    .her img {
+      width: 92px;
+      height: 116px;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.1);
+      background: #222;
+    }
+    .nums {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+      max-width: 24rem;
+    }
+    .nums div { border-top: 2px solid var(--line); padding-top: 6px; }
+    .nums b {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 1.6rem;
+      display: block;
+    }
+    footer {
+      padding: 16px;
+      font-size: 12px;
+      color: var(--mute);
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 720px) {
+      .grid9, .col3, .totals { grid-template-columns: 1fr 1fr; }
+      .slice { grid-template-columns: 1fr; height: auto; }
+      .slice div { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <strong>Ja nei</strong>
+      <span>kart 28509</span>
+      <a href="lyset.html">Alle</a>
+    </header>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Kart</a>
+      <a href="#saker" data-tab="saker">Saker</a>
+      <a href="#flertall" data-tab="flertall">Flertall</a>
+      <a href="#hen" data-tab="hen">Folk</a>
+    </nav>
+    <main>
+      <section data-view="hjem">
+        <p class="kicker">Ett vedtak · ni blokker · tre tall i hver</p>
+        <h1>Ja, nei, borte.</h1>
+        <p class="lede">Votering 28509, sak 200211, 19. juni. Valget var Komiteen eller forslag nr. 1 og 2 fra SV, R og MDG. Hver blokk viser tre tall. Borte er ikke en fotnote.</p>
+        <div class="legend">
+          <span><i class="sw" style="background:#3d6bb5"></i>Komiteen</span>
+          <span><i class="sw" style="background:#c45c32"></i>Forslag</span>
+          <span><i class="sw" style="background:#4a4a48"></i>Borte</span>
+        </div>
+        <div class="grid9">
+          <div class="bloc">
+            <div class="nm"><span>A</span><span>31 / 0 / 22</span></div>
+            <div class="stack"><i class="k" style="flex:31"></i><i class="b" style="flex:22"></i></div>
+            <div class="cnt"><span>komiteen 31</span><span>borte 22</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>FrP</span><span>29 / 0 / 18</span></div>
+            <div class="stack"><i class="k" style="flex:29"></i><i class="b" style="flex:18"></i></div>
+            <div class="cnt"><span>komiteen 29</span><span>borte 18</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>H</span><span>14 / 0 / 10</span></div>
+            <div class="stack"><i class="k" style="flex:14"></i><i class="b" style="flex:10"></i></div>
+            <div class="cnt"><span>komiteen 14</span><span>borte 10</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>Sp</span><span>5 / 0 / 4</span></div>
+            <div class="stack"><i class="k" style="flex:5"></i><i class="b" style="flex:4"></i></div>
+            <div class="cnt"><span>komiteen 5</span><span>borte 4</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>KrF</span><span>3 / 0 / 4</span></div>
+            <div class="stack"><i class="k" style="flex:3"></i><i class="b" style="flex:4"></i></div>
+            <div class="cnt"><span>komiteen 3</span><span>borte 4</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>V</span><span>2 / 0 / 1</span></div>
+            <div class="stack"><i class="k" style="flex:2"></i><i class="b" style="flex:1"></i></div>
+            <div class="cnt"><span>komiteen 2</span><span>borte 1</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>MDG</span><span>0 / 5 / 3</span></div>
+            <div class="stack"><i class="f" style="flex:5"></i><i class="b" style="flex:3"></i></div>
+            <div class="cnt"><span>forslag 5</span><span>borte 3</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>R</span><span>0 / 5 / 4</span></div>
+            <div class="stack"><i class="f" style="flex:5"></i><i class="b" style="flex:4"></i></div>
+            <div class="cnt"><span>forslag 5</span><span>borte 4</span></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span>SV</span><span>0 / 5 / 4</span></div>
+            <div class="stack"><i class="f" style="flex:5"></i><i class="b" style="flex:4"></i></div>
+            <div class="cnt"><span>forslag 5</span><span>borte 4</span></div>
+          </div>
+        </div>
+        <div class="totals eq">
+          <div class="a"><b>84</b><span class="meta">Komiteen · vedtatt</span></div>
+          <div class="b"><b>15</b><span class="meta">Forslaget · falt</span></div>
+          <div class="c"><b>70</b><span class="meta">Borte</span></div>
+        </div>
+        <p class="meta">84 + 15 + 70 = 169. Vår telling fra Stortingets votering. Hordaland: 5 / 2 / 9. <a href="#flertall" style="border-bottom:1px solid #8a867c">Koalisjonen som stoppet</a>.</p>
+      </section>
+
+      <section data-view="saker" hidden>
+        <p class="kicker">Andre vedtak med tre tall</p>
+        <h1>Samme kart, andre saker.</h1>
+        <div class="list">
+          <a href="#sak"><span class="kicker">200211 · 28509</span><br><strong>Klimaavgifter</strong><br><span class="meta">Komiteen 84 · forslag 15 · 70 borte</span></a>
+          <div class="row"><span class="kicker">200155 · 28508</span><br><strong>Bensin og diesel</strong><br><span class="meta">71 for · 28 mot · 70 borte</span></div>
+          <div class="row"><span class="kicker">200124 · 28505</span><br><strong>Kontantutbetaling</strong><br><span class="meta">Komiteen 84 · forslag 17 · 68 borte</span></div>
+          <div class="row"><span class="kicker">200084 · 28502</span><br><strong>Energi</strong><br><span class="meta">Komiteen 68 · FrP-forslag 29 · 72 borte</span></div>
+          <div class="row"><span class="kicker">200313 · 28499</span><br><strong>Skatt</strong><br><span class="meta">52 for · 49 mot · 68 borte</span></div>
+          <div class="row"><span class="kicker">200400 · mottatt</span><br><strong>Prediksjonsmarkeder</strong><br><span class="meta">Ingen votering. Ingen tre tall ennå.</span></div>
+        </div>
+        <p class="meta" style="margin-top:12px">Denne uken: 0 voteringer. Siste votering 19. juni. 144 uferdige saker.</p>
+      </section>
+
+      <section data-view="sak" hidden>
+        <p class="kicker">Sak 200211 · ferdigbehandlet</p>
+        <h1>Vedtaket bak kartet.</h1>
+        <p class="lede">Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther fremmet. Tuva Moflag (A) var saksordfører. Komiteen mot forslaget. Forslaget ble ikke vedtatt.</p>
+        <div class="totals eq">
+          <div class="a"><b>84</b><span class="meta">Komiteen</span></div>
+          <div class="b"><b>15</b><span class="meta">Forslaget</span></div>
+          <div class="c"><b>70</b><span class="meta">Borte</span></div>
+        </div>
+        <p class="meta">Dok 8:256 S. Innst. 458 S. Fremmet 26. mars, votert 19. juni. Hordaland, ikke et annet navn.</p>
+      </section>
+
+      <section data-view="flertall" hidden>
+        <p class="kicker">Tre kolonner · samme høyde</p>
+        <h1>Stoppet. Mindretall. Fravær.</h1>
+        <p class="lede">70 er en tredjedel av salen i denne voteringen, tegnet som egen kolonne. Ikke en parentes under 84–15.</p>
+        <div class="slice">
+          <div style="background:#3d6bb5;color:#fff">84 komiteen</div>
+          <div style="background:#c45c32;color:#fff">15 forslag</div>
+          <div style="background:#4a4a48;color:#ddd">70 borte</div>
+        </div>
+        <div class="col3">
+          <article>
+            <h3>Stoppet · 84</h3>
+            <p>A 31, FrP 29, H 14, Sp 5, KrF 3, V 2. Innstillingen. Forslaget vedtas ikke.</p>
+            <p class="meta" style="margin-top:8px">Dette er koalisjonen som stoppet 200211. Vi kaller den ikke noe mer.</p>
+          </article>
+          <article>
+            <h3>Mindretall · 15</h3>
+            <p>MDG 5, R 5, SV 5. Forslag nr. 1 og 2 fra SV, R og MDG. Falt.</p>
+            <p class="meta" style="margin-top:8px">Tre partier, fem hver. Ingen borte er flyttet hit.</p>
+          </article>
+          <article>
+            <h3>Fravær · 70</h3>
+            <p>A 22, FrP 18, H 10, KrF 4, Sp 4, V 1, MDG 3, R 4, SV 4.</p>
+            <p class="meta" style="margin-top:8px">Ingen registrert stemme. Vi fyller ikke inn hvorfor. 70 står likt med 84 og 15.</p>
+          </article>
+        </div>
+        <p class="meta">Avvik 19. juni, vår telling, andre voteringer: Bjørnar Moxnes, Jonas Andersen Sayed, Marthe Hammer, Martin Virkesdal Jonsterhaug, Konstanse Marie Alvær, Ingrid Fiskaa, Erna Solberg, Truls Gihlemoen. I 28509: 0 avvik mot partilinje.</p>
+        <p class="meta" style="margin-top:8px">Spørsmål i sesjonen: A 24, FrP 1757. Begge vises.</p>
+      </section>
+
+      <section data-view="hen" hidden>
+        <p class="kicker">Folk · Høyre · Hordaland</p>
+        <div class="her">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1 style="font-size:2rem">Erna Solberg</h1>
+            <p class="lede">I kartet 28509: den grå kolonnen. Borte. Høyre-blokken 14 / 0 / 10.</p>
+            <div class="nums">
+              <div><b>249</b><span class="meta">for · vår telling</span></div>
+              <div><b>350</b><span class="meta">mot · vår telling</span></div>
+              <div><b>1121</b><span class="meta">borte · vår telling</span></div>
+              <div><b>8</b><span class="meta">avvik · vår telling</span></div>
+            </div>
+            <p class="meta" style="margin-top:10px">8 spørsmål. 0 av de siste Dok 8 som forslagsstiller i snapshotet.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+      Avledede tall = vår telling.
+    </footer>
+  </div>
+  <script>
+    const tabOf = {hjem:'hjem',saker:'saker',sak:'saker',flertall:'flertall',hen:'hen'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1) || 'hjem';
+      if (!document.querySelector('[data-view="'+h+'"]')) h = 'hjem';
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === (tabOf[h]||'hjem')));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
