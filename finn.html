@@ -8,197 +8,44 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,700;1,7..72,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #1a2740;
-      --card: #fff8e8;
-      --ink: #1c1830;
-      --mute: #6a6478;
-      --line: #e4d8bc;
-      --navy: #243868;
-      --bor: #6e6a62;
-    }
+    :root { --bg: #1a2740; --card: #fff8e8; --ink: #1c1830; --mute: #6a6478; --line: #e4d8bc; --navy: #243868; --bor: #6e6a62; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: "DM Sans", system-ui, sans-serif;
-    }
+    html, body { background: var(--bg); color: var(--ink); font-family: "DM Sans", system-ui, sans-serif; }
     a { color: inherit; text-decoration: none; }
     [data-view][hidden] { display: none !important; }
-    .desk {
-      max-width: 44rem;
-      margin: 0 auto;
-      min-height: 100vh;
-      background: var(--card);
-      display: flex;
-      flex-direction: column;
-    }
-    header.top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 14px 18px 8px;
-      font-size: 12px;
-      color: var(--mute);
-    }
-    header.top strong {
-      font-family: Literata, Georgia, serif;
-      font-size: 1.5rem;
-      color: var(--ink);
-      font-weight: 700;
-    }
+    .desk { max-width: 44rem; margin: 0 auto; min-height: 100vh; background: var(--card); display: flex; flex-direction: column; }
+    header.top { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px 8px; font-size: 12px; color: var(--mute); }
+    header.top strong { font-family: Literata, Georgia, serif; font-size: 1.5rem; color: var(--ink); font-weight: 700; }
     header.top a { border-bottom: 1px solid var(--line); }
-    nav.bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-bottom: 2px solid var(--navy);
-      position: sticky;
-      top: 0;
-      background: var(--card);
-      z-index: 4;
-    }
-    nav.bar a {
-      text-align: center;
-      padding: 10px 4px;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--mute);
-    }
-    nav.bar a.on {
-      color: var(--navy);
-      font-weight: 700;
-      border-bottom: 2px solid var(--navy);
-      margin-bottom: -2px;
-    }
+    nav.bar { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--navy); position: sticky; top: 0; background: var(--card); z-index: 4; }
+    nav.bar a { text-align: center; padding: 10px 4px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+    nav.bar a.on { color: var(--navy); font-weight: 700; border-bottom: 2px solid var(--navy); margin-bottom: -2px; }
     main { padding: 18px 18px 44px; flex: 1; }
-    h1 {
-      font-family: Literata, Georgia, serif;
-      font-weight: 700;
-      font-size: clamp(1.7rem, 5vw, 2.5rem);
-      line-height: 1.12;
-    }
-    h2 {
-      font-family: Literata, Georgia, serif;
-      font-size: 1.3rem;
-      margin: 1.2rem 0 .4rem;
-    }
-    .kicker {
-      font-size: 11px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--mute);
-    }
-    .lede {
-      font-family: Literata, serif;
-      font-size: 1.15rem;
-      line-height: 1.4;
-      margin: .4rem 0 1rem;
-    }
-    .searchbox {
-      border: 2px solid var(--navy);
-      background: #fff;
-      padding: 10px 12px;
-      display: flex;
-      gap: 8px;
-      margin: 10px 0 16px;
-    }
-    .searchbox input {
-      flex: 1;
-      border: 0;
-      font: inherit;
-      font-size: 1.05rem;
-      background: transparent;
-    }
-    .searchbox span {
-      font-size: 12px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--navy);
-      font-weight: 700;
-      align-self: center;
-    }
-    .ans {
-      background: #fff;
-      border: 1px solid var(--line);
-      padding: 14px;
-      margin-bottom: 10px;
-    }
-    .ans h3 {
-      font-family: Literata, serif;
-      font-size: 1.2rem;
-      margin-bottom: 6px;
-    }
-    .who {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 14px;
-    }
-    .who img {
-      width: 40px;
-      height: 50px;
-      object-fit: cover;
-      background: #ddd8ce;
-    }
+    h1 { font-family: Literata, Georgia, serif; font-weight: 700; font-size: clamp(1.7rem, 5vw, 2.5rem); line-height: 1.12; }
+    h2 { font-family: Literata, Georgia, serif; font-size: 1.3rem; margin: 1.2rem 0 .4rem; }
+    .kicker { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+    .lede { font-family: Literata, serif; font-size: 1.15rem; line-height: 1.4; margin: .4rem 0 1rem; }
+    .searchbox { border: 2px solid var(--navy); background: #fff; padding: 10px 12px; display: flex; gap: 8px; margin: 10px 0 16px; }
+    .searchbox input { flex: 1; border: 0; font: inherit; font-size: 1.05rem; background: transparent; }
+    .searchbox span { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--navy); font-weight: 700; align-self: center; }
+    .ans { background: #fff; border: 1px solid var(--line); padding: 14px; margin-bottom: 10px; }
+    .ans h3 { font-family: Literata, serif; font-size: 1.2rem; margin-bottom: 6px; }
+    .who { display: flex; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .who img { width: 40px; height: 50px; object-fit: cover; background: #ddd8ce; }
     .who small { display: block; color: var(--mute); font-size: 12px; }
-    .three {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin: 10px 0;
-    }
-    .three div {
-      border-top: 2px solid var(--navy);
-      padding-top: 6px;
-    }
-    .three b {
-      display: block;
-      font-family: Literata, serif;
-      font-size: 1.8rem;
-      line-height: 1;
-    }
-    .three span {
-      font-size: 11px;
-      color: var(--mute);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
+    .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+    .three div { border-top: 2px solid var(--navy); padding-top: 6px; }
+    .three b { display: block; font-family: Literata, serif; font-size: 1.8rem; line-height: 1; }
+    .three span { font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: .08em; }
     .meta { font-size: 13px; color: var(--mute); line-height: 1.5; }
-    .list a, .list .row {
-      display: block;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-    }
+    .list a, .list .row { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); }
     .her { display: flex; gap: 14px; flex-wrap: wrap; }
     .her img { width: 88px; height: 112px; object-fit: cover; background: #ddd8ce; }
-    .nums {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
-      max-width: 22rem;
-    }
+    .nums { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; max-width: 22rem; }
     .nums div { border-top: 1px solid var(--navy); padding-top: 4px; }
-    .nums b {
-      font-family: Literata, serif;
-      font-size: 1.6rem;
-      display: block;
-    }
-    footer {
-      padding: 14px 18px 22px;
-      font-size: 12px;
-      color: var(--mute);
-      border-top: 1px solid var(--line);
-    }
-    .q {
-      font-size: 13px;
-      color: var(--navy);
-      font-weight: 600;
-      margin: 8px 0 2px;
-    }
+    .nums b { font-family: Literata, serif; font-size: 1.6rem; display: block; }
+    footer { padding: 14px 18px 22px; font-size: 12px; color: var(--mute); border-top: 1px solid var(--line); }
+    .q { font-size: 13px; color: var(--navy); font-weight: 600; margin: 8px 0 2px; }
   </style>
 </head>
 <body>
@@ -218,10 +65,7 @@
       <section data-view="hjem">
         <p class="kicker">Oppslag · ferdig utfylt</p>
         <h1>Hva skjedde med klimaavgiften?</h1>
-        <div class="searchbox">
-          <input value="klimaavgift" readonly aria-label="Søk">
-          <span>Svar</span>
-        </div>
+        <div class="searchbox"><input value="klimaavgift" readonly aria-label="Søk"><span>Svar</span></div>
         <p class="lede">Én sak. Fullt svar: hvem som reiste den, hvem som stoppet den, hvem som var borte, og hvor den står.</p>
         <article class="ans">
           <p class="kicker">Treff · sak 200211 · votering 28509</p>
@@ -235,11 +79,7 @@
           <div class="who"><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt=""><div>Tuva Moflag<small>Arbeiderpartiet · Finanskomiteen · komiteen i 28509</small></div></div>
           <p class="q">Hvem stoppet den?</p>
           <p>Komiteens tilråding: forslaget vedtas ikke. Alternativ votering 19. juni mellom innstillingen og forslag nr. 1 og 2 fra SV, R og MDG.</p>
-          <div class="three">
-            <div><b>84</b><span>Komiteen</span></div>
-            <div><b>15</b><span>Forslaget</span></div>
-            <div><b>70</b><span>Borte</span></div>
-          </div>
+          <div class="three"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslaget</span></div><div><b>70</b><span>Borte</span></div></div>
           <p class="meta">A 31/0/22 · FrP 29/0/18 · H 14/0/10 · Sp 5/0/4 · KrF 3/0/4 · V 2/0/1 · MDG 0/5/3 · R 0/5/4 · SV 0/5/4. Vår telling.</p>
           <p class="q">Hvem var borte?</p>
           <p>70. Tredje tall, like synlig. Vi oppgir ikke grunn. Fra Hordaland, blant andre: Erna Solberg, Helge André Njåstad, Frøya Skjold Sjursæther, Kjersti Toppe, Joel Ystebø. Peter Frølich har ingen registrert stemme.</p>
@@ -248,7 +88,6 @@
           <p class="meta" style="margin-top:8px"><a href="#sak" style="border-bottom:1px solid var(--navy)">Hele saken</a> · <a href="#hva-skjedde-med" style="border-bottom:1px solid var(--navy)">Bensin, kontant, energi</a></p>
         </article>
       </section>
-
       <section data-view="saker" hidden>
         <p class="kicker">Katalog</p>
         <h1>Saker du kan slå opp.</h1>
@@ -262,25 +101,18 @@
           <div class="row"><span class="kicker">200400 · mottatt</span><br><strong>Prediksjonsmarkeder</strong><br><span class="meta">SV. Ingen votering ennå.</span></div>
         </div>
       </section>
-
       <section data-view="sak" hidden>
         <p class="kicker">Sak 200211 · ferdigbehandlet · Dok 8:256 S · Innst. 458 S</p>
         <h1>Klimaavgift, hele svaret.</h1>
         <p class="lede">Fremmet 26. mars. Sendt Finanskomiteen 9. april. Innstilling 12. juni. Votering 19. juni. Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
-        <div class="three">
-          <div><b>84</b><span>Komiteen</span></div>
-          <div><b>15</b><span>Forslaget</span></div>
-          <div><b>70</b><span>Borte</span></div>
-        </div>
+        <div class="three"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslaget</span></div><div><b>70</b><span>Borte</span></div></div>
         <p>Hordaland heter Hordaland. I 28509: 5 komiteen, 2 forslag, 9 borte. Erna Solberg: borte. Frøya Skjold Sjursæther fremmet og var borte.</p>
         <p class="meta" style="margin-top:8px">Arbeiderpartiet stilte 24 spørsmål i sesjonen. FrP stilte 1757. Begge tallene står.</p>
       </section>
-
       <section data-view="hva-skjedde-med" hidden>
         <p class="kicker">Samme spørsmål, tre saker til</p>
         <h1>Hva skjedde med de andre?</h1>
         <p class="lede">Samme mal. Hvem reiste, hvem stoppet, hvem var borte, status. Borte utelates ikke.</p>
-
         <article class="ans">
           <p class="kicker">200155 · 28508 · 19. juni</p>
           <h3>Lavere bensin- og dieselpriser</h3>
@@ -288,15 +120,9 @@
           <p>Trygve Slagsvold Vedum, Siv Sætran, Geir Pollestad, Geir Inge Lien og Bengt Fasteraune. Senterpartiet.</p>
           <p class="q">Hvem stoppet — og hva var utfallet?</p>
           <p>Innstillingens tilråding: 71 for, 28 mot, 70 borte. Vedtatt. (Egen votering om FrP-forslag nr. 1 og 2: 29 for, 72 mot, 68 borte, falt.)</p>
-          <div class="three">
-            <div><b>71</b><span>For</span></div>
-            <div><b>28</b><span>Mot</span></div>
-            <div><b>70</b><span>Borte</span></div>
-          </div>
-          <p class="q">Status?</p>
-          <p>Ferdigbehandlet.</p>
+          <div class="three"><div><b>71</b><span>For</span></div><div><b>28</b><span>Mot</span></div><div><b>70</b><span>Borte</span></div></div>
+          <p class="q">Status?</p><p>Ferdigbehandlet.</p>
         </article>
-
         <article class="ans">
           <p class="kicker">200124 · 28505 · 19. juni</p>
           <h3>Kontantutbetaling til befolkningen</h3>
@@ -304,15 +130,9 @@
           <p>Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund og Marian Hussein. SV.</p>
           <p class="q">Hvem stoppet?</p>
           <p>Alternativ votering: Komiteen mot forslag nr. 1 fra SV, R, MDG og V. Komiteen 84, forslaget 17, 68 borte. Forslaget falt.</p>
-          <div class="three">
-            <div><b>84</b><span>Komiteen</span></div>
-            <div><b>17</b><span>Forslaget</span></div>
-            <div><b>68</b><span>Borte</span></div>
-          </div>
-          <p class="q">Status?</p>
-          <p>Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
+          <div class="three"><div><b>84</b><span>Komiteen</span></div><div><b>17</b><span>Forslaget</span></div><div><b>68</b><span>Borte</span></div></div>
+          <p class="q">Status?</p><p>Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
         </article>
-
         <article class="ans">
           <p class="kicker">200084 · 28502 · 19. juni</p>
           <h3>Energipriser og levekostnader</h3>
@@ -320,17 +140,11 @@
           <p>Hans Andreas Limi, Sylvi Listhaug, Tom Staahle, Hilde Grande og Martin Virkesdal Jonsterhaug. FrP.</p>
           <p class="q">Hvem stoppet?</p>
           <p>Alternativ votering: Komiteen mot forslag nr. 1 fra FrP. Komiteen 68, forslaget 29, 72 borte. Forslaget falt.</p>
-          <div class="three">
-            <div><b>68</b><span>Komiteen</span></div>
-            <div><b>29</b><span>Forslaget</span></div>
-            <div><b>72</b><span>Borte</span></div>
-          </div>
-          <p class="q">Status?</p>
-          <p>Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
+          <div class="three"><div><b>68</b><span>Komiteen</span></div><div><b>29</b><span>Forslaget</span></div><div><b>72</b><span>Borte</span></div></div>
+          <p class="q">Status?</p><p>Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
         </article>
         <p class="meta">Skatte- og avgiftslovgivinga (200313): 52 for, 49 mot, 68 borte i hovedvoteringen. 31 voteringer. Fra Regjeringen.</p>
       </section>
-
       <section data-view="hen" hidden>
         <p class="kicker">Folk i treffet · Høyre · Hordaland</p>
         <div class="her">
@@ -349,10 +163,7 @@
         </div>
       </section>
     </main>
-    <footer>
-      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-      Avledede tall = vår telling.
-    </footer>
+    <footer>Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Avledede tall = vår telling.</footer>
   </div>
   <script>
     const tabOf = {hjem:'hjem',saker:'saker',sak:'saker','hva-skjedde-med':'hva-skjedde-med',hen:'hen'};
