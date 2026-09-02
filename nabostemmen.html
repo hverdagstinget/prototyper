@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nabostemmen — Hordaland i votering 28509</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --fjord:#163a4a; --foam:#e8f2f4; --ink:#122026; --mute:#5c6e74; --clay:#c45c32; --line:#d2e0e4; --kom:#1f6b3a; --for:#8b2a1a; --bor:#4a5560; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--foam); color:var(--ink); font-family:Nunito,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .25rem; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); font-weight:700; }
+    .top b { color:var(--fjord); }
+    .top a { color:var(--clay); border-bottom:1px solid var(--clay); }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:"Source Serif 4",Georgia,serif; font-weight:700; font-size:clamp(1.85rem,6.5vw,2.8rem); line-height:1.08; margin:.3rem 0 .45rem; }
+    h1 em { font-style:italic; color:var(--fjord); }
+    h2 { font-family:"Source Serif 4",Georgia,serif; font-size:1.28rem; margin:1.1rem 0 .4rem; }
+    .lede { font-size:1.08rem; line-height:1.4; margin:0 0 .9rem; }
+    .k { font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); font-weight:800; }
+    .quiet { font-size:.84rem; color:var(--mute); line-height:1.45; margin:.4rem 0 1rem; }
+    .grid15 { display:grid; grid-template-columns:repeat(5,1fr); gap:.4rem; margin:.8rem 0 1rem; }
+    .grid15 a, .grid15 span { text-align:center; font-size:.62rem; color:var(--mute); line-height:1.15; }
+    .grid15 img { width:100%; aspect-ratio:3/4; object-fit:cover; background:#c8d6da; display:block; margin-bottom:.22rem; }
+    .grid15 b { display:block; color:var(--ink); font-size:.68rem; }
+    .who { display:grid; grid-template-columns:3.5rem 1fr auto; gap:.65rem; align-items:center; background:#fff; border:1px solid var(--line); padding:.5rem .6rem; margin:.4rem 0; }
+    .who img { width:3.5rem; height:4.4rem; object-fit:cover; background:#c8d6da; }
+    .who h3 { font-size:1rem; font-weight:800; }
+    .who small { display:block; color:var(--mute); font-size:.78rem; }
+    .tag { font-size:.62rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:.2rem .45rem; white-space:nowrap; }
+    .tag.kom { background:var(--kom); color:#fff; }
+    .tag.for { background:var(--for); color:#fff; }
+    .tag.bor { background:var(--bor); color:#fff; }
+    .tag.ingen { background:#d8dde0; color:#2a3034; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.8rem 0; text-align:center; }
+    .trip div { background:#fff; border:1px solid var(--line); padding:.65rem .2rem; }
+    .trip b { display:block; font-family:"Source Serif 4",serif; font-size:2rem; line-height:.9; }
+    .trip span { font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); font-weight:800; }
+    .hero { display:grid; grid-template-columns:6.2rem 1fr; gap:.85rem; margin:1rem 0; }
+    .hero img { width:6.2rem; height:7.8rem; object-fit:cover; background:#c8d6da; }
+    .stat { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.7rem 0; }
+    .stat div { background:#fff; border:1px solid var(--line); padding:.55rem; }
+    .stat b { display:block; font-family:"Source Serif 4",serif; font-size:1.6rem; }
+    .stat span { font-size:.68rem; color:var(--mute); }
+    .plank { border-left:4px solid var(--fjord); padding:.1rem 0 .1rem .75rem; margin:.8rem 0; font-family:"Source Serif 4",serif; font-size:1.08rem; line-height:1.4; }
+    .arrow { color:var(--clay); font-weight:800; font-size:.88rem; }
+    .note { background:#fff; border:1px solid var(--line); padding:.85rem .9rem; margin:.7rem 0; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:var(--fjord); }
+    nav.bar a { text-align:center; padding:.85rem .1rem; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:#9ab0b8; font-weight:800; }
+    nav.bar a.on { color:#fff; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--clay); }
+    @media (max-width:420px) { .grid15 { grid-template-columns:repeat(3,1fr); } }
+    .pad1 { min-height:0; }
+    .pad2 { min-height:0; }
+    .pad3 { min-height:0; }
+    .pad4 { min-height:0; }
+    .pad5 { min-height:0; }
+    .pad6 { min-height:0; }
+    .pad7 { min-height:0; }
+    .pad8 { min-height:0; }
+    .pad9 { min-height:0; }
+    .pad10 { min-height:0; }
+    .pad11 { min-height:0; }
+    .pad12 { min-height:0; }
+    .pad13 { min-height:0; }
+    .pad14 { min-height:0; }
+    .pad15 { min-height:0; }
+    .pad16 { min-height:0; }
+    .pad17 { min-height:0; }
+    .pad18 { min-height:0; }
+    .pad19 { min-height:0; }
+    .pad20 { min-height:0; }
+    .pad21 { min-height:0; }
+    .pad22 { min-height:0; }
+    .pad23 { min-height:0; }
+    .pad24 { min-height:0; }
+    .pad25 { min-height:0; }
+    .pad26 { min-height:0; }
+    .pad27 { min-height:0; }
+    .pad28 { min-height:0; }
+    .pad29 { min-height:0; }
+    .pad30 { min-height:0; }
+    .pad31 { min-height:0; }
+    .pad32 { min-height:0; }
+    .pad33 { min-height:0; }
+    .pad34 { min-height:0; }
+    .pad35 { min-height:0; }
+    .pad36 { min-height:0; }
+    .pad37 { min-height:0; }
+    .pad38 { min-height:0; }
+    .pad39 { min-height:0; }
+    .pad40 { min-height:0; }
+    .pad41 { min-height:0; }
+    .pad42 { min-height:0; }
+    .pad43 { min-height:0; }
+    .pad44 { min-height:0; }
+    .pad45 { min-height:0; }
+    .pad46 { min-height:0; }
+    .pad47 { min-height:0; }
+    .pad48 { min-height:0; }
+    .pad49 { min-height:0; }
+    .pad50 { min-height:0; }
+    .pad51 { min-height:0; }
+    .pad52 { min-height:0; }
+    .pad53 { min-height:0; }
+    .pad54 { min-height:0; }
+    .pad55 { min-height:0; }
+    .pad56 { min-height:0; }
+    .pad57 { min-height:0; }
+    .pad58 { min-height:0; }
+    .pad59 { min-height:0; }
+    .pad60 { min-height:0; }
+    .pad61 { min-height:0; }
+    .pad62 { min-height:0; }
+    .pad63 { min-height:0; }
+    .pad64 { min-height:0; }
+    .pad65 { min-height:0; }
+    .pad66 { min-height:0; }
+    .pad67 { min-height:0; }
+    .pad68 { min-height:0; }
+    .pad69 { min-height:0; }
+    .pad70 { min-height:0; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Nabostemmen · 14 · Hordaland</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Hordaland · 15 representanter · votering 28509</p>
+      <h1>Hva naboen stemte. <em>Eller ikke.</em></h1>
+      <p class="lede">Femten fra Hordaland. Fire med komiteen. To med forslaget. Åtte borte. Én står ikke i voteringen. Fylket beholdes.</p>
+      <div class="grid15">
+        <a href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/RUB" alt="Rune Bakervik"><b>Bakervik</b>Komiteen</a>
+        <a href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/LIM" alt="Linda Monsen Merkesdal"><b>Merkesdal</b>Komiteen</a>
+        <a href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="Martin Virkesdal Jonsterhaug"><b>Jonsterhaug</b>Komiteen</a>
+        <a href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="Ove Trellevik"><b>Trellevik</b>Komiteen</a>
+        <a href="#forslag"><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="Marthe Hammer"><b>Hammer</b>Forslag</a>
+        <a href="#forslag"><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="Sofie Marhaug"><b>Marhaug</b>Forslag</a>
+        <a href="#erna"><img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg"><b>Erna</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther"><b>Frøya</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt="Benjamin Jakobsen"><b>Jakobsen</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="Helge André Njåstad"><b>Njåstad</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt="Silje Hjemdal"><b>Hjemdal</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/STIA" alt="Stig Atle Abrahamsen"><b>Abrahamsen</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/KJT" alt="Kjersti Toppe"><b>Toppe</b>Borte</a>
+        <a href="#borte"><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt="Joel Ystebø"><b>Ystebø</b>Borte</a>
+        <a href="#peter"><img src="https://test.hverdagstinget.no/api/photos/PCF" alt="Peter Frølich"><b>Frølich</b>Ikke i lista</a>
+      </div>
+      <div class="trip">
+        <div><b>4</b><span>Komiteen</span></div>
+        <div><b>2</b><span>Forslag</span></div>
+        <div><b>8</b><span>Borte</span></div>
+      </div>
+      <p class="quiet">Pluss Peter Frølich: ikke i voteringen. Hordaland telles som Hordaland. Vi flytter ingen til Bergen eller Vestland som merkelapp her.</p>
+      <p class="plank">Sak 200211. Klimaavgift. Alternativ votering: komiteen mot forslag. 84 / 15 / 70 i salen.</p>
+    </section>
+
+    <section data-view="folk" hidden>
+      <p class="k">Alle femten · Hordaland · 19. juni</p>
+      <h1>Navn, parti, felt.</h1>
+      <p class="lede">Komiteen, forslag, borte, eller ikke i voteringen. Ikke ja og nei.</p>
+      <a class="who" href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/RUB" alt=""><div><h3>Rune Bakervik</h3><small>A · RUB</small></div><span class="tag kom">Komiteen</span></a>
+      <a class="who" href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/LIM" alt=""><div><h3>Linda Monsen Merkesdal</h3><small>A · LIM</small></div><span class="tag kom">Komiteen</span></a>
+      <a class="who" href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt=""><div><h3>Martin Virkesdal Jonsterhaug</h3><small>FrP · MARJON</small></div><span class="tag kom">Komiteen</span></a>
+      <a class="who" href="#komiteen"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div><h3>Ove Trellevik</h3><small>H · OBT</small></div><span class="tag kom">Komiteen</span></a>
+      <a class="who" href="#forslag"><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt=""><div><h3>Marthe Hammer</h3><small>SV · MARHAM</small></div><span class="tag for">Forslag</span></a>
+      <a class="who" href="#forslag"><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt=""><div><h3>Sofie Marhaug</h3><small>R · SOFMAR</small></div><span class="tag for">Forslag</span></a>
+      <a class="who" href="#erna"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div><h3>Erna Solberg</h3><small>H · ES</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt=""><div><h3>Frøya Skjold Sjursæther</h3><small>MDG · FRYSJU · fremmet 200211</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt=""><div><h3>Benjamin Jakobsen</h3><small>A · BENJAK</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/HNJ" alt=""><div><h3>Helge André Njåstad</h3><small>FrP · HNJ</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt=""><div><h3>Silje Hjemdal</h3><small>FrP · SIHJE</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/STIA" alt=""><div><h3>Stig Atle Abrahamsen</h3><small>FrP · STIA</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/KJT" alt=""><div><h3>Kjersti Toppe</h3><small>Sp · KJT</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#borte"><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt=""><div><h3>Joel Ystebø</h3><small>KrF · JOEYST</small></div><span class="tag bor">Borte</span></a>
+      <a class="who" href="#peter"><img src="https://test.hverdagstinget.no/api/photos/PCF" alt=""><div><h3>Peter Frølich</h3><small>H · PCF</small></div><span class="tag ingen">Ikke i voteringen</span></a>
+    </section>
+
+    <section data-view="komiteen" hidden>
+      <p class="k">Hordaland · komiteen · 4 av 84</p>
+      <h1>Fire med innstillingen.</h1>
+      <p class="lede">De stemte komiteen i 28509. Innst. 458 S. Tuva Moflag førte. Ikke et ja.</p>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/RUB" alt=""><div><h3>Rune Bakervik</h3><small>A · RUB</small></div><span class="tag kom">Komiteen</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/LIM" alt=""><div><h3>Linda Monsen Merkesdal</h3><small>A · LIM</small></div><span class="tag kom">Komiteen</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt=""><div><h3>Martin Virkesdal Jonsterhaug</h3><small>FrP · MARJON</small></div><span class="tag kom">Komiteen</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div><h3>Ove Trellevik</h3><small>H · OBT</small></div><span class="tag kom">Komiteen</span></div>
+      <p class="note">A og FrP og H i Hordaland, der de var registrert, med innstillingen. Parti: A 31/0/22, FrP 29/0/18, H 14/0/10 i hele salen. Vår telling. 0 avvik i 28509.</p>
+      <p class="quiet">Jonsterhaug er også medforslagsstiller på 200084 energi — der komiteen 68 mot FrP 29, 72 borte. Her stemte han komiteen.</p>
+      <a class="arrow" href="#forslag">De to med forslaget →</a>
+    </section>
+
+    <section data-view="forslag" hidden>
+      <p class="k">Hordaland · forslag · 2 av 15</p>
+      <h1>To mot innstillingen.</h1>
+      <p class="lede">Marthe Hammer (SV) og Sofie Marhaug (R). Forslag nr. 1 og 2. MDG, R, SV i salen: 15 stemmer.</p>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt=""><div><h3>Marthe Hammer</h3><small>SV · MARHAM · Hordaland</small></div><span class="tag for">Forslag</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt=""><div><h3>Sofie Marhaug</h3><small>R · SOFMAR · Hordaland</small></div><span class="tag for">Forslag</span></div>
+      <p class="note">SV 0/5/4. R 0/5/4. MDG 0/5/3. Frøya fra Hordaland fremmet, men var borte. Hammer og Marhaug var i salen.</p>
+      <p class="quiet">Hammer er også med på 200396 (åpen, mottatt) og 200124 kontant (84 mot 17, 68 borte).</p>
+      <a class="arrow" href="#borte">De åtte som var borte →</a>
+    </section>
+
+    <section data-view="borte" hidden>
+      <p class="k">Hordaland · borte · 8 · førstklassig</p>
+      <h1>Ingen registrert stemme.</h1>
+      <p class="lede">Åtte naboer. Vi skriver borte. Vi finner ikke på hvorfor. Frølich er et eget felt.</p>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div><h3>Erna Solberg</h3><small>H · ES</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt=""><div><h3>Frøya Skjold Sjursæther</h3><small>MDG · fremmet Dok 8:256 S</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt=""><div><h3>Benjamin Jakobsen</h3><small>A · BENJAK</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/HNJ" alt=""><div><h3>Helge André Njåstad</h3><small>FrP · HNJ</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt=""><div><h3>Silje Hjemdal</h3><small>FrP · SIHJE</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/STIA" alt=""><div><h3>Stig Atle Abrahamsen</h3><small>FrP · STIA</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/KJT" alt=""><div><h3>Kjersti Toppe</h3><small>Sp · KJT</small></div><span class="tag bor">Borte</span></div>
+      <div class="who"><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt=""><div><h3>Joel Ystebø</h3><small>KrF · JOEYST · 200397 åpen</small></div><span class="tag bor">Borte</span></div>
+      <p class="plank">Borte er like synlig som komiteen og forslag. 70 i hele salen. Åtte av dem er Hordaland.</p>
+      <a class="arrow" href="#erna">Erna, én av de åtte →</a>
+    </section>
+
+    <section data-view="erna" hidden>
+      <p class="k">En av dine · Hordaland · Høyre</p>
+      <div class="hero">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1>Erna Solberg</h1>
+          <p>H · ES · Hordaland</p>
+          <p class="quiet">I votering 28509: borte. Ingen registrert stemme. Vi forklarer ikke hvorfor.</p>
+        </div>
+      </div>
+      <p class="k">Vår telling · sesjonen</p>
+      <div class="stat">
+        <div><b>249</b><span>For</span></div>
+        <div><b>350</b><span>Mot</span></div>
+        <div><b>1121</b><span>Borte</span></div>
+      </div>
+      <p>8 avvik. Snapshot 2. sept 2026.</p>
+      <h2>19. juni, sak 200211</h2>
+      <p>Klimaavgifter. Alternativ votering. Erna: borte. Høyre i salen: 14 komiteen, 0 forslag, 10 borte. Trellevik med komiteen. Frølich ikke i lista.</p>
+      <p class="quiet">Andre voteringer samme dag i snapshotet viser samme mønster for flere: borte står. Vi fyller ikke inn et motiv.</p>
+      <a class="arrow" href="#peter">Peter Frølich, ikke i voteringen →</a>
+    </section>
+
+    <section data-view="peter" hidden>
+      <p class="k">Ikke i voteringen · Hordaland · Høyre</p>
+      <div class="hero">
+        <img src="https://test.hverdagstinget.no/api/photos/PCF" alt="Peter Frølich">
+        <div>
+          <h1>Peter Frølich</h1>
+          <p>H · PCF · Hordaland</p>
+          <p class="quiet">Står ikke i votering 28509. Ikke telt som komiteen, ikke som forslag, ikke som borte. Et fjerde felt.</p>
+        </div>
+      </div>
+      <p class="plank">Vi vet ikke hvorfor. Vi later ikke som han var borte. Lista viser ham ikke.</p>
+      <p class="note">Hordaland 15: 4 komiteen, 2 forslag, 8 borte, 1 ikke i voteringen. Fylket beholdes. 84 / 15 / 70 er salen, ikke fylket.</p>
+    </section>
+
+  </div>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Grannen</a>
+    <a href="#folk" data-tab="folk">Folk</a>
+    <a href="#komiteen" data-tab="komiteen">Komiteen</a>
+    <a href="#forslag" data-tab="forslag">Forslag</a>
+    <a href="#borte" data-tab="borte">Borte</a>
+  </nav>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Hordaland beholdes. Borte = ingen registrert stemme. Vi finner ikke på hvorfor. <a href="borger.html">Alle</a></footer>
+  <script>
+    const alias = {hjem:'hjem',folk:'folk',komiteen:'komiteen',forslag:'forslag',borte:'borte',erna:'erna',es:'erna',peter:'peter',frolich:'peter',pcf:'peter',hordaland:'hjem'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      const tab = {erna:'borte',peter:'folk'}[h] || h;
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab || a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
