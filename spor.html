@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spor — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#10140f; --panel:#1a2218; --ink:#dce8d0; --mute:#8a9780;
+      --line:#2c3828; --tick:#c6d48a; --a:#E30613; --frp:#7ea0ff;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:"Source Serif 4",Georgia,serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    .wrap { max-width:42rem; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:12px 16px; position:sticky; top:0; z-index:6;
+      background:rgba(16,20,15,.94); border-bottom:1px solid var(--line);
+      font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--mute);
+    }
+    header.top strong { color:var(--tick); font-size:14px; letter-spacing:.16em; text-transform:uppercase; }
+    header.top a { color:var(--tick); border-bottom:1px solid #4a5c3a; }
+    nav.bar {
+      display:grid; grid-template-columns:repeat(5,1fr);
+      position:sticky; top:41px; background:var(--bg); z-index:5;
+      border-bottom:1px solid var(--line);
+    }
+    nav.bar a {
+      text-align:center; padding:10px 4px; font-family:"IBM Plex Mono",monospace;
+      font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute);
+    }
+    nav.bar a.on { color:var(--tick); border-bottom:2px solid var(--tick); }
+    main { padding:20px 16px 48px; flex:1; }
+    .kicker { font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+    h1 { font-size:clamp(1.7rem,5vw,2.5rem); font-weight:600; line-height:1.08; margin:.3rem 0 .7rem; letter-spacing:-.02em; }
+    h2 { font-size:1.35rem; margin:1.4rem 0 .5rem; font-weight:600; }
+    .lede { color:#c5d2b8; line-height:1.45; max-width:36rem; }
+    .tape {
+      font-family:"IBM Plex Mono",monospace; font-size:13px; line-height:1.55;
+      background:var(--panel); border:1px dashed #4a5c3a; padding:14px; margin:16px 0;
+      color:#d7e6c4;
+    }
+    .tape .who { color:var(--tick); }
+    .cols { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+    .cols article { background:var(--panel); border:1px solid var(--line); padding:12px; }
+    .cols b { display:block; font-family:"IBM Plex Mono",monospace; font-size:28px; line-height:1; color:var(--tick); }
+    .cols span { font-size:12px; color:var(--mute); font-family:"IBM Plex Mono",monospace; }
+    .q {
+      display:grid; grid-template-columns:72px 1fr; gap:12px; padding:14px 0;
+      border-bottom:1px solid var(--line); align-items:start;
+    }
+    .q img { width:72px; height:90px; object-fit:cover; background:#243020; }
+    .q .dt { font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--tick); }
+    .q h3 { font-size:1.15rem; font-weight:600; margin:.15rem 0 .35rem; }
+    .barlist { margin:12px 0 18px; }
+    .br { display:grid; grid-template-columns:3.2rem 1fr 3.4rem; gap:8px; align-items:center; margin:6px 0; font-family:"IBM Plex Mono",monospace; font-size:12px; }
+    .br .t { height:10px; background:#243020; }
+    .br .t i { display:block; height:100%; background:var(--tick); }
+    .list a, .list .row { display:block; padding:12px 0; border-bottom:1px solid var(--line); }
+    .list .nr { font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--tick); }
+    .her { display:flex; gap:16px; flex-wrap:wrap; }
+    .her img { width:104px; height:132px; object-fit:cover; background:#243020; }
+    .nums { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px; max-width:22rem; }
+    .nums div { border:1px solid var(--line); padding:10px; }
+    .nums b { font-family:"IBM Plex Mono",monospace; font-size:22px; display:block; color:var(--tick); }
+    .nums span { font-size:11px; color:var(--mute); }
+    .eq { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:16px 0; }
+    .eq div { border:1px solid var(--line); padding:10px; }
+    .eq b { font-family:"IBM Plex Mono",monospace; font-size:26px; display:block; }
+    .eq span { font-size:11px; color:var(--mute); }
+    .eq .b { background:#2a3220; color:var(--tick); }
+    .meta { font-size:13px; color:var(--mute); line-height:1.5; }
+    .quiet { background:var(--panel); padding:14px; margin:10px 0; border-left:3px solid var(--tick); }
+    footer { padding:16px; border-top:1px solid var(--line); font-size:12px; color:var(--mute); font-family:"IBM Plex Mono",monospace; }
+    .moreq { margin:8px 0 0; }
+    .moreq .row { padding:10px 0; border-bottom:1px solid var(--line); font-size:.95rem; }
+    .stamp { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--tick); margin-bottom:4px; }
+    .chiprow { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
+    .chiprow span { font-family:"IBM Plex Mono",monospace; font-size:11px; border:1px solid var(--line); padding:4px 8px; }
+    .hint { font-size:12px; color:var(--mute); margin-top:8px; }
+    table.mini { width:100%; border-collapse:collapse; font-family:"IBM Plex Mono",monospace; font-size:12px; margin:12px 0; }
+    table.mini th, table.mini td { text-align:left; padding:6px 4px; border-bottom:1px solid var(--line); }
+    table.mini th { color:var(--mute); font-weight:500; }
+    @media (max-width:640px) { .cols, .eq { grid-template-columns:1fr; } .q { grid-template-columns:56px 1fr; } .q img { width:56px; height:70px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <strong>Spor</strong>
+      <span>4180 spørsmål</span>
+      <a href="lyset.html">Alle</a>
+    </header>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Nylig</a>
+      <a href="#saker" data-tab="saker">Saker</a>
+      <a href="#sak" data-tab="sak">200211</a>
+      <a href="#erna" data-tab="erna">Erna</a>
+      <a href="#stille" data-tab="stille">Stille</a>
+    </nav>
+    <main>
+      <section data-view="hjem">
+        <p class="kicker">Spørsmål som spor · 26. august 2026 · vår telling</p>
+        <h1>Hvem spurte. Hvem har 24. Hvem har 1757.</h1>
+        <p class="lede">Spørsmål er engasjement du kan se. Ikke det eneste engasjementet. Men det står i registeret. Borte i votering er et annet spor: ingen registrert stemme.</p>
+        <div class="cols">
+          <article><b>1757</b><span>FrP · 47 representanter · spørsmål</span></article>
+          <article><b>24</b><span>A i regjering · 41 representanter · spørsmål</span></article>
+        </div>
+        <p class="tape">SPOR 3642  26.AUG  ERLEND LARSEN (H)  → landbruks- og matministeren<br>SPOR 3637  26.AUG  HELGE ANDRÉ NJÅSTAD (FrP)  → næringsministeren<br>SPOR 3639  26.AUG  MAREN GRØTHE (Sp)  → klima- og miljøministeren<br><span class="who">// uke 0 voteringer · siste votering 19. juni 2026</span></p>
+        <h2>Sist registrert</h2>
+        <div class="q">
+          <img src="https://test.hverdagstinget.no/api/photos/ERLL" alt="">
+          <div>
+            <p class="dt">26. aug · skriftlig · nr. 3642</p>
+            <h3>Erlend Larsen · H</h3>
+            <p class="meta">Til landbruks- og matministeren. Oppfølging av Stortingets vedtak 875 om gjødselforskriften. Svar 31. august.</p>
+          </div>
+        </div>
+        <div class="q">
+          <img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="">
+          <div>
+            <p class="dt">26. aug · skriftlig · nr. 3637</p>
+            <h3>Helge André Njåstad · FrP</h3>
+            <p class="meta">Til næringsministeren. Konkurranse, kommuner og helseforetak. I 28509: borte. Borte = ingen registrert stemme.</p>
+          </div>
+        </div>
+        <div class="q">
+          <img src="https://test.hverdagstinget.no/api/photos/MARGRT" alt="">
+          <div>
+            <p class="dt">26. aug · skriftlig · nr. 3639</p>
+            <h3>Maren Grøthe · Sp</h3>
+            <p class="meta">Til klima- og miljøministeren. Vern av Børgin, Steinkjer og Inderøy. Svar 1. september.</p>
+          </div>
+        </div>
+        <h2>Parti, spørsmål i tellingen</h2>
+        <p class="meta">Vår telling. Ingen ranking av «engasjement» utover det som er registrert.</p>
+        <div class="barlist">
+          <div class="br"><span>FrP</span><div class="t"><i style="width:100%"></i></div><span>1757</span></div>
+          <div class="br"><span>H</span><div class="t"><i style="width:39%"></i></div><span>683</span></div>
+          <div class="br"><span>Sp</span><div class="t"><i style="width:22%"></i></div><span>390</span></div>
+          <div class="br"><span>SV</span><div class="t"><i style="width:20%"></i></div><span>360</span></div>
+          <div class="br"><span>R</span><div class="t"><i style="width:17%"></i></div><span>294</span></div>
+          <div class="br"><span>MDG</span><div class="t"><i style="width:16%"></i></div><span>278</span></div>
+          <div class="br"><span>KrF</span><div class="t"><i style="width:15%"></i></div><span>265</span></div>
+          <div class="br"><span>V</span><div class="t"><i style="width:7%"></i></div><span>129</span></div>
+          <div class="br"><span>A</span><div class="t"><i style="width:1.4%"></i></div><span>24</span></div>
+        </div>
+
+        <div class="chiprow">
+          <span>FrP 1757</span><span>H 683</span><span>Sp 390</span><span>SV 360</span>
+          <span>R 294</span><span>MDG 278</span><span>KrF 265</span><span>V 129</span><span>A 24</span>
+        </div>
+        <h2>Flere spor i innboksen</h2>
+        <div class="moreq">
+          <div class="row"><p class="stamp">3636 · 26. aug · FrP</p><strong>Helge André Njåstad</strong> til næringsministeren. Egenregi og KLP.</div>
+          <div class="row"><p class="stamp">3635 · 26. aug · FrP</p><strong>Kristoffer Sivertsen</strong> til helse- og omsorgsministeren. SUS og lån til lønn.</div>
+          <div class="row"><p class="stamp">3632 · 25. aug · Sp</p><strong>Maren Grøthe</strong> til klima- og miljøministeren. Mausund feltstasjon.</div>
+          <div class="row"><p class="stamp">3627 · 25. aug · FrP</p><strong>Tom Staahle</strong> til finansministeren. EU-toll og norske nettbutikker.</div>
+          <div class="row"><p class="stamp">3630 · 25. aug · FrP</p><strong>Kristian August Eilertsen</strong> til helse- og omsorgsministeren. Individuell tilgang.</div>
+        </div>
+        <p class="meta">A sitter i regjering. 24 spørsmål mot FrP 1757. <a href="#stille" style="color:var(--tick);border-bottom:1px solid #4a5c3a">Til stille spor</a>. 4180 spørsmål totalt.</p>
+      </section>
+
+      <section data-view="saker">
+        <p class="kicker">Saker som spor i salen og i innboksen</p>
+        <h1>Hvem reiste saken. Hvem spurte.</h1>
+        <p class="lede">Saker uten navn er ikke her. Spørsmål uten avsender er ikke her. Denne uken: 0 voteringer, 0 spørsmål i uke-telleren. Siste votering 19. juni 2026. 144 saker ikke ferdigbehandlet.</p>
+        <div class="list">
+          <a href="#sak"><span class="nr">200211 · 28509</span><br><strong>Liland, Indgaard, Sjursæther · klimaavgifter</strong><br><span class="meta">Komiteen 84 · forslag 15 · 70 borte · ikke vedtatt</span></a>
+          <div class="row"><span class="nr">200155 · 28508</span><br><strong>Vedum, Sætran, Pollestad, Lien, Fasteraune · bensin</strong><br><span class="meta">71–28–70</span></div>
+          <div class="row"><span class="nr">200124 · 28505</span><br><strong>Haltbrekken, Hammer, Fredlund, Hussein · kontant</strong><br><span class="meta">Komiteen 84 · forslag 17 · 68 borte</span></div>
+          <div class="row"><span class="nr">200084 · 28502</span><br><strong>Limi, Listhaug, Staahle, Grande, Jonsterhaug · energi</strong><br><span class="meta">Komiteen 68 · FrP-forslag 29 · 72 borte</span></div>
+          <div class="row"><span class="nr">200313 · 28499</span><br><strong>Skatte- og avgiftslovgivinga</strong><br><span class="meta">52–49–68</span></div>
+          <div class="row"><span class="nr">200400</span><br><strong>Høyer-Berntsen, Eidsvoll, Fiskaa, Lie · prediksjon</strong><br><span class="meta">Mottatt · SV · 0 voteringer</span></div>
+          <div class="row"><span class="nr">200399</span><br><strong>Vedum, Bentzen, Sveian · Hammerfest</strong><br><span class="meta">Mottatt · Sp</span></div>
+          <div class="row"><span class="nr">200398</span><br><strong>Wiborg, Limi, Njåstad, Larsen, Midtun · bolig</strong><br><span class="meta">Mottatt · FrP</span></div>
+          <div class="row"><span class="nr">200397</span><br><strong>Ystebø, Røse, Lossius · abort</strong><br><span class="meta">Mottatt · KrF</span></div>
+          <div class="row"><span class="nr">200396</span><br><strong>Hammer, Fiskaa, Hussein · Palestina</strong><br><span class="meta">Mottatt · SV</span></div>
+        </div>
+      </section>
+
+      <section data-view="sak">
+        <p class="kicker">Sak 200211 · spor i salen 19. juni</p>
+        <h1>Tre navn fremmet. 70 hadde ingen stemme.</h1>
+        <p class="lede">Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Finanskomiteen. Ordfører Tuva Moflag (A). Alternativ votering: Komiteen mot forslag nr. 1 og 2 fra SV, R og MDG.</p>
+        <div class="eq">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslag</span></div>
+          <div class="b"><b>70</b><span>Borte</span></div>
+        </div>
+        <p class="meta">Liland: borte i 28509. Indgaard: mot (forslag). Sjursæther: borte. Tuva Moflag: komiteen. Njåstad, som spør næringsministeren i august, var borte 19. juni. Borte = ingen registrert stemme. Vi finner ikke på hvorfor.</p>
+        <p class="tape">A 31/0/22  FrP 29/0/18  H 14/0/10  KrF 3/0/4<br>MDG 0/5/3  R 0/5/4  SV 0/5/4  Sp 5/0/4  V 2/0/1<br>// ikke vedtatt · innstillingen ble stående</p>
+      </section>
+
+      <section data-view="erna">
+        <p class="kicker">Folk · spor · ES</p>
+        <div class="her">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1>Erna Solberg</h1>
+            <p class="lede">8 spørsmål i vår telling. 1121 borte. I 28509: borte. Borte = ingen registrert stemme.</p>
+            <div class="nums">
+              <div><b>8</b><span>spørsmål</span></div>
+              <div><b>1121</b><span>borte · vår telling</span></div>
+              <div><b>249</b><span>for · vår telling</span></div>
+              <div><b>350</b><span>mot · vår telling</span></div>
+            </div>
+            <p class="meta" style="margin-top:12px">8 avvik. Høyre som parti: 683 spørsmål. Vi sier ikke at 8 spørsmål er lite engasjement. Vi sier: 8 registrerte spørsmål i tellingen.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-view="stille">
+        <p class="kicker">Få registrerte spørsmål · ikke en dom</p>
+        <h1>Ingen registrerte spørsmål i tellingen — der det er slik.</h1>
+        <p class="lede">Vi sier ikke at noen «ikke bryr seg». Vi viser det som står. Arbeiderpartiet sitter i regjering og har 24 spørsmål. FrP har 1757. Erna Solberg har 8. Venstre har 129.</p>
+        <div class="quiet">
+          <p class="kicker">Regjeringspartiet</p>
+          <h2>Arbeiderpartiet · 24</h2>
+          <p class="meta">41 representanter. I 28509: 31 komiteen, 0 forslag, 22 borte. 24 spørsmål i tellingen. Det er ikke det samme som 0. Det er 24 mot 1757.</p>
+        </div>
+        <div class="quiet">
+          <p class="kicker">Én person</p>
+          <h2>Erna Solberg · 8</h2>
+          <p class="meta">8 spørsmål. 1121 borte i vår telling. I 28509: ingen registrert stemme. <a href="#erna" style="color:var(--tick)">Åpne kortet</a>.</p>
+        </div>
+
+        <table class="mini">
+          <thead><tr><th>Parti</th><th>Medlemmer</th><th>Spørsmål</th><th>28509 borte</th></tr></thead>
+          <tbody>
+            <tr><td>FrP</td><td>47</td><td>1757</td><td>18</td></tr>
+            <tr><td>A (regjering)</td><td>41</td><td>24</td><td>22</td></tr>
+            <tr><td>H</td><td>24</td><td>683</td><td>10</td></tr>
+            <tr><td>V</td><td>3</td><td>129</td><td>1</td></tr>
+          </tbody>
+        </table>
+        <div class="quiet">
+          <p class="kicker">Parti med færrest i listen</p>
+          <h2>Venstre · 129 · A · 24</h2>
+          <p class="meta">V: 3 representanter, 129 spørsmål, 2/0/1 i 28509 (Grunde Almeland borte). A: 24 spørsmål. Der vi ikke har spørsmål knyttet til en person i dette snapshotet, skriver vi: ingen registrerte spørsmål i tellingen.</p>
+        </div>
+        <h2>Hvem spurte likevel, nylig</h2>
+        <div class="q">
+          <img src="https://test.hverdagstinget.no/api/photos/ERLL" alt="">
+          <div><p class="dt">H · 26. aug</p><h3>Erlend Larsen</h3><p class="meta">Landbruk. Høyre 683 spørsmål som parti.</p></div>
+        </div>
+        <div class="q">
+          <img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="">
+          <div><p class="dt">FrP · 26. aug</p><h3>Helge André Njåstad</h3><p class="meta">Næring. FrP 1757. I 28509: borte.</p></div>
+        </div>
+        <div class="q">
+          <img src="https://test.hverdagstinget.no/api/photos/MARGRT" alt="">
+          <div><p class="dt">Sp · 26. aug</p><h3>Maren Grøthe</h3><p class="meta">Klima. Sp 390 spørsmål som parti.</p></div>
+        </div>
+
+        <div class="eq">
+          <div><b>4180</b><span>spørsmål totalt</span></div>
+          <div><b>0</b><span>voteringer denne uken</span></div>
+          <div class="b"><b>144</b><span>saker ikke ferdig</span></div>
+        </div>
+        <p class="meta">Hvem fremmer, hvem stopper, hvem reiser spørsmål, hvem har ingen registrerte spørsmål i tellingen. Alt i lyset.</p>
+        <p class="tape">Hordaland i 28509, borte: ES, FRYSJU, BENJAK, HNJ, SIHJE, STIA, KJT, JOEYST.<br>PCF ikke i voteringen. Njåstad spør i august; i juni: ingen registrert stemme.</p>
+        <p class="meta">4180 spørsmål totalt. Stortinget advarer mot å lese oppmøte som aktivitet; merknaden står i Borte. Her viser vi spørsmålene som spor du kan se.</p>
+      </section>
+    </main>
+    <footer>Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  </div>
+  <script>
+    function show(){
+      let h = (location.hash || "#hjem").slice(1) || "hjem";
+      if (!document.querySelector('[data-view="'+h+'"]')) h = "hjem";
+      document.querySelectorAll("[data-view]").forEach(function(el){ el.hidden = el.dataset.view !== h; });
+      document.querySelectorAll("nav.bar a").forEach(function(a){ a.classList.toggle("on", a.dataset.tab === h); });
+      window.scrollTo(0,0);
+    }
+    window.addEventListener("hashchange", show);
+    show();
+  </script>
+</body>
+</html>
