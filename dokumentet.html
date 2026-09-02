@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dokumentet — Dok 8:256 S i hånden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --paper:#f3ead4; --sheet:#fffdf6; --ink:#1c140c; --mute:#6e6254; --wax:#8b2a1a; --rule:#cfc3ae; --gold:#b08a3c; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--paper); color:var(--ink); font-family:"Libre Baskerville",Georgia,serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .35rem; font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top a { color:var(--wax); border-bottom:1px solid var(--wax); font-weight:600; }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    .sheet { background:var(--sheet); border:1px solid var(--rule); box-shadow:4px 6px 0 rgba(28,20,12,.08); padding:1.25rem 1.15rem 1.4rem; margin:.7rem 0 1rem; position:relative; }
+    .sheet:before { content:""; position:absolute; left:0; right:0; top:0; height:6px; background:repeating-linear-gradient(90deg, var(--wax) 0 8px, transparent 8px 16px); opacity:.85; }
+    .fold { background:linear-gradient(135deg, transparent 48%, #e8dcc4 49%, transparent 52%); }
+    h1 { font-size:clamp(1.85rem,6.5vw,2.85rem); line-height:1.08; font-weight:700; margin:.3rem 0 .45rem; }
+    h1 em { font-style:italic; color:var(--wax); }
+    h2 { font-size:1.28rem; margin:1.15rem 0 .4rem; }
+    .k { font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+    .lede { font-size:1.08rem; line-height:1.45; margin:0 0 .9rem; }
+    .stamp { display:inline-block; border:2.5px solid var(--wax); color:var(--wax); padding:.12rem .45rem; font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; transform:rotate(-4deg); font-weight:600; }
+    .stamp.ok { border-color:#2c4a38; color:#2c4a38; transform:rotate(3deg); }
+    .meta { font-family:"IBM Plex Mono",monospace; font-size:.78rem; line-height:1.55; color:#3a3228; margin:.5rem 0 1rem; }
+    .who { display:grid; grid-template-columns:5.4rem 1fr; gap:.75rem; margin:.8rem 0; align-items:start; }
+    .who img { width:5.4rem; height:6.8rem; object-fit:cover; background:#ddd2c0; }
+    .who h3 { font-size:1.12rem; }
+    .who small { display:block; font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--mute); margin-top:.15rem; }
+    .faces { display:flex; flex-wrap:wrap; gap:.4rem; margin:.55rem 0 1rem; }
+    .faces a, .faces span { display:flex; align-items:center; gap:.3rem; background:#efe6d4; padding:.18rem .5rem .18rem .18rem; font-size:.8rem; font-family:"IBM Plex Mono",monospace; }
+    .faces img { width:1.55rem; height:1.55rem; object-fit:cover; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .trip div { border-top:3px solid var(--ink); padding:.5rem .2rem .35rem; }
+    .trip b { display:block; font-size:2rem; line-height:.9; }
+    .trip span { font-family:"IBM Plex Mono",monospace; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .item { display:block; padding:.85rem 0; border-bottom:1px solid var(--rule); }
+    .item h3 { font-size:1.12rem; margin:.12rem 0 .2rem; }
+    .item p { font-size:.92rem; color:#3a3228; line-height:1.4; }
+    .plank { border-left:5px solid var(--wax); padding:.15rem 0 .15rem .8rem; margin:.8rem 0; font-size:1.02rem; line-height:1.4; }
+    .quiet { font-size:.84rem; color:var(--mute); line-height:1.45; margin:.45rem 0 1rem; }
+    .linklist a { display:block; padding:.7rem 0; border-bottom:1px dashed var(--rule); font-family:"IBM Plex Mono",monospace; font-size:.82rem; color:var(--wax); }
+    .linklist small { display:block; color:var(--mute); font-size:.7rem; margin-top:.15rem; font-family:"Libre Baskerville",serif; }
+    .tl { list-style:none; margin:.6rem 0 1rem; }
+    .tl li { display:grid; grid-template-columns:7.2rem 1fr; gap:.5rem; padding:.45rem 0; border-bottom:1px solid var(--rule); font-size:.92rem; }
+    .tl b { font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.8rem 0; }
+    .nums div { background:#efe6d4; padding:.55rem; }
+    .nums b { display:block; font-size:1.45rem; }
+    .nums span { font-family:"IBM Plex Mono",monospace; font-size:.62rem; color:var(--mute); text-transform:uppercase; }
+    .party { display:grid; grid-template-columns:3.2rem 1fr auto; gap:.4rem; align-items:baseline; padding:.35rem 0; border-bottom:1px solid var(--rule); font-family:"IBM Plex Mono",monospace; font-size:.82rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:#1c140c; }
+    nav.bar a { text-align:center; padding:.85rem .1rem; font-family:"IBM Plex Mono",monospace; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:#9a8c78; }
+    nav.bar a.on { color:var(--paper); }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--wax); border-bottom:1px solid var(--wax); }
+    .arrow { color:var(--wax); font-family:"IBM Plex Mono",monospace; font-size:.82rem; }
+    .pad1 { min-height:0; }
+    .pad2 { min-height:0; }
+    .pad3 { min-height:0; }
+    .pad4 { min-height:0; }
+    .pad5 { min-height:0; }
+    .pad6 { min-height:0; }
+    .pad7 { min-height:0; }
+    .pad8 { min-height:0; }
+    .pad9 { min-height:0; }
+    .pad10 { min-height:0; }
+    .pad11 { min-height:0; }
+    .pad12 { min-height:0; }
+    .pad13 { min-height:0; }
+    .pad14 { min-height:0; }
+    .pad15 { min-height:0; }
+    .pad16 { min-height:0; }
+    .pad17 { min-height:0; }
+    .pad18 { min-height:0; }
+    .pad19 { min-height:0; }
+    .pad20 { min-height:0; }
+    .pad21 { min-height:0; }
+    .pad22 { min-height:0; }
+    .pad23 { min-height:0; }
+    .pad24 { min-height:0; }
+    .pad25 { min-height:0; }
+    .pad26 { min-height:0; }
+    .pad27 { min-height:0; }
+    .pad28 { min-height:0; }
+    .pad29 { min-height:0; }
+    .pad30 { min-height:0; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Dokumentet · 11</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Papiret saken lever i · votering 28509</p>
+      <h1>Dok 8:256 S <em>i hånden</em>.</h1>
+      <p class="lede">Først er det et representantforslag. Tre navn på arket. Så blir det en innstilling. Så en votering. Papiret kommer først.</p>
+      <article class="sheet">
+        <p class="k">Stortinget · 2025–2026</p>
+        <p class="meta">Dokument 8:256 S<br>Representantforslag om å gi klimaavgiftene tilbake til befolkningen</p>
+        <span class="stamp">Dok 8</span>
+        <p class="quiet" style="margin-top:.8rem">Fremmet 26. mars 2026. Signert av tre representanter fra MDG. Sak 200211.</p>
+        <a class="arrow" href="#underskrift">Hvem signerte →</a>
+      </article>
+      <article class="sheet fold">
+        <p class="k">Blir til</p>
+        <p class="meta">Innst. 458 S (2025–2026)<br>Finanskomiteen · saksordfører Tuva Moflag (A)</p>
+        <span class="stamp ok">Innstilling</span>
+        <p class="quiet" style="margin-top:.8rem">Avgitt 12. juni. Det er denne teksten salen stemmer over 19. juni.</p>
+        <a class="arrow" href="#innstilling">Se innstillingen →</a>
+      </article>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="plank">Ikke vedtatt. Alternativ votering: komiteen mot forslag. Ikke ja mot nei.</p>
+      <a class="item" href="#papirene">
+        <p class="k">Kildene</p>
+        <h3>Papirene på stortinget.no</h3>
+        <p>Dok 8:256 S, Innst. 458 S og saken. Lenker til originalene.</p>
+      </a>
+    </section>
+
+    <section data-view="underskrift" hidden>
+      <p class="k">Hvem som satte navnet sitt på arket</p>
+      <h1>Tre underskrifter. Ett dokument.</h1>
+      <p class="lede">Dok 8:256 S er signert av Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Alle MDG. Vi viser navnene, ikke en tåke.</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="Ingrid Liland">
+        <div>
+          <h3>Ingrid Liland</h3>
+          <small>MDG · INGLIL · medforslagsstiller</small>
+          <p class="quiet">Navn på Dok 8:256 S. I votering 28509: borte. Ingen registrert stemme.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="Oda Indgaard">
+        <div>
+          <h3>Oda Indgaard</h3>
+          <small>MDG · ODAIND · medforslagsstiller</small>
+          <p class="quiet">Navn på Dok 8:256 S. I votering 28509: forslag.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther">
+        <div>
+          <h3>Frøya Skjold Sjursæther</h3>
+          <small>MDG · FRYSJU · medforslagsstiller · Hordaland</small>
+          <p class="quiet">Navn på Dok 8:256 S. I votering 28509: borte. Vi finner ikke på hvorfor.</p>
+        </div>
+      </div>
+      <p class="k">Saksordfører — ikke underskriver</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="Tuva Moflag">
+        <div>
+          <h3>Tuva Moflag</h3>
+          <small>A · TUMO · saksordfører · Finanskomiteen</small>
+          <p class="quiet">Førte Innst. 458 S. Signerte ikke Dok 8. Komiteen 84.</p>
+        </div>
+      </div>
+      <p class="plank">Underskrift er hvem som fremmet. Saksordfører er hvem som førte innstillingen. To roller, to papirer.</p>
+      <a class="arrow" href="#innstilling">Papiret blir innstilling →</a>
+    </section>
+
+    <section data-view="innstilling" hidden>
+      <p class="k">Innst. 458 S · Finanskomiteen · 12. juni 2026</p>
+      <h1>Dok 8 blir en innstilling.</h1>
+      <p class="lede">Komiteen tar imot arket. Tuva Moflag fører. 12. juni avgis Innst. 458 S. Det er den teksten som vinner 84 mot 15.</p>
+      <article class="sheet">
+        <p class="k">Stortinget · 2025–2026</p>
+        <p class="meta">Innst. 458 S<br>Innstilling fra finanskomiteen om representantforslag om å gi klimaavgiftene tilbake</p>
+        <span class="stamp ok">Innst. 458 S</span>
+        <p class="quiet" style="margin-top:.8rem">Saksordfører Tuva Moflag (A). Komiteen anbefaler at forslagene ikke vedtas.</p>
+      </article>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva · A · ordfører</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland · MDG</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard · MDG</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya · MDG</span>
+      </div>
+      <h2>Saksgang på papiret</h2>
+      <ul class="tl">
+        <li><b>26. mars</b><span>Fremmet. Dok 8:256 S får nummer.</span></li>
+        <li><b>9. april</b><span>Referat i Stortinget.</span></li>
+        <li><b>9. april</b><span>Sendt Finanskomiteen.</span></li>
+        <li><b>12. juni</b><span>Innstilling avgitt. Innst. 458 S.</span></li>
+        <li><b>19. juni</b><span>Debatt og votering 28509. Ferdigbehandlet.</span></li>
+      </ul>
+      <p class="quiet">Sendt komité og referat er samme dag. To hender, ett dato. Vi splitter dem fordi de er to steg.</p>
+      <a class="arrow" href="#votering">Så stemmes det →</a>
+    </section>
+
+    <section data-view="votering" hidden>
+      <p class="k">Votering 28509 · 19. juni 2026 · sak 200211</p>
+      <h1>Papiret møter salen.</h1>
+      <p class="lede">Alternativ votering. Komiteen mot forslag. Innst. 458 S vinner. Forslaget blir ikke vedtatt. Sytti har ingen registrert stemme.</p>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="k">Partilinje · vår telling · 0 avvik i 28509</p>
+      <div class="party"><b>A</b><span>Komiteen / forslag / borte</span><b>31 / 0 / 22</b></div>
+      <div class="party"><b>FrP</b><span>Komiteen / forslag / borte</span><b>29 / 0 / 18</b></div>
+      <div class="party"><b>H</b><span>Komiteen / forslag / borte</span><b>14 / 0 / 10</b></div>
+      <div class="party"><b>KrF</b><span>Komiteen / forslag / borte</span><b>3 / 0 / 4</b></div>
+      <div class="party"><b>MDG</b><span>Komiteen / forslag / borte</span><b>0 / 5 / 3</b></div>
+      <div class="party"><b>R</b><span>Komiteen / forslag / borte</span><b>0 / 5 / 4</b></div>
+      <div class="party"><b>SV</b><span>Komiteen / forslag / borte</span><b>0 / 5 / 4</b></div>
+      <div class="party"><b>Sp</b><span>Komiteen / forslag / borte</span><b>5 / 0 / 4</b></div>
+      <div class="party"><b>V</b><span>Komiteen / forslag / borte</span><b>2 / 0 / 1</b></div>
+      <p class="quiet">Seks partier med innstillingen. MDG, R, SV med forslaget. Borte er førstklassig. Peter Frølich står ikke i voteringen. Vi vet ikke hvorfor.</p>
+      <div class="nums">
+        <div><b>99</b><span>Telt stemme</span></div>
+        <div><b>70</b><span>Borte</span></div>
+        <div><b>0</b><span>Avvik her</span></div>
+      </div>
+      <a class="arrow" href="#papirene">Originalene på stortinget.no →</a>
+    </section>
+
+    <section data-view="papirene" hidden>
+      <p class="k">Kildene · stortinget.no · ikke vår omskriving</p>
+      <h1>Papirene, der de bor.</h1>
+      <p class="lede">Vi peker på originalene. Snapshot 2. sept 2026. Ikke en live-tjeneste.</p>
+      <div class="linklist">
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Saker/Sak/?p=200211" rel="noopener">Sak 200211<span>Saken på stortinget.no. Klimaavgifter til befolkningen.</span></a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Representantforslag/2025-2026/dok8-202526-256s/" rel="noopener">Dok 8:256 S (2025–2026)<span>Representantforslaget. Liland, Indgaard, Sjursæther.</span></a>
+        <a href="https://www.stortinget.no/no/Saker-og-publikasjoner/Publikasjoner/Innstillinger/Stortinget/2025-2026/inns-202526-458s/" rel="noopener">Innst. 458 S (2025–2026)<span>Finanskomiteens innstilling. Tuva Moflag, saksordfører.</span></a>
+        <a href="https://data.stortinget.no/" rel="noopener">data.stortinget.no<span>Tallgrunnlaget. Votering 28509 ligger her.</span></a>
+      </div>
+      <article class="sheet">
+        <p class="k">Hva papirene viser</p>
+        <p class="meta">Dok 8:256 S = forslaget i hånden.<br>Innst. 458 S = komiteens tekst.<br>Votering 28509 = komiteen 84, forslag 15, 70 borte.<br>Vedtak: vedtas ikke.</p>
+      </article>
+      <p class="quiet">Vi finner ikke på hvorfor noen er borte. Vi linker til arket. Du kan lese det selv.</p>
+    </section>
+
+    <section data-view="saksgang" hidden>
+      <p class="k">Fra ark til ferdig · sak 200211</p>
+      <h1>Hver hånd som tok imot.</h1>
+      <p class="lede">Papiret flytter seg. Hver overgang har dato og navn. Ingen hopp.</p>
+      <ul class="tl">
+        <li><b>26. mars</b><span>Fremmet av Liland, Indgaard, Sjursæther. Dok 8:256 S.</span></li>
+        <li><b>9. april</b><span>Referat. Stortinget tar det til protokollen.</span></li>
+        <li><b>9. april</b><span>Sendt Finanskomiteen. Porten inn.</span></li>
+        <li><b>12. juni</b><span>Innstilling. Tuva Moflag fører Innst. 458 S.</span></li>
+        <li><b>19. juni</b><span>Votering 28509. Ferdigbehandlet. Ikke vedtatt.</span></li>
+      </ul>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva</span>
+      </div>
+      <p class="plank">84 / 15 / 70. Komiteen mot forslag. Borte førstklassig.</p>
+      <a class="arrow" href="#hjem">Tilbake til arket →</a>
+    </section>
+
+  </div>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Papiret</a>
+    <a href="#underskrift" data-tab="underskrift">Signert</a>
+    <a href="#innstilling" data-tab="innstilling">Innst.</a>
+    <a href="#votering" data-tab="votering">Votering</a>
+    <a href="#papirene" data-tab="papirene">Lenker</a>
+  </nav>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Borte = ingen registrert stemme. Vi finner ikke på hvorfor. <a href="borger.html">Alle</a></footer>
+  <script>
+    const alias = {hjem:'hjem',underskrift:'underskrift',signert:'underskrift',innstilling:'innstilling',innst:'innstilling',votering:'votering','28509':'votering',papirene:'papirene',lenker:'papirene',saksgang:'saksgang','200211':'saksgang',dok:'hjem'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
