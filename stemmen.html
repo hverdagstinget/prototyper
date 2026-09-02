@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stemmen — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f2efe6; --ink:#1a1914; --mute:#6a665c; --line:#d8d3c6; --paper:#fffdf7; --mark:#c45c1a; --ok:#1d4a38; --slip:#ece7d8; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); }
+    body { font-family:"DM Sans",system-ui,sans-serif; min-height:100vh; padding-bottom:5rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .2rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--ink); font-weight:700; letter-spacing:.2em; }
+    .top a { text-decoration:none; border-bottom:1px solid var(--mark); color:var(--mark); font-weight:600; }
+    .wrap { max-width:38rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:"DM Serif Display",Georgia,serif; font-weight:400; font-size:clamp(2.15rem,8vw,3.4rem); line-height:.98; letter-spacing:-.02em; margin:.55rem 0 .4rem; }
+    h1 em { font-style:italic; color:var(--mark); }
+    h2 { font-family:"DM Serif Display",Georgia,serif; font-size:1.45rem; font-weight:400; margin:1.25rem 0 .4rem; }
+    .lede { font-size:1.08rem; line-height:1.42; max-width:34rem; margin:0 0 1rem; }
+    .k { font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+    .quiet { font-size:.82rem; color:var(--mute); line-height:1.45; margin:.5rem 0 1rem; }
+    .slip { background:var(--paper); border:1px dashed #b8b09c; padding:1rem .95rem 1.05rem; margin:.7rem 0; text-decoration:none; display:block; box-shadow:3px 4px 0 var(--slip); }
+    .slip h3 { font-family:"DM Serif Display",serif; font-size:1.28rem; margin:.1rem 0 .25rem; }
+    .stamp { display:inline-block; border:2px solid var(--mark); color:var(--mark); padding:.02rem .4rem; font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; transform:rotate(-2deg); }
+    .stamp.ok { border-color:var(--ok); color:var(--ok); }
+    .stamp.gone { border-color:var(--mute); color:var(--mute); }
+    .who { display:grid; grid-template-columns:6.4rem 1fr; gap:.9rem; align-items:start; margin:1rem 0; }
+    .who img { width:6.4rem; height:8.1rem; object-fit:cover; background:#d8d3c6; filter:grayscale(.15) contrast(1.05); }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.85rem 0; }
+    .nums div { border-top:2px solid var(--ink); padding-top:.35rem; }
+    .nums b { display:block; font-family:"DM Serif Display",serif; font-size:1.85rem; line-height:1; }
+    .nums span { font-size:.68rem; color:var(--mute); letter-spacing:.06em; text-transform:uppercase; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .trip div { background:var(--paper); border:1px solid var(--line); padding:.75rem .25rem; }
+    .trip b { display:block; font-family:"DM Serif Display",serif; font-size:2.05rem; line-height:.9; }
+    .trip span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .row { display:grid; grid-template-columns:3.4rem 1fr auto; gap:.7rem; align-items:center; padding:.7rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .row img { width:3.4rem; height:4.25rem; object-fit:cover; background:#d8d3c6; }
+    .row small { display:block; color:var(--mute); font-size:.78rem; margin-top:.12rem; }
+    .row .v { font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.06em; text-align:right; text-transform:uppercase; }
+    .list a, .list article { display:block; padding:.75rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .list h3 { font-family:"DM Serif Display",serif; font-size:1.18rem; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0; }
+    .faces a, .faces span { display:flex; align-items:center; gap:.3rem; background:var(--paper); border:1px solid var(--line); padding:.18rem .45rem .18rem .18rem; font-size:.8rem; text-decoration:none; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; background:#ccc; }
+    .note { border-left:3px solid var(--mark); padding:.15rem 0 .15rem .75rem; margin:1rem 0; font-size:.95rem; line-height:1.4; }
+    .split { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin:1rem 0; }
+    .split div { background:var(--paper); border:1px solid var(--line); padding:.8rem .75rem; font-size:.88rem; }
+    .split b { display:block; font-family:"DM Serif Display",serif; font-size:1.15rem; margin-bottom:.2rem; }
+    .tl { list-style:none; }
+    .tl li { display:grid; grid-template-columns:7.2rem 1fr; gap:.4rem; padding:.42rem 0; border-bottom:1px solid var(--line); font-size:.92rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:var(--bg); border-top:1px solid var(--line); }
+    nav.bar a { text-align:center; text-decoration:none; padding:.8rem .1rem; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); font-weight:600; }
+    nav.bar a.on { color:var(--ink); }
+    footer.site { max-width:38rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--ink); }
+    .warn { font-size:.82rem; color:var(--mute); border:1px dashed var(--line); padding:.7rem .8rem; margin:.8rem 0; }
+    @media (max-width:420px) { .who { grid-template-columns:1fr; } .who img { width:5.4rem; height:6.8rem; } }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Stemmen</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Enheten er én stemme · én person · én votering</p>
+      <h1>Hva <em>hen</em> gjorde i salen.</h1>
+      <p class="lede">Ikke partiet. Ikke saken først. Stemmen. Komiteen, forslag, eller borte. Borte er et felt, ikke et hull vi fyller med gjetning.</p>
+      <p class="quiet">Uka: 0 voteringer · 0 spørsmål · 0 saker. Siste votering 19. juni 2026. Vår telling. Snapshot 2. sept 2026.</p>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="k">Votering 28509 · sak 200211 · 19. juni</p>
+      <p class="quiet">Alternativ: komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Ikke for mot rødt. 84 + 15 + 70 = 169.</p>
+
+      <a class="slip" href="#erna">
+        <p class="k">Høyre · Hordaland · 19. juni</p>
+        <h3>Erna Solberg</h3>
+        <p>Tre voteringer samme dag. Tre ganger: ingen registrert stemme. <span class="stamp gone">Borte ×3</span></p>
+        <p class="quiet" style="margin-bottom:0">1121 borte i vår telling. 8 avvik. 249 for · 350 mot.</p>
+      </a>
+      <a class="slip" href="#ove">
+        <p class="k">Høyre · Hordaland · samme votering</p>
+        <h3>Ove Trellevik</h3>
+        <p>Stemte komiteen. Med partiets flertall. <span class="stamp ok">Komiteen</span></p>
+        <p class="quiet" style="margin-bottom:0">15 avvik i vår telling — men ikke her. Her fulgte han linja.</p>
+      </a>
+      <div class="note">To Høyre-navn fra Hordaland. Én stemme registrert med komiteen. Én stemme mangler. Vi sier ikke hvorfor.</div>
+      <h2>Med linja, mot linja, uten stemme</h2>
+      <p class="quiet">Avvik = stemme mot partiets flertall i den voteringen. Vår telling. Borte er ikke avvik.</p>
+      <div class="faces">
+        <a href="#erna"><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna · borte</a>
+        <a href="#ove"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">Ove · komiteen</a>
+        <a href="#linja"><img src="https://test.hverdagstinget.no/api/photos/BJMO" alt="">Moxnes · avvik</a>
+        <a href="#linja"><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="">Hammer · avvik</a>
+        <a href="#sak"><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva · komiteen</a>
+      </div>
+      <p><a href="#saker">Saker som har stemmer →</a></p>
+    </section>
+
+    <section data-view="erna" hidden>
+      <p class="k">Personkort · stemmen som enhet</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1>Erna Solberg</h1>
+          <p>Høyre · Hordaland</p>
+          <p class="quiet">erna.solberg@stortinget.no · 36 år i huset. Vår telling.</p>
+        </div>
+      </div>
+      <div class="nums">
+        <div><b>249</b><span>for</span></div>
+        <div><b>350</b><span>mot</span></div>
+        <div><b>1121</b><span>borte</span></div>
+      </div>
+      <div class="nums">
+        <div><b>8</b><span>avvik</span></div>
+        <div><b>8</b><span>spørsmål</span></div>
+        <div><b>1720</b><span>voteringer</span></div>
+      </div>
+      <p class="warn">Borte = ingen registrert stemme. Stortinget advarer mot å lese oppmøte som aktivitet. 1121 vises likevel. Vi gjetter ikke hvorfor.</p>
+      <h2>19. juni · tre stemmer som mangler</h2>
+      <a class="slip" href="#sak">
+        <p class="k">28509 · 200211 · 10:32</p>
+        <h3>Klimaavgifter</h3>
+        <p><span class="stamp gone">Borte</span> Komiteen 84 · forslag 15 · 70 borte. Alternativ votering.</p>
+      </a>
+      <article class="slip">
+        <p class="k">28508 · 200155 · 10:31</p>
+        <h3>Bensin og diesel</h3>
+        <p><span class="stamp gone">Borte</span> 71 for · 28 mot · 70 borte. Innstillingens tilråding.</p>
+      </article>
+      <article class="slip">
+        <p class="k">28505 · 200124 · 10:30</p>
+        <h3>Kontantutbetaling</h3>
+        <p><span class="stamp gone">Borte</span> Komiteen 84 · forslag 17 · 68 borte.</p>
+      </article>
+      <h2>Avviket som står</h2>
+      <article class="slip">
+        <p class="k">28460 · 18. juni · PST · romertall III</p>
+        <h3>Mot. Forslaget ble vedtatt.</h3>
+        <p><span class="stamp">Avvik</span> Høyre-flertallet gikk for. Hun gikk mot. Vår telling. Vi sier ikke hvorfor.</p>
+      </article>
+      <p class="quiet">Høyre i 28509: 14 komiteen · 0 forslag · 10 borte. Ove Trellevik blant de 14. Peter Frølich er ikke i voteringen. <a href="#ove">Til Ove →</a></p>
+    </section>
+
+    <section data-view="ove" hidden>
+      <p class="k">Ekstra · #ove · samme parti · samme fylke · annen stemme</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/OBT" alt="Ove Trellevik">
+        <div>
+          <h1>Ove Trellevik</h1>
+          <p>Høyre · Hordaland</p>
+          <p class="quiet">I 28509: komiteen. Med partiets flertall. 15 avvik i vår telling — andre voteringer.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div>
+          <b>Ove · 19. juni</b>
+          Stemte komiteen. Høyre-flertallet: 14 komiteen. Han er én av 14. Linja, her.
+        </div>
+        <div>
+          <b>Erna · 19. juni</b>
+          Ingen registrert stemme. Tre ganger. Borte er ikke avvik. Avvik krever en stemme mot flertallet.
+        </div>
+      </div>
+      <div class="trip">
+        <div><b>14</b><span>H komiteen</span></div>
+        <div><b>0</b><span>H forslag</span></div>
+        <div><b>10</b><span>H borte</span></div>
+      </div>
+      <h2>Hordaland Høyre i 28509</h2>
+      <a class="row" href="#erna"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div><b>Erna Solberg</b><small>Hordaland · ingen registrert stemme</small></div><span class="v">Borte</span></a>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div><b>Ove Trellevik</b><small>Hordaland · med partiets flertall</small></div><span class="v">Komiteen</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/PCF" alt=""><div><b>Peter Frølich</b><small>Hordaland · ikke i voteringen</small></div><span class="v">Ikke i 28509</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/LIE" alt=""><div><b>Liv Kari Eskeland</b><small>Vara for Frølich · borte</small></div><span class="v">Borte</span></div>
+      <p class="note">Kontrasten er stemmen, ikke karakteren. Ove med linja i denne voteringen. Erna uten registrert stemme. Begge tallene står.</p>
+      <p class="quiet">Ove: 5 ordførerskap i sesjonen. 15 avvik totalt, vår telling. Høyre-rebeller: Trellevik 15, Kapur 12, Farahmand 11, Frølich 8, Solberg 8.</p>
+    </section>
+
+    <section data-view="linja" hidden>
+      <p class="k">Med linja · mot linja · uten stemme</p>
+      <h1>Avvik er en stemme. Borte er ingen.</h1>
+      <p class="lede">Åtte navn i vår telling. Stemmen, voteringen, og om forslaget ble vedtatt. Vi sier ikke hvorfor de brøt.</p>
+      <div class="list">
+        <article>
+          <p class="k">R · 28531 · 19. juni</p>
+          <h3>Bjørnar Moxnes · for</h3>
+          <p class="quiet">Forslag nr. 2 på vegne av FrP. Ikke vedtatt. Avvik. Vår telling.</p>
+        </article>
+        <article>
+          <p class="k">KrF · 28526 · 19. juni</p>
+          <h3>Jonas Andersen Sayed · mot</h3>
+          <p class="quiet">Forslag nr. 32 FrP og Sp. Vedtatt. Avvik.</p>
+        </article>
+        <article>
+          <p class="k">SV · Hordaland · 28524</p>
+          <h3>Marthe Hammer · mot</h3>
+          <p class="quiet">Forslag nr. 30 Sp og KrF. Vedtatt. Avvik. I 28509 stemte hun forslag — med SV-linja.</p>
+        </article>
+        <article>
+          <p class="k">FrP · Hordaland · 28516</p>
+          <h3>Martin Virkesdal Jonsterhaug · for</h3>
+          <p class="quiet">Forslag nr. 13 SV, Sp og R. Ikke vedtatt. Avvik. I 28509: komiteen, med FrP-linja.</p>
+        </article>
+        <article>
+          <p class="k">A · 28460 · 18. juni</p>
+          <h3>Konstanse Marie Alvær · for</h3>
+          <p class="quiet">Romertall III, PST. Vedtatt. Avvik mot partilinja, ikke mot utfallet.</p>
+        </article>
+        <article>
+          <p class="k">SV · 28460</p>
+          <h3>Ingrid Fiskaa · for</h3>
+          <p class="quiet">Samme votering. Vedtatt. Avvik. I 28509: forslag, med SV.</p>
+        </article>
+        <a href="#erna">
+          <p class="k">H · 28460</p>
+          <h3>Erna Solberg · mot</h3>
+          <p class="quiet">Vedtatt. Avvik. Dagen etter: borte ×3. Begge tallene står.</p>
+        </a>
+        <article>
+          <p class="k">FrP · 28456 · 18. juni</p>
+          <h3>Truls Gihlemoen · for</h3>
+          <p class="quiet">Forslag nr. 2 og 3 KrF. Ikke vedtatt. Avvik.</p>
+        </article>
+      </div>
+      <p class="quiet">Tuva Moflag (A) stemte komiteen i 28509 — med linja. Sofie Marhaug (R, Hordaland) stemte forslag — med linja. Ove med linja. Erna uten stemme.</p>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k">Sak 200211 · votering 28509 · 19. juni 2026</p>
+      <h1>Klimaavgifter. Tre felt.</h1>
+      <p class="lede">Representantforslag fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Finanskomiteen. Saksordfører Tuva Moflag. Forslaget ble ikke vedtatt.</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland · MDG · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard · MDG · forslag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Sjursæther · MDG · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Moflag · A · komiteen</span>
+      </div>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="quiet">Dok 8:256 S · Innst. 458 S. Alternativ votering mellom innstillingen og forslag nr. 1 og 2 fra SV, R og MDG. Vedtak i samsvar med innstillingen.</p>
+      <ul class="tl">
+        <li><span>26. mars</span><span>Fremmet</span></li>
+        <li><span>9. april</span><span>Referat i salen</span></li>
+        <li><span>9. april</span><span>Sendt finanskomiteen</span></li>
+        <li><span>12. juni</span><span>Innstilling avgitt</span></li>
+        <li><span>19. juni</span><span>Debatt og votering</span></li>
+      </ul>
+      <h2>To stemmer fra Hordaland Høyre</h2>
+      <a class="row" href="#erna"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div><b>Erna Solberg</b><small>ingen registrert stemme</small></div><span class="v">Borte</span></a>
+      <a class="row" href="#ove"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div><b>Ove Trellevik</b><small>med Høyre-flertallet</small></div><span class="v">Komiteen</span></a>
+      <p class="quiet">A 31/0/22 · FrP 29/0/18 · H 14/0/10 · Sp 5/0/4 · KrF 3/0/4 · V 2/0/1 · MDG 0/5/3 · R 0/5/4 · SV 0/5/4. A i regjering: 24 spørsmål. FrP: 1757.</p>
+    </section>
+
+    <section data-view="saker" hidden>
+      <p class="k">Saker · hver med stemmer, eller uten ennå</p>
+      <h1>Hvor stemmen kan stå.</h1>
+      <p class="lede">Ferdigbehandlet har tre felt. Mottatt har null voteringer. Denne uken: 0. Siste votering 19. juni 2026.</p>
+      <div class="list">
+        <a href="#sak">
+          <p class="k">200211 · MDG · ferdig · ikke vedtatt</p>
+          <h3>Klimaavgifter til befolkningen</h3>
+          <p class="quiet">Komiteen 84 · forslag 15 · 70 borte. Erna borte. Ove komiteen.</p>
+        </a>
+        <article>
+          <p class="k">200155 · Sp · ferdig · 71–28–70</p>
+          <h3>Lavere bensin- og dieselpriser</h3>
+          <p class="quiet">Vedum, Sætran, Pollestad, Lien, Fasteraune. Erna: borte.</p>
+        </article>
+        <article>
+          <p class="k">200124 · SV · ferdig · komiteen 84 vs 17</p>
+          <h3>Kontantutbetaling</h3>
+          <p class="quiet">Haltbrekken, Hammer, Fredlund, Hussein. 68 borte.</p>
+        </article>
+        <article>
+          <p class="k">200084 · FrP · ferdig · komiteen 68 vs 29</p>
+          <h3>Energi og levekostnader</h3>
+          <p class="quiet">Limi, Listhaug, Staahle, Grande, Jonsterhaug. 72 borte.</p>
+        </article>
+        <article>
+          <p class="k">200400 · SV · mottatt</p>
+          <h3>Prediksjonsmarkeder</h3>
+          <p class="quiet">Høyer-Berntsen, Eidsvoll, Fiskaa, Lie. 0 voteringer.</p>
+        </article>
+        <article>
+          <p class="k">200399 · Sp · mottatt</p>
+          <h3>Hammerfest gasskraft</h3>
+          <p class="quiet">Vedum, Bentzen, Sveian.</p>
+        </article>
+        <article>
+          <p class="k">200398 · FrP · mottatt</p>
+          <h3>Bolig</h3>
+          <p class="quiet">Wiborg, Limi, Njåstad, Larsen, Midtun.</p>
+        </article>
+        <article>
+          <p class="k">200397 · KrF · mottatt</p>
+          <h3>Abortplan</h3>
+          <p class="quiet">Ystebø, Røse, Lossius. Ystebø: Hordaland, borte i 28509.</p>
+        </article>
+        <article>
+          <p class="k">200396 · SV · mottatt</p>
+          <h3>Palestina</h3>
+          <p class="quiet">Hammer, Fiskaa, Hussein. Hammer: Hordaland, forslag i 28509.</p>
+        </article>
+      </div>
+      <p class="quiet">144 saker ikke ferdigbehandlet. PACE i Strasbourg er ikke et stortingsmøte. Hordaland heter Hordaland. Vår telling.</p>
+    </section>
+
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. <a href="borger.html">Alle skisser</a></footer>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Stemmen</a>
+    <a href="#erna" data-tab="erna">Erna</a>
+    <a href="#ove" data-tab="ove">Ove</a>
+    <a href="#sak" data-tab="sak">28509</a>
+    <a href="#saker" data-tab="saker">Saker</a>
+  </nav>
+  <script>
+    (function () {
+      var alias = {hjem:'hjem',erna:'erna',ove:'ove',sak:'sak','200211':'sak','28509':'sak',saker:'saker',linja:'linja',avvik:'linja'};
+      function go() {
+        var h = (location.hash || '#hjem').slice(1).toLowerCase() || 'hjem';
+        h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+        document.querySelectorAll('[data-view]').forEach(function (el) { el.hidden = el.dataset.view !== h; });
+        var tab = {linja:'hjem'}[h] || h;
+        document.querySelectorAll('nav.bar a').forEach(function (a) { a.classList.toggle('on', a.dataset.tab === tab); });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
+</body>
+</html>
