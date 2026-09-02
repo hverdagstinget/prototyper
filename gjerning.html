@@ -9,41 +9,177 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #161412; --paper: #f3eee4; --ink: #1a1612; --mute: #6a6258; --line: #d8d0c4; --gold: #c4a35a; --navy: #1e2a44;
+      --bg: #161412;
+      --paper: #f3eee4;
+      --ink: #1a1612;
+      --mute: #6a6258;
+      --line: #d8d0c4;
+      --gold: #c4a35a;
+      --navy: #1e2a44;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: var(--bg); color: var(--ink); font-family: "Libre Franklin", system-ui, sans-serif; }
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Libre Franklin", system-ui, sans-serif;
+    }
     a { color: inherit; text-decoration: none; }
     [data-view][hidden] { display: none !important; }
-    .dos { max-width: 42rem; margin: 0 auto; min-height: 100vh; background: var(--paper); display: flex; flex-direction: column; }
-    header.top { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 18px 10px; background: var(--navy); color: #e8e0d0; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-    header.top strong { font-family: "Playfair Display", Georgia, serif; font-size: 1.35rem; letter-spacing: 0; text-transform: none; color: var(--gold); }
+    .dos {
+      max-width: 42rem;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+    }
+    header.top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 18px 10px;
+      background: var(--navy);
+      color: #e8e0d0;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    header.top strong {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--gold);
+    }
     header.top a { color: #e8e0d0; border-bottom: 1px solid #4a5670; }
-    nav.bar { display: grid; grid-template-columns: repeat(4, 1fr); background: #151c30; border-bottom: 1px solid #2a3450; }
-    nav.bar a { text-align: center; padding: 11px 4px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8a94a8; }
+    nav.bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #151c30;
+      border-bottom: 1px solid #2a3450;
+    }
+    nav.bar a {
+      text-align: center;
+      padding: 11px 4px;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #8a94a8;
+    }
     nav.bar a.on { color: var(--gold); }
     main { padding: 20px 18px 44px; flex: 1; }
-    h1 { font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.8rem, 6vw, 2.7rem); line-height: 1.08; }
-    h2 { font-family: "Playfair Display", Georgia, serif; font-size: 1.35rem; margin: 1.3rem 0 .45rem; }
-    .kicker { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
-    .lede { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.2rem; line-height: 1.35; margin: .4rem 0 1rem; }
-    .who { display: grid; grid-template-columns: 7.4rem 1fr; gap: 14px; margin: 10px 0 16px; }
-    .who img { width: 7.4rem; height: 9.4rem; object-fit: cover; background: #ddd6c8; }
-    .deed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0 18px; }
-    .deed div { border-top: 2px solid var(--ink); padding-top: 6px; }
-    .deed b { display: block; font-family: "Playfair Display", serif; font-size: 1.9rem; line-height: 1; }
-    .deed span { font-size: 11px; color: var(--mute); }
-    .slip { background: #fff; border: 1px solid var(--line); padding: 12px 14px; margin: 8px 0; }
-    .slip .k { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
-    .slip h3 { font-family: "Playfair Display", serif; font-size: 1.15rem; margin: 4px 0; }
-    .list a, .list .row { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.8rem, 6vw, 2.7rem);
+      line-height: 1.08;
+    }
+    h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      margin: 1.3rem 0 .45rem;
+    }
+    .kicker {
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .lede {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.35;
+      margin: .4rem 0 1rem;
+    }
+    .who {
+      display: grid;
+      grid-template-columns: 7.4rem 1fr;
+      gap: 14px;
+      margin: 10px 0 16px;
+    }
+    .who img {
+      width: 7.4rem;
+      height: 9.4rem;
+      object-fit: cover;
+      background: #ddd6c8;
+    }
+    .deed {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 12px 0 18px;
+    }
+    .deed div {
+      border-top: 2px solid var(--ink);
+      padding-top: 6px;
+    }
+    .deed b {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 1.9rem;
+      line-height: 1;
+    }
+    .deed span {
+      font-size: 11px;
+      color: var(--mute);
+    }
+    .slip {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      margin: 8px 0;
+    }
+    .slip .k {
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .slip h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      margin: 4px 0;
+    }
+    .list a, .list .row {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
     .meta { font-size: 13px; color: var(--mute); line-height: 1.5; }
-    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
-    .two article { border: 1px solid var(--line); padding: 12px; background: #fff; }
-    .face { display: flex; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-    .face img { width: 44px; height: 54px; object-fit: cover; background: #ddd6c8; }
-    footer { padding: 14px 18px 22px; font-size: 12px; color: var(--mute); border-top: 1px solid var(--line); }
-    @media (max-width: 560px) { .who, .two, .deed { grid-template-columns: 1fr; } }
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .two article {
+      border: 1px solid var(--line);
+      padding: 12px;
+      background: #fff;
+    }
+    .face {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .face img {
+      width: 44px;
+      height: 54px;
+      object-fit: cover;
+      background: #ddd6c8;
+    }
+    footer {
+      padding: 14px 18px 22px;
+      font-size: 12px;
+      color: var(--mute);
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 560px) {
+      .who, .two, .deed { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -77,10 +213,26 @@
         </div>
         <p class="lede">1121 borte står likt med 249 for og 350 mot. 8 avvik. 8 spørsmål. 0 av de siste Dok 8-forslagene i snapshotet som forslagsstiller.</p>
         <h2>Stemmer</h2>
-        <article class="slip"><p class="k">200211 · votering 28509 · 19. juni</p><h3>Klimaavgifter · borte</h3><p>Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Ingen registrert stemme. Vi sier ikke hvorfor.</p></article>
-        <article class="slip"><p class="k">200155 · votering 28508 · 19. juni</p><h3>Bensin og diesel · borte</h3><p>71 for, 28 mot, 70 borte.</p></article>
-        <article class="slip"><p class="k">200124 · votering 28505 · 19. juni</p><h3>Kontantutbetaling · borte</h3><p>Komiteen 84, forslag 17, 68 borte.</p></article>
-        <article class="slip"><p class="k">105899 · votering 28460 · 18. juni</p><h3>PST-undersøkelsen · mot · avvik</h3><p>Romertall III. Stemte mot. Avvik mot partilinje, vår telling. Saken er Riksrevisjonens undersøkelse av PST.</p></article>
+        <article class="slip">
+          <p class="k">200211 · votering 28509 · 19. juni</p>
+          <h3>Klimaavgifter · borte</h3>
+          <p>Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Ingen registrert stemme. Vi sier ikke hvorfor.</p>
+        </article>
+        <article class="slip">
+          <p class="k">200155 · votering 28508 · 19. juni</p>
+          <h3>Bensin og diesel · borte</h3>
+          <p>71 for, 28 mot, 70 borte.</p>
+        </article>
+        <article class="slip">
+          <p class="k">200124 · votering 28505 · 19. juni</p>
+          <h3>Kontantutbetaling · borte</h3>
+          <p>Komiteen 84, forslag 17, 68 borte.</p>
+        </article>
+        <article class="slip">
+          <p class="k">105899 · votering 28460 · 18. juni</p>
+          <h3>PST-undersøkelsen · mot · avvik</h3>
+          <p>Romertall III. Stemte mot. Avvik mot partilinje, vår telling. Saken er Riksrevisjonens undersøkelse av PST.</p>
+        </article>
         <h2>Spørsmål</h2>
         <p>8 i tellingen: 5 skriftlige, 3 i spørretime. Alle 8 er besvart. Til hen: 0. Arbeiderpartiet som parti stilte 24 spørsmål i sesjonen. FrP stilte 1757. Begge tallene står.</p>
         <h2>Forslag</h2>
@@ -115,15 +267,34 @@
         <p class="kicker">Samme produkt, et annet navn · FrP · Hordaland</p>
         <div class="who">
           <img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="Helge André Njåstad">
-          <div><h1>Helge André Njåstad</h1><p>FrP. Hordaland. HNJ. To fakta, begge synlige.</p></div>
+          <div>
+            <h1>Helge André Njåstad</h1>
+            <p>FrP. Hordaland. HNJ. To fakta, begge synlige.</p>
+          </div>
         </div>
         <div class="two">
-          <article><p class="kicker">Fakta 1 · 19. juni</p><h2>Borte i 28509</h2><p>Sak 200211, klimaavgiftene. Ingen registrert stemme. Komiteen 84, forslag 15, 70 borte. Vi fyller ikke inn grunn.</p></article>
-          <article><p class="kicker">Fakta 2 · 26. august</p><h2>To spørsmål</h2><p>Begge til næringsministeren. Begge skriftlige. Begge besvart i snapshotet. Vi kaller ikke det ene ekte engasjement.</p></article>
+          <article>
+            <p class="kicker">Fakta 1 · 19. juni</p>
+            <h2>Borte i 28509</h2>
+            <p>Sak 200211, klimaavgiftene. Ingen registrert stemme. Komiteen 84, forslag 15, 70 borte. Vi fyller ikke inn grunn.</p>
+          </article>
+          <article>
+            <p class="kicker">Fakta 2 · 26. august</p>
+            <h2>To spørsmål</h2>
+            <p>Begge til næringsministeren. Begge skriftlige. Begge besvart i snapshotet. Vi kaller ikke det ene ekte engasjement.</p>
+          </article>
         </div>
         <h2>Spørsmålene 26. august</h2>
-        <article class="slip"><p class="k">Nr. 3636 · id 127110 · 26. aug · næringsministeren</p><h3>Egenregi og KLP</h3><p>Mener regjeringen at anskaffelsesreglenes alminnelige unntak om egenregi ikke gjelder i dette tilfellet, og at det gjelder særregler om egenregi for KLP? Besvart 2. sept.</p></article>
-        <article class="slip"><p class="k">Nr. 3637 · id 127111 · 26. aug · næringsministeren</p><h3>Konkurranse i pensjonsmarkedet</h3><p>Hva mener næringsministeren virkningen for kommuner og helseforetak vil bli hvis konkurransen i dette markedet opphører, og kan næringsministeren redegjøre for kostnadsbesparelser siden 2019? Besvart 2. sept.</p></article>
+        <article class="slip">
+          <p class="k">Nr. 3636 · id 127110 · 26. aug · næringsministeren</p>
+          <h3>Egenregi og KLP</h3>
+          <p>Mener regjeringen at anskaffelsesreglenes alminnelige unntak om egenregi ikke gjelder i dette tilfellet, og at det gjelder særregler om egenregi for KLP? Besvart 2. sept.</p>
+        </article>
+        <article class="slip">
+          <p class="k">Nr. 3637 · id 127111 · 26. aug · næringsministeren</p>
+          <h3>Konkurranse i pensjonsmarkedet</h3>
+          <p>Hva mener næringsministeren virkningen for kommuner og helseforetak vil bli hvis konkurransen i dette markedet opphører, og kan næringsministeren redegjøre for kostnadsbesparelser siden 2019? Besvart 2. sept.</p>
+        </article>
         <h2>Også i registeret</h2>
         <p>Forslagsstiller på sak 200398, mottatt: Representantforslag om en bedre politikk for å eie bolig og få bolig- og byggebransjen i gang. Sammen med Erlend Wiborg, Hans Andreas Limi, Bjørn Larsen og Rune Midtun. Ikke ferdigbehandlet. 0 voteringer.</p>
         <p class="meta" style="margin-top:10px">Hordaland i 28509: Stig Atle Abrahamsen borte, Silje Hjemdal borte, Martin Virkesdal Jonsterhaug med komiteen. Helge André Njåstad borte. Begge fakta over står. Ingen av dem er skjult. Ingen av dem er rangert.</p>
@@ -149,7 +320,10 @@
         <p class="meta"><a href="#hjem" style="border-bottom:1px solid var(--ink)">Hele gjerningen</a> · <a href="#njastad" style="border-bottom:1px solid var(--ink)">Njåstad, to fakta</a></p>
       </section>
     </main>
-    <footer>Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Avledede tall = vår telling. Borte er ingen registrert stemme.</footer>
+    <footer>
+      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+      Avledede tall = vår telling. Borte er ingen registrert stemme.
+    </footer>
   </div>
   <script>
     const tabOf = {hjem:'hjem',saker:'saker',sak:'saker',njastad:'njastad',hen:'hen'};
