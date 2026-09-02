@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Avvik — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Schibsted+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#1c1012; --paper:#f6ebe6; --ink:#2a1216; --mute:#8a6e72; --line:#3a2226; --whip:#e23d4a; --ok:#d8c4b8; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--paper); }
+    body { font-family:"Schibsted Grotesk",system-ui,sans-serif; min-height:100vh; padding-bottom:4.8rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem 0; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--whip); }
+    .top a { text-decoration:none; color:var(--paper); }
+    .wrap { max-width:36rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:"Libre Baskerville",Georgia,serif; font-weight:400; font-size:clamp(2.1rem,8vw,3.3rem); line-height:.98; letter-spacing:-.03em; }
+    h1 em { font-style:italic; color:var(--whip); }
+    h2 { font-family:"Libre Baskerville",Georgia,serif; font-size:1.45rem; font-weight:400; margin:1.3rem 0 .45rem; }
+    .lede { font-family:"Libre Baskerville",Georgia,serif; font-size:1.18rem; line-height:1.38; margin:.55rem 0 1.1rem; color:#ead8d4; }
+    .note { font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); margin:.4rem 0 1rem; }
+    .sheet { background:var(--paper); color:var(--ink); padding:1.05rem 1rem 1.15rem; margin:.7rem 0; box-shadow:6px 7px 0 #000; text-decoration:none; display:block; }
+    .sheet .k { font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:#8a4a50; }
+    .sheet h3 { font-family:"Libre Baskerville",serif; font-size:1.28rem; margin:.15rem 0 .25rem; }
+    .sheet .mark { display:inline-block; border:2px solid var(--whip); color:var(--whip); padding:.02rem .4rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; transform:rotate(-3deg); }
+    .who { display:grid; grid-template-columns:5.4rem 1fr; gap:.85rem; align-items:center; }
+    .who img, .face img { width:5.4rem; height:6.8rem; object-fit:cover; background:#c8b4b0; filter:grayscale(.2) contrast(1.08); }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.45rem; margin:1rem 0; }
+    .nums div { border-top:2px solid var(--whip); padding-top:.4rem; }
+    .nums b { display:block; font-family:"Libre Baskerville",serif; font-size:1.9rem; line-height:1; }
+    .nums span { font-size:.7rem; color:var(--mute); letter-spacing:.08em; text-transform:uppercase; }
+    .row { display:grid; grid-template-columns:3.2rem 1fr auto; gap:.7rem; align-items:center; padding:.75rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .row img { width:3.2rem; height:4rem; object-fit:cover; background:#3a2226; }
+    .row small { color:var(--mute); display:block; font-size:.78rem; margin-top:.15rem; }
+    .row .v { font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--whip); text-align:right; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:1rem 0; text-align:center; }
+    .trip div { background:#2a161a; padding:.7rem .3rem; }
+    .trip b { display:block; font-family:"Libre Baskerville",serif; font-size:1.8rem; line-height:.9; }
+    .trip span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .faces { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .faces span, .faces a { display:flex; align-items:center; gap:.35rem; background:#2a161a; padding:.22rem .5rem .22rem .22rem; border-radius:999px; font-size:.8rem; text-decoration:none; }
+    .faces img { width:1.55rem; height:1.55rem; object-fit:cover; border-radius:50%; background:#444; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(4,1fr); background:#12080a; border-top:1px solid var(--line); }
+    nav.bar a { text-align:center; text-decoration:none; padding:.8rem .15rem; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+    nav.bar a.on { color:var(--whip); }
+    footer.site { max-width:36rem; margin:0 auto; padding:1.2rem 1.15rem 5.2rem; font-size:.75rem; color:var(--mute); }
+    footer.site a { color:var(--paper); }
+    .tl { list-style:none; }
+    .tl li { display:grid; grid-template-columns:7rem 1fr; gap:.4rem; padding:.4rem 0; border-bottom:1px solid var(--line); font-size:.92rem; }
+
+    .split { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin:1rem 0; }
+    .split div { border:1px solid var(--line); padding:.7rem; font-size:.88rem; }
+    .split b { display:block; font-family:"Libre Baskerville",serif; font-size:1.2rem; margin-bottom:.2rem; }
+    .tag { font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--whip); }
+    .warn { border:1px dashed var(--mute); padding:.8rem .9rem; font-size:.88rem; line-height:1.45; color:#d8c4b8; margin:1rem 0; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Avvik · vår telling</b>
+    <a href="lyset.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="note">Sesjon 2025–2026 · snapshot 2. sept 2026</p>
+      <h1>Hvem brøt <em>linja</em>.</h1>
+      <p class="lede">Åtte navn i vår telling. Stemmen, voteringen, og om forslaget ble vedtatt. Vi sier ikke hvorfor.</p>
+      <p class="note">Avvik = stemme mot partiets flertall i den voteringen. Vår telling.</p>
+      <a class="sheet" href="#erna">
+        <p class="k">Høyre · votering 28460 · 18. juni</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h3>Erna Solberg</h3>
+            <p>Mot. Forslaget (romertall III, PST) ble vedtatt. <span class="mark">Avvik</span></p>
+            <p style="margin-top:.35rem;font-size:.85rem">Samme uke: borte i 28509. Begge tallene står.</p>
+          </div>
+        </div>
+      </a>
+      <a class="sheet" href="#lista">
+        <p class="k">Rødt · 28531 · 19. juni</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/BJMO" alt="Bjørnar Moxnes">
+          <div>
+            <h3>Bjørnar Moxnes</h3>
+            <p>For. Forslag nr. 2 på vegne av FrP. Ikke vedtatt. <span class="mark">Avvik</span></p>
+          </div>
+        </div>
+      </a>
+      <a class="sheet" href="#lista">
+        <p class="k">KrF · 28526 · 19. juni</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/JONSAY" alt="Jonas Andersen Sayed">
+          <div>
+            <h3>Jonas Andersen Sayed</h3>
+            <p>Mot. Forslag nr. 32 FrP og Sp. Vedtatt. <span class="mark">Avvik</span></p>
+          </div>
+        </div>
+      </a>
+      <a class="sheet" href="#lista">
+        <p class="k">SV · Hordaland · 28524</p>
+        <div class="who">
+          <img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="Marthe Hammer">
+          <div>
+            <h3>Marthe Hammer</h3>
+            <p>Mot. Forslag nr. 30 Sp og KrF. Vedtatt. <span class="mark">Avvik</span></p>
+          </div>
+        </div>
+      </a>
+      
+      <div class="split">
+        <div><span class="tag">Vedtatt forslag, avvik mot</span><b>Sayed, Hammer, Solberg</b>De stemte mot noe som gikk gjennom.</div>
+        <div><span class="tag">Falt forslag, avvik for</span><b>Moxnes, Jonsterhaug, Gihlemoen</b>De stemte for noe som falt.</div>
+      </div>
+      <p class="note">Alvær og Fiskaa: for, og forslaget (28460) ble vedtatt — avvik mot partilinja, ikke mot utfallet.</p>
+      <p style="margin-top:1rem"><a href="#lista" style="color:var(--whip)">Hele lista, åtte navn →</a></p>
+      <p class="note" style="margin-top:1.2rem">Siste votering 19. juni. Denne uka: 0 voteringer. 28509 hadde 0 avvik — partiene holdt linja. 70 borte står likevel.</p>
+    </section>
+
+    <section data-view="lista" hidden>
+      <h1 style="margin-top:.8rem">Åtte navn.</h1>
+      <p class="lede">Hver linje: hvem, hvilken stemme, om forslaget gikk gjennom. Vår telling.</p>
+      <a class="row" href="#erna">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="">
+        <div><strong>Erna Solberg</strong><small>H · 28460 PST romertall III · sak 105899</small></div>
+        <div class="v">mot<br>vedtatt</div>
+      </a>
+      <a class="row" href="#lista">
+        <img src="https://test.hverdagstinget.no/api/photos/BJMO" alt="">
+        <div><strong>Bjørnar Moxnes</strong><small>R · 28531 forslag nr. 2 FrP · sak 200335 pensjon</small></div>
+        <div class="v">for<br>falt</div>
+      </a>
+      <div class="row">
+        <img src="https://test.hverdagstinget.no/api/photos/JONSAY" alt="">
+        <div><strong>Jonas Andersen Sayed</strong><small>KrF · 28526 forslag nr. 32 FrP og Sp · sak 200331 jordbruk</small></div>
+        <div class="v">mot<br>vedtatt</div>
+      </div>
+      <div class="row">
+        <img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="">
+        <div><strong>Marthe Hammer</strong><small>SV · Hordaland · 28524 forslag nr. 30 Sp og KrF · 200331</small></div>
+        <div class="v">mot<br>vedtatt</div>
+      </div>
+      <div class="row">
+        <img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="">
+        <div><strong>Martin Virkesdal Jonsterhaug</strong><small>FrP · Hordaland · 28516 forslag nr. 13 SV, Sp og R · 200331</small></div>
+        <div class="v">for<br>falt</div>
+      </div>
+      <div class="row">
+        <img src="https://test.hverdagstinget.no/api/photos/KONALV" alt="">
+        <div><strong>Konstanse Marie Alvær</strong><small>A · 28460 romertall III PST · sak 105899</small></div>
+        <div class="v">for<br>vedtatt</div>
+      </div>
+      <div class="row">
+        <img src="https://test.hverdagstinget.no/api/photos/INF" alt="">
+        <div><strong>Ingrid Fiskaa</strong><small>SV · 28460 romertall III PST · sak 105899</small></div>
+        <div class="v">for<br>vedtatt</div>
+      </div>
+      <div class="row">
+        <img src="https://test.hverdagstinget.no/api/photos/TGI" alt="">
+        <div><strong>Truls Gihlemoen</strong><small>FrP · 28456 forslag nr. 2 og 3 KrF · sak 105899</small></div>
+        <div class="v">for<br>falt</div>
+      </div>
+      <p class="note" style="margin-top:1rem">Hordaland i lista: Hammer, Jonsterhaug, Solberg. Erna har 8 avvik i tellingen totalt.</p>
+    </section>
+
+    <section data-view="saker" hidden>
+      <h1 style="margin-top:.8rem">Saker med avvik</h1>
+      <p class="lede">Tre saker i snapshotet. På klimaavgift 28509: null avvik. Partilinja holdt. 70 borte er ikke avvik.</p>
+      <a class="sheet" href="#sak">
+        <p class="k">200211 · ferdigbehandlet · votering 28509</p>
+        <h3>Klimaavgifter til befolkningen</h3>
+        <p>Komiteen 84 — forslag nr. 1 og 2 fra SV, R og MDG 15 — 70 borte. 0 avvik. Forslaget ble ikke vedtatt.</p>
+      </a>
+      <article class="sheet">
+        <p class="k">200331 · jordbruksoppgjøret 2026</p>
+        <h3>Endringer i statsbudsjettet, Landbruks- og matdepartementet</h3>
+        <p>Avvik: Sayed (mot, vedtatt), Hammer (mot, vedtatt), Jonsterhaug (for, falt).</p>
+      </article>
+      <article class="sheet">
+        <p class="k">105899 · PST · 18. juni</p>
+        <h3>Riksrevisjonens undersøkelse av ressursbruk i PST</h3>
+        <p>Avvik: Alvær (for, vedtatt), Fiskaa (for, vedtatt), Solberg (mot, vedtatt), Gihlemoen (for, falt).</p>
+      </article>
+      <article class="sheet">
+        <p class="k">200335 · pensjon</p>
+        <h3>Regulering av pensjonar i 2026</h3>
+        <p>Avvik: Moxnes (for forslag nr. 2 FrP, ikke vedtatt).</p>
+      </article>
+      <article class="sheet">
+        <p class="k">200400 · mottatt · 0 voteringer</p>
+        <h3>Prediksjonsmarkeder</h3>
+        <p>Fra SV. Ingen votering, derfor ingen avvik å telle.</p>
+      </article>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="note" style="margin-top:.85rem">Sak 200211 · votering 28509 · 19. juni</p>
+      <h1>Ingen brøt linja her.</h1>
+      <p class="lede">Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Parti-splittene er rene. Avvik-telleren står på 0.</p>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="note">Borte = ingen registrert stemme. Borte er ikke avvik.</p>
+      <h2>Partiene, tre tall</h2>
+      <p>A 31/0/22 · FrP 29/0/18 · H 14/0/10 · KrF 3/0/4 · MDG 0/5/3 · R 0/5/4 · SV 0/5/4 · Sp 5/0/4 · V 2/0/1.</p>
+      <h2>Hvem fremmet</h2>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland MDG</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard MDG</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther MDG</span>
+      </div>
+      <p style="margin-top:.6rem;font-size:.9rem">Saksordfører Tuva Moflag, Arbeiderpartiet. Finanskomiteen. Ferdigbehandlet. Forslaget ble ikke vedtatt.</p>
+      <h2>Hordaland i 28509</h2>
+      <p style="font-size:.9rem;margin-bottom:.4rem">Komiteen: Bakervik, Merkesdal, Jonsterhaug, Trellevik. Forslag: Hammer, Marhaug. Borte: Solberg, Sjursæther, Jakobsen, Njåstad, Hjemdal, Abrahamsen, Toppe, Ystebø. Peter Frølich: ikke i voteringen.</p>
+      <p><a href="#erna" style="color:var(--whip)">Ernas avvik ligger i 28460, ikke her →</a></p>
+    </section>
+
+    <section data-view="erna" hidden>
+      <div class="who" style="margin-top:1rem">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <p class="note">Høyre · Hordaland</p>
+          <h1>Erna.</h1>
+          <p>To fakta i lyset. Avvik 18. juni. Borte 19. juni.</p>
+        </div>
+      </div>
+      <div class="nums">
+        <div><b>249</b><span>For</span></div>
+        <div><b>350</b><span>Mot</span></div>
+        <div><b>1121</b><span>Borte</span></div>
+      </div>
+      <p class="note">1720 voteringer · 8 avvik · 8 spørsmål · vår telling</p>
+      <a class="sheet" href="#erna">
+        <p class="k">Avvik · votering 28460 · 18. juni · sak 105899</p>
+        <h3>Romertall III. PST. Hun stemte mot.</h3>
+        <p>Forslaget ble vedtatt. Partiets flertall gikk den andre veien. Dette er ett av åtte avvik i tellingen. Vi sier ikke hvorfor.</p>
+      </a>
+      <a class="sheet" href="#sak">
+        <p class="k">Borte · votering 28509 · 19. juni · sak 200211</p>
+        <h3>Klimaavgift. Ingen registrert stemme.</h3>
+        <p>Komiteen 84, forslag 15, 70 borte. Hun er én av de 70. Borte er ikke avvik. Begge tallene vises.</p>
+      </a>
+      <div class="warn">Stortinget advarer mot å lese fremmøte som aktivitet. Vi viser likevel tellingen: 1121 borte, 8 avvik. Vi fyller ikke inn sykdom, paring eller reise.</div>
+      <h2>Hordaland Høyre i 28509</h2>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">Trellevik · komiteen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/PCF" alt="">Frølich · ikke i voteringen</span>
+      </div>
+    </section>
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Avvik er vår telling.</footer>
+  <nav class="bar">
+    <a href="#hjem" data-nav="hjem">Avvik</a>
+    <a href="#lista" data-nav="lista">Lista</a>
+    <a href="#sak" data-nav="sak">Sak</a>
+    <a href="#erna" data-nav="erna">Erna</a>
+  </nav>
+  <script>
+    (function () {
+      var home = 'hjem';
+      var parent = { hjem:'hjem', lista:'lista', saker:'lista', sak:'sak', erna:'erna' };
+      function go() {
+        var id = (location.hash || '#' + home).slice(1) || home;
+        document.querySelectorAll('[data-view]').forEach(function (v) {
+          v.hidden = v.getAttribute('data-view') !== id;
+        });
+        document.querySelectorAll('nav.bar a').forEach(function (a) {
+          a.classList.toggle('on', a.getAttribute('data-nav') === (parent[id] || id));
+        });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
+</body>
+</html>
