@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pingen — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@430;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 50% -10%, #4a3768 0%, #1c1528 42%, #120e18 100%);
+      color: #efe8f6;
+      font-family: Inter, system-ui, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.2rem 1rem 2.5rem;
+    }
+    a { color: inherit; }
+    .out { width: min(100%, 26rem); }
+    .out > .nav { font-size: .8rem; margin-bottom: .8rem; opacity: .7; }
+    .phone {
+      background: #0b0a10;
+      border: 10px solid #2a2434;
+      border-radius: 2.2rem;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    }
+    .notch { height: 1.5rem; background: #0b0a10; }
+    .screen { padding: 0 1rem 1.3rem; }
+    .clock { text-align: center; font-size: .75rem; letter-spacing: .08em; color: #9a90a8; margin-bottom: .6rem; }
+    h1 { font-size: 1.55rem; letter-spacing: -.03em; margin-bottom: .2rem; }
+    .sub { color: #b7adc8; font-size: .92rem; margin-bottom: 1rem; }
+    .empty {
+      background: #17141f; border-radius: 1rem; padding: 1.1rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .empty strong { display: block; font-size: 1.02rem; margin-bottom: .25rem; }
+    .empty p { color: #b7adc8; font-size: .9rem; line-height: 1.4; }
+    .ping {
+      width: 100%; border: 0; border-radius: 999px;
+      background: #c9b0ff; color: #1a1224;
+      font: 700 15px Inter, sans-serif;
+      padding: .85rem 1rem; margin: .8rem 0 1.2rem; cursor: default;
+    }
+    h2 { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: #9a90a8; margin-bottom: .55rem; }
+    .follow { display: grid; gap: .55rem; }
+    .f {
+      display: grid; grid-template-columns: 2.6rem 1fr auto; gap: .7rem; align-items: center;
+      background: #17141f; border-radius: .9rem; padding: .65rem .7rem;
+    }
+    .av {
+      width: 2.6rem; height: 2.6rem; border-radius: 50%; object-fit: cover; background: #3a3050;
+    }
+    .mono {
+      width: 2.6rem; height: 2.6rem; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; font-size: .8rem;
+      background: #3d2f58; color: #e8dcff;
+    }
+    .f b { display: block; font-size: .92rem; }
+    .f span { color: #9a90a8; font-size: .75rem; }
+    .dot { font-size: .72rem; color: #c9b0ff; font-weight: 600; }
+    .last {
+      margin-top: 1.1rem; background: #211a2c; border-radius: .9rem; padding: .8rem .85rem;
+    }
+    .last p { font-size: .88rem; line-height: 1.4; color: #d5cce4; }
+    footer { margin-top: 1.3rem; font-size: .78rem; color: #9a90a8; line-height: 1.45; }
+    footer a { color: #e8dcff; }
+  </style>
+</head>
+<body>
+  <div class="out">
+    <p class="nav"><a href="index.html">Alle ti forslag</a></p>
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <p class="clock">Onsdag 2. sept · 15:16</p>
+        <h1>Pingen</h1>
+        <p class="sub">Følg det som betyr noe. Vi sier ifra når Stortinget voterer igjen.</p>
+        <div class="empty">
+          <strong>Ingen votering siden 19. juni.</strong>
+          <p>Denne uken: 0 voteringer, 0 spørsmål, 0 saker. Innboksen er tom — ikke fordi vi sover, men fordi salen ikke har votert.</p>
+        </div>
+        <button class="ping" type="button">Ping meg når det voteres</button>
+        <h2>Du følger</h2>
+        <div class="follow">
+          <div class="f">
+            <div class="mono">K</div>
+            <div><b>Klimaavgifter</b><span>Sak 200211 · ferdigbehandlet</span></div>
+            <span class="dot">følger</span>
+          </div>
+          <div class="f">
+            <img class="av" src="https://test.hverdagstinget.no/api/photos/ES" alt="">
+            <div><b>Erna Solberg</b><span>Høyre · Hordaland · borte 19. juni</span></div>
+            <span class="dot">følger</span>
+          </div>
+          <div class="f">
+            <div class="mono">Ho</div>
+            <div><b>Hordaland</b><span>15 representanter</span></div>
+            <span class="dot">følger</span>
+          </div>
+        </div>
+        <div class="last">
+          <h2>Siste ping</h2>
+          <p>19. juni 2026 — Klimaavgiftene: Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Forslaget ble ikke vedtatt.</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+      <a href="index.html">Til oversikten</a>
+    </footer>
+  </div>
+</body>
+</html>

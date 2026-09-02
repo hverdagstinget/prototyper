@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desken — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #121311;
+      color: #e6e1d0;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 15px;
+    }
+    a { color: #e6d28a; }
+    .bar {
+      display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
+      padding: .7rem 1rem; background: #0c0d0b; border-bottom: 1px solid #2a2c26;
+      font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px;
+      color: #9aa08c;
+    }
+    .bar b { color: #e6d28a; font-weight: 600; }
+    .bar a { color: #9aa08c; text-decoration: none; }
+    .layout {
+      display: grid;
+      grid-template-columns: 18rem 1fr 16rem;
+      min-height: calc(100vh - 40px);
+    }
+    aside, .rail { padding: 1rem; border-right: 1px solid #2a2c26; }
+    .rail { border-right: 0; border-left: 1px solid #2a2c26; }
+    main { padding: 1.1rem 1.2rem 2rem; }
+    label { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8c927e; margin-bottom: .35rem; font-family: "IBM Plex Mono", monospace; }
+    .search {
+      width: 100%; background: #1b1c18; color: #f2edd8; border: 1px solid #3a3d34;
+      padding: .55rem .65rem; font: 500 14px "IBM Plex Mono", monospace;
+    }
+    .hit {
+      margin-top: .8rem; padding: .65rem; background: #1b1c18; border-left: 3px solid #e6d28a;
+      font-size: 13px; line-height: 1.4;
+    }
+    h1 { font-size: 1.35rem; font-weight: 600; margin: .2rem 0 .6rem; }
+    .meta-grid {
+      display: grid; grid-template-columns: 9rem 1fr; gap: .35rem .7rem;
+      font-family: "IBM Plex Mono", monospace; font-size: 12.5px;
+      background: #1b1c18; padding: .8rem; margin-bottom: 1rem;
+    }
+    .meta-grid dt { color: #8c927e; }
+    .cite {
+      background: #0c0d0b; border: 1px dashed #5a5e4e; padding: .9rem;
+      font-family: "IBM Plex Mono", monospace; font-size: 13px; line-height: 1.55;
+      color: #f2edd8;
+    }
+    .cite button {
+      margin-top: .7rem; background: #e6d28a; color: #121311; border: 0;
+      padding: .4rem .7rem; font: 600 12px "IBM Plex Mono", monospace; cursor: default;
+    }
+    h2 { font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: #8c927e; margin: 1.2rem 0 .5rem; font-family: "IBM Plex Mono", monospace; }
+    .num { font-size: 2.4rem; font-family: "IBM Plex Mono", monospace; color: #e6d28a; line-height: 1; }
+    .rail p, aside p { font-size: 13px; line-height: 1.4; color: #c4c0ae; }
+    .chip { display: inline-block; border: 1px solid #4a4e42; padding: .1rem .4rem; font-size: 11px; font-family: "IBM Plex Mono", monospace; margin: .15rem .15rem 0 0; }
+    footer { grid-column: 1/-1; padding: .8rem 1rem; font-size: 12px; color: #8c927e; border-top: 1px solid #2a2c26; }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      aside, .rail { border: 0; border-bottom: 1px solid #2a2c26; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <b>DESKEN</b>
+    <span>sesjon 2025-2026</span>
+    <span>sak 200211</span>
+    <span>vot 28509</span>
+    <span style="margin-left:auto"><a href="index.html">Alle ti forslag</a></span>
+  </div>
+  <div class="layout">
+    <aside>
+      <label for="q">Søk</label>
+      <input id="q" class="search" value="klimaavgift" readonly>
+      <div class="hit">
+        <strong>200211</strong> — Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen<br>
+        Dok 8:256 S · Innst. 458 S · Ferdigbehandlet
+      </div>
+      <h2>Flere treff i uka</h2>
+      <p>200155 bensin- og dieselpriser · 200124 kontantutbetaling · 200084 energipriser. Alle ferdigbehandlet 19. juni.</p>
+    </aside>
+    <main>
+      <label>Åpen sak</label>
+      <h1>Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen</h1>
+      <dl class="meta-grid">
+        <dt>saksnummer</dt><dd>256</dd>
+        <dt>sak-id</dt><dd>200211</dd>
+        <dt>status</dt><dd>Ferdigbehandlet</dd>
+        <dt>type</dt><dd>Representantforslag</dd>
+        <dt>komité</dt><dd>Finanskomiteen</dd>
+        <dt>ordfører</dt><dd>Tuva Moflag (A)</dd>
+        <dt>fra</dt><dd>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther (MDG)</dd>
+        <dt>votering</dt><dd>28509 · 19. juni 2026 · alternativ</dd>
+        <dt>utfall</dt><dd>Komiteen 84 · Forslag nr.1 og 2 fra SV, R og MDG 15 · 70 borte. Forslaget vedtas ikke.</dd>
+      </dl>
+      <h2>Sitatblokk</h2>
+      <div class="cite">
+        Stortinget har behandlet et representantforslag fra MDG om å dele ut statens inntekter fra klimaavgifter til befolkningen. Forslaget ble ikke vedtatt.<br><br>
+        Dokument 8:256 S (2025–2026) – Representantforslag fra stortingsrepresentantene Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther om å dele ut statens inntekter fra klimaavgifter til befolkningen – vedtas ikke.<br>
+        Innst. 458 S (2025–2026).<br>
+        <button type="button">Kopiert sitat (statisk)</button>
+      </div>
+      <h2>Kilder</h2>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.6">
+        Dok 8:256 S (2025-2026)<br>
+        Innst. 458 S (2025-2026)<br>
+        stortinget.no/no/Saker-og-publikasjoner/Saker/Sak/?p=200211
+      </p>
+    </main>
+    <aside class="rail">
+      <h2>Snapshot</h2>
+      <p class="num">0</p>
+      <p>voteringer denne uken. Siste: 19. juni 2026.</p>
+      <h2>Emner i sesjonen</h2>
+      <span class="chip">Eu/eøs 65</span>
+      <span class="chip">Helsevesen 52</span>
+      <span class="chip">Kommunikasjonsteknologi 49</span>
+      <span class="chip">Grunnloven 42</span>
+      <span class="chip">Trygder 42</span>
+      <h2>Avvik, vår telling</h2>
+      <p>Moxnes (R), Sayed (KrF), Hammer (SV), Jonsterhaug (FrP), Alvær (A).</p>
+    </aside>
+  </div>
+  <footer>
+    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+    <a href="index.html">Til oversikten</a>
+  </footer>
+</body>
+</html>

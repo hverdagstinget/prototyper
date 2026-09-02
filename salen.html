@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salen — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #10151e; color: #e7edf5; font-family: "Space Grotesk", system-ui, sans-serif; }
+    a { color: inherit; }
+    header { padding: 1.1rem 5vw 0; display: flex; justify-content: space-between; font-size: .8rem; color: #8b97a8; }
+    header a { color: #c9d4e4; text-decoration: none; border-bottom: 1px solid #3a4658; }
+    .intro { padding: 1.4rem 5vw 1rem; max-width: 58rem; }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: -.03em; line-height: 1.05; }
+    .intro p { margin-top: .55rem; color: #b4c0d0; max-width: 40rem; line-height: 1.4; }
+    .legend { display: flex; gap: 1rem; flex-wrap: wrap; padding: 0 5vw 1rem; font-size: .82rem; color: #b4c0d0; }
+    .sw { display: inline-block; width: .85rem; height: .85rem; border-radius: 2px; margin-right: .35rem; vertical-align: -1px; }
+    .tracks { padding: 0 5vw 2rem; max-width: 72rem; }
+    .party { margin-bottom: 1.05rem; }
+    .party header { padding: 0; display: flex; justify-content: space-between; color: #e7edf5; margin-bottom: .3rem; font-size: .9rem; }
+    .track { display: flex; height: 1.55rem; background: #1a2230; border-radius: 3px; overflow: hidden; }
+    .seg { height: 100%; display: flex; align-items: center; padding: 0 .4rem; font-size: .72rem; font-weight: 600; white-space: nowrap; }
+    .kom { background: #24365c; color: #dce6f7; }
+    .alt { background: #6b6458; color: #f3eee4; }
+    .bor { background: #2a3140; color: #9aa6b6; }
+    .id { width: .35rem; height: 1.55rem; display: inline-block; margin-right: .45rem; vertical-align: middle; border-radius: 1px; }
+    .totals { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .7rem; padding: 0 5vw 2rem; max-width: 40rem; }
+    .totals div { border-top: 2px solid #3a4658; padding-top: .4rem; }
+    .totals b { display: block; font-size: 2rem; line-height: 1; }
+    .totals span { font-size: .8rem; color: #8b97a8; }
+    footer { padding: 0 5vw 2.4rem; font-size: .78rem; color: #8b97a8; }
+    footer a { color: #c9d4e4; }
+    @media (max-width: 640px) { .totals { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">Alle ti forslag</a>
+    <span>Votering 28509 · 19. juni 2026</span>
+  </header>
+  <div class="intro">
+    <h1>Salen, slik den sto.</h1>
+    <p>Alternativ votering, sak 200211. Ikke for mot mot: valget var Komiteen eller forslag nr. 1 og 2 fra SV, R og MDG. Vår telling fra Stortingets votering.</p>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:#24365c"></i>Komiteen</span>
+    <span><i class="sw" style="background:#6b6458"></i>Forslag nr. 1 og 2 fra SV, R og MDG</span>
+    <span><i class="sw" style="background:#2a3140"></i>Borte</span>
+  </div>
+  <div class="tracks">
+    <div class="party">
+      <header><span><i class="id" style="background:#E30613"></i>Arbeiderpartiet</span><span>31 / 0 / 22</span></header>
+      <div class="track">
+        <div class="seg kom" style="flex:31">31</div>
+        <div class="seg bor" style="flex:22">22</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#003087"></i>Fremskrittspartiet</span><span>29 / 0 / 18</span></header>
+      <div class="track">
+        <div class="seg kom" style="flex:29">29</div>
+        <div class="seg bor" style="flex:18">18</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#0065F1"></i>Høyre</span><span>14 / 0 / 10</span></header>
+      <div class="track">
+        <div class="seg kom" style="flex:14">14</div>
+        <div class="seg bor" style="flex:10">10</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#F9C400"></i>Kristelig Folkeparti</span><span>3 / 0 / 4</span></header>
+      <div class="track">
+        <div class="seg kom" style="flex:3">3</div>
+        <div class="seg bor" style="flex:4">4</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#00843D"></i>Senterpartiet</span><span>5 / 0 / 4</span></header>
+      <div class="track">
+        <div class="seg kom" style="flex:5">5</div>
+        <div class="seg bor" style="flex:4">4</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#009640"></i>Venstre</span><span>2 / 0 / 1</span></header>
+      <div class="track">
+        <div class="seg kom" style="flex:2">2</div>
+        <div class="seg bor" style="flex:1">1</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#6A8F00"></i>Miljøpartiet De Grønne</span><span>0 / 5 / 3</span></header>
+      <div class="track">
+        <div class="seg alt" style="flex:5">5</div>
+        <div class="seg bor" style="flex:3">3</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#980C1E"></i>Rødt</span><span>0 / 5 / 4</span></header>
+      <div class="track">
+        <div class="seg alt" style="flex:5">5</div>
+        <div class="seg bor" style="flex:4">4</div>
+      </div>
+    </div>
+    <div class="party">
+      <header><span><i class="id" style="background:#C8102E"></i>Sosialistisk Venstreparti</span><span>0 / 5 / 4</span></header>
+      <div class="track">
+        <div class="seg alt" style="flex:5">5</div>
+        <div class="seg bor" style="flex:4">4</div>
+      </div>
+    </div>
+  </div>
+  <div class="totals">
+    <div><b>84</b><span>Komiteen · vedtatt</span></div>
+    <div><b>15</b><span>Forslaget · falt</span></div>
+    <div><b>70</b><span>Borte</span></div>
+  </div>
+  <footer>
+    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+    <a href="index.html">Til oversikten</a>
+  </footer>
+</body>
+</html>

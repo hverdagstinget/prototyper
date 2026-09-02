@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naboen — Hordaland — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --clay:#c45c32; --paper:#fbf3e8; --ink:#2a1b12; --sand:#ead9c4; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--paper); color: var(--ink); font-family: Nunito, system-ui, sans-serif; }
+    a { color: inherit; }
+    header {
+      background: var(--clay); color: #fff6ec;
+      padding: 1.1rem 5vw 1.4rem;
+    }
+    header .back { font-size: .82rem; text-decoration: none; opacity: .85; }
+    header h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(2.2rem, 7vw, 3.6rem);
+      font-weight: 700; letter-spacing: -.03em; margin-top: .5rem;
+    }
+    header p { max-width: 36rem; margin-top: .4rem; font-size: 1.05rem; line-height: 1.4; }
+    .wrap { padding: 1.4rem 5vw 3rem; max-width: 72rem; margin: 0 auto; }
+    .lede {
+      font-family: Fraunces, serif; font-size: 1.25rem; line-height: 1.4;
+      max-width: 40rem; margin-bottom: 1.3rem;
+    }
+    .score {
+      display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1.6rem;
+    }
+    .score span {
+      background: var(--sand); padding: .45rem .75rem; border-radius: 999px;
+      font-size: .88rem; font-weight: 700;
+    }
+    h2 { font-family: Fraunces, serif; font-size: 1.45rem; margin: 1.4rem 0 .8rem; }
+    .faces {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(11.2rem, 1fr));
+      gap: .85rem;
+    }
+    .card {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 8px 20px rgba(80, 30, 10, .08);
+    }
+    .card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; background: #d7c4ae; }
+    .card .pad { padding: .7rem .75rem .85rem; }
+    .card h3 { font-family: Fraunces, serif; font-size: 1.05rem; line-height: 1.15; }
+    .party { font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--clay); margin: .15rem 0 .4rem; }
+    .badge {
+      display: inline-block; font-size: .75rem; font-weight: 700;
+      padding: .18rem .5rem; border-radius: 999px; background: var(--sand);
+    }
+    .badge.kom { background: #1e2a44; color: #eef2f8; }
+    .badge.for { background: #4a3a2a; color: #f6eadc; }
+    .badge.bor { background: #e6d2bc; color: #3a2a1c; }
+    .ask { display: grid; gap: .45rem; }
+    .ask div { display: flex; justify-content: space-between; border-bottom: 1px dashed #d8c4ae; padding: .35rem 0; }
+    footer { padding: 1.2rem 5vw 2.2rem; font-size: .82rem; color: #6a5344; }
+    footer a { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="back" href="index.html">Alle ti forslag</a>
+    <h1>Hordaland, dine femten.</h1>
+    <p>Valgdistriktet heter Hordaland hos Stortinget. Vi kaller det det samme. Siste votering i snapshot: 19. juni 2026, klimaavgiftene.</p>
+  </header>
+  <div class="wrap">
+    <p class="lede">På votering 28509, vår telling for distriktet: 5 for komiteen, 2 for forslaget, 9 borte. Tallene teller også vararepresentanter som er registrert den dagen. Vi forklarer ikke fravær.</p>
+    <div class="score">
+      <span>15 faste</span>
+      <span>Komiteen 5</span>
+      <span>Forslaget 2</span>
+      <span>Borte 9</span>
+    </div>
+
+    <h2>Ansiktene</h2>
+    <div class="faces">
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/STIA" alt="Stig Atle Abrahamsen">
+        <div class="pad"><h3>Stig Atle Abrahamsen</h3><p class="party">FrP</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/RUB" alt="Rune Bakervik">
+        <div class="pad"><h3>Rune Bakervik</h3><p class="party">Arbeiderpartiet</p><span class="badge kom">Komiteen</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/PCF" alt="Peter Frølich">
+        <div class="pad"><h3>Peter Frølich</h3><p class="party">Høyre</p><span class="badge">Ingen registrert stemme</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="Marthe Hammer">
+        <div class="pad"><h3>Marthe Hammer</h3><p class="party">SV</p><span class="badge for">Forslaget</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt="Silje Hjemdal">
+        <div class="pad"><h3>Silje Hjemdal</h3><p class="party">FrP</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt="Benjamin Jakobsen">
+        <div class="pad"><h3>Benjamin Jakobsen</h3><p class="party">Arbeiderpartiet</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="Martin Virkesdal Jonsterhaug">
+        <div class="pad"><h3>Martin Virkesdal Jonsterhaug</h3><p class="party">FrP</p><span class="badge kom">Komiteen</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="Sofie Marhaug">
+        <div class="pad"><h3>Sofie Marhaug</h3><p class="party">Rødt</p><span class="badge for">Forslaget</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/LIM" alt="Linda Monsen Merkesdal">
+        <div class="pad"><h3>Linda Monsen Merkesdal</h3><p class="party">Arbeiderpartiet</p><span class="badge kom">Komiteen</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="Helge André Njåstad">
+        <div class="pad"><h3>Helge André Njåstad</h3><p class="party">FrP</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther">
+        <div class="pad"><h3>Frøya Skjold Sjursæther</h3><p class="party">MDG · forslagsstiller</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div class="pad"><h3>Erna Solberg</h3><p class="party">Høyre</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/KJT" alt="Kjersti Toppe">
+        <div class="pad"><h3>Kjersti Toppe</h3><p class="party">Senterpartiet</p><span class="badge bor">Borte</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/OBT" alt="Ove Trellevik">
+        <div class="pad"><h3>Ove Trellevik</h3><p class="party">Høyre</p><span class="badge kom">Komiteen</span></div>
+      </article>
+      <article class="card">
+        <img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt="Joel Ystebø">
+        <div class="pad"><h3>Joel Ystebø</h3><p class="party">KrF</p><span class="badge bor">Borte</span></div>
+      </article>
+    </div>
+
+    <h2>De som spør mest, vår telling</h2>
+    <div class="ask">
+      <div><span>Helge André Njåstad</span><strong>95 spørsmål</strong></div>
+      <div><span>Silje Hjemdal</span><strong>83</strong></div>
+      <div><span>Kjersti Toppe</span><strong>77</strong></div>
+      <div><span>Sofie Marhaug</span><strong>52</strong></div>
+      <div><span>Frøya Skjold Sjursæther</span><strong>48</strong></div>
+    </div>
+    <p style="margin-top:1.2rem;max-width:38rem;line-height:1.45">Marthe Hammer (SV) og Martin Virkesdal Jonsterhaug (FrP) er også blant dem som har stemt mot partilinjen, vår telling, i andre saker enn klimaavgiftene.</p>
+  </div>
+  <footer>
+    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+    <a href="index.html">Til oversikten</a>
+  </footer>
+</body>
+</html>

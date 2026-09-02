@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Utfall — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #0e0f12;
+      color: #f4efe6;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+    }
+    a { color: inherit; }
+    .wrap {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 1.2rem 1.1rem 2.5rem;
+    }
+    .top {
+      display: flex; justify-content: space-between; gap: 1rem;
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      color: #8b8578; margin-bottom: 1.6rem;
+    }
+    .top a { color: #cfc8b8; text-decoration: none; border-bottom: 1px solid #3a3832; }
+    .slip {
+      background: #efe7d4;
+      color: #14110c;
+      padding: 1.6rem 1.3rem 1.4rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+    .stamp {
+      display: inline-block;
+      border: 3px solid #1a1712;
+      padding: .15rem .55rem .08rem;
+      font-family: Anton, sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: rotate(-2deg);
+      margin-bottom: 1.1rem;
+    }
+    .meta { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: #5d5648; }
+    h1 {
+      font-family: Anton, sans-serif;
+      font-size: clamp(2.6rem, 11vw, 5.4rem);
+      line-height: .9;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      margin: .55rem 0 1.1rem;
+    }
+    .scores { display: grid; gap: .55rem; }
+    .row {
+      display: grid;
+      grid-template-columns: 6.2rem 1fr;
+      align-items: end;
+      border-top: 2px solid #14110c;
+      padding-top: .35rem;
+    }
+    .num {
+      font-family: Anton, sans-serif;
+      font-size: clamp(3rem, 12vw, 5.2rem);
+      line-height: .8;
+    }
+    .lab { font-size: .95rem; font-weight: 600; padding-bottom: .25rem; }
+    .lab small { display: block; font-weight: 400; color: #5d5648; font-size: .78rem; margin-top: .1rem; }
+    .note {
+      margin-top: 1.3rem;
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .night {
+      margin-top: 1.8rem;
+      color: #c9c2b3;
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+    .night h2 {
+      font-family: Anton, sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+      color: #f4efe6;
+    }
+    .night dl { display: grid; grid-template-columns: 7.5rem 1fr; gap: .25rem 1rem; font-size: .88rem; }
+    .night dt { color: #8b8578; }
+    footer { margin-top: 2.4rem; font-size: .78rem; color: #8b8578; line-height: 1.5; }
+    footer a { color: #cfc8b8; }
+    @media (max-width: 520px) {
+      .row { grid-template-columns: 1fr; }
+      .night dl { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a href="index.html">Alle ti forslag</a>
+      <span>Votering 28509</span>
+    </div>
+
+    <article class="slip">
+      <div class="stamp">Ikke vedtatt</div>
+      <p class="meta">19. juni 2026 · Sak 200211 · Alternativ votering</p>
+      <h1>Forslaget ble ikke vedtatt.</h1>
+      <div class="scores">
+        <div class="row">
+          <div class="num">84</div>
+          <div class="lab">Komiteen<small>Vinner. Tilrådingen står. Forslaget vedtas ikke.</small></div>
+        </div>
+        <div class="row">
+          <div class="num">15</div>
+          <div class="lab">Forslag nr. 1 og 2 fra SV, R og MDG<small>Taperen i den alternative voteringen.</small></div>
+        </div>
+        <div class="row">
+          <div class="num">70</div>
+          <div class="lab">Borte<small>Ingen registrert stemme. Vi gjetter ikke hvorfor.</small></div>
+        </div>
+      </div>
+      <p class="note">Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen. Fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG). Finanskomiteen. Dok 8:256 S, Innst. 458 S. Ferdigbehandlet.</p>
+    </article>
+
+    <section class="night">
+      <h2>Slik sto partiene</h2>
+      <p style="margin-bottom:.7rem">Vår telling fra Stortingets votering. Tallene er Komiteen / forslaget / borte — ikke for og mot.</p>
+      <dl>
+        <dt>Arbeiderpartiet</dt><dd>31 Komiteen · 0 forslag · 22 borte</dd>
+        <dt>FrP</dt><dd>29 Komiteen · 0 forslag · 18 borte</dd>
+        <dt>Høyre</dt><dd>14 Komiteen · 0 forslag · 10 borte</dd>
+        <dt>KrF</dt><dd>3 Komiteen · 0 forslag · 4 borte</dd>
+        <dt>Senterpartiet</dt><dd>5 Komiteen · 0 forslag · 4 borte</dd>
+        <dt>Venstre</dt><dd>2 Komiteen · 0 forslag · 1 borte</dd>
+        <dt>MDG</dt><dd>0 Komiteen · 5 forslag · 3 borte</dd>
+        <dt>Rødt</dt><dd>0 Komiteen · 5 forslag · 4 borte</dd>
+        <dt>SV</dt><dd>0 Komiteen · 5 forslag · 4 borte</dd>
+      </dl>
+    </section>
+
+    <footer>
+      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+      <a href="index.html">Til oversikten</a>
+    </footer>
+  </div>
+</body>
+</html>
