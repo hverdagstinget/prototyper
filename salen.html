@@ -6,123 +6,274 @@
   <title>Salen — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #10151e; color: #e7edf5; font-family: "Space Grotesk", system-ui, sans-serif; }
-    a { color: inherit; }
-    header { padding: 1.1rem 5vw 0; display: flex; justify-content: space-between; font-size: .8rem; color: #8b97a8; }
-    header a { color: #c9d4e4; text-decoration: none; border-bottom: 1px solid #3a4658; }
-    .intro { padding: 1.4rem 5vw 1rem; max-width: 58rem; }
-    h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: -.03em; line-height: 1.05; }
-    .intro p { margin-top: .55rem; color: #b4c0d0; max-width: 40rem; line-height: 1.4; }
-    .legend { display: flex; gap: 1rem; flex-wrap: wrap; padding: 0 5vw 1rem; font-size: .82rem; color: #b4c0d0; }
-    .sw { display: inline-block; width: .85rem; height: .85rem; border-radius: 2px; margin-right: .35rem; vertical-align: -1px; }
-    .tracks { padding: 0 5vw 2rem; max-width: 72rem; }
-    .party { margin-bottom: 1.05rem; }
-    .party header { padding: 0; display: flex; justify-content: space-between; color: #e7edf5; margin-bottom: .3rem; font-size: .9rem; }
-    .track { display: flex; height: 1.55rem; background: #1a2230; border-radius: 3px; overflow: hidden; }
-    .seg { height: 100%; display: flex; align-items: center; padding: 0 .4rem; font-size: .72rem; font-weight: 600; white-space: nowrap; }
-    .kom { background: #24365c; color: #dce6f7; }
-    .alt { background: #6b6458; color: #f3eee4; }
-    .bor { background: #2a3140; color: #9aa6b6; }
-    .id { width: .35rem; height: 1.55rem; display: inline-block; margin-right: .45rem; vertical-align: middle; border-radius: 1px; }
-    .totals { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .7rem; padding: 0 5vw 2rem; max-width: 40rem; }
-    .totals div { border-top: 2px solid #3a4658; padding-top: .4rem; }
-    .totals b { display: block; font-size: 2rem; line-height: 1; }
-    .totals span { font-size: .8rem; color: #8b97a8; }
-    footer { padding: 0 5vw 2.4rem; font-size: .78rem; color: #8b97a8; }
-    footer a { color: #c9d4e4; }
-    @media (max-width: 640px) { .totals { grid-template-columns: 1fr; } }
+    :root { --navy:#0d1828; --panel:#132033; --ink:#e7edf5; --mute:#8b97a8; --line:#2a3a52; --paper:#dce6f5; --h:#0065F1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--navy); color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { max-width:980px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:12px 16px; border-bottom:1px solid var(--line); font-size:12px; color:var(--mute);
+      position:sticky; top:0; background:rgba(13,24,40,.94); z-index:5;
+    }
+    header.top strong { color:var(--ink); font-size:15px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; }
+    header.top a { color:var(--paper); border-bottom:1px solid var(--line); }
+    nav.bar {
+      display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid var(--line);
+      position:sticky; top:44px; background:var(--navy); z-index:4;
+    }
+    nav.bar a {
+      text-align:center; padding:10px 6px; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--mute); border-bottom:2px solid transparent;
+    }
+    nav.bar a.on { color:var(--ink); border-bottom-color:#c9d6ea; }
+    main { padding:18px 16px 40px; flex:1; }
+    [data-view][hidden] { display:none !important; }
+    .kicker { font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+    h1 { font-size:clamp(1.6rem,4vw,2.4rem); letter-spacing:-.03em; line-height:1.1; margin:.3rem 0 .6rem; }
+    h2 { font-size:1.2rem; margin:1.2rem 0 .5rem; }
+    .lede { color:#b4c0d0; max-width:40rem; line-height:1.45; }
+    .legend { display:flex; gap:14px; flex-wrap:wrap; margin:14px 0 18px; font-size:13px; color:#b4c0d0; }
+    .sw { display:inline-block; width:10px; height:10px; margin-right:6px; vertical-align:0; }
+    .chamber {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0 20px;
+    }
+    .bloc {
+      background:var(--panel); border:1px solid var(--line); padding:10px;
+      min-height:92px;
+    }
+    .bloc .nm { font-size:12px; font-weight:600; display:flex; justify-content:space-between; }
+    .dots { display:flex; flex-wrap:wrap; gap:3px; margin-top:8px; }
+    .d { width:8px; height:8px; }
+    .d.k { background:#7ea0d8; } .d.f { background:#b9a882; } .d.b { background:#3a4658; }
+    .party { margin-bottom:14px; }
+    .party .hd { display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; }
+    .track { display:flex; height:22px; background:#1a2230; overflow:hidden; }
+    .seg { height:100%; display:flex; align-items:center; padding:0 6px; font-size:11px; font-weight:600; font-family:"IBM Plex Mono",monospace; }
+    .kom { background:#24365c; color:#dce6f7; }
+    .alt { background:#6b6458; color:#f3eee4; }
+    .bor { background:#2a3140; color:#9aa6b6; }
+    .id { width:8px; height:14px; display:inline-block; margin-right:6px; vertical-align:middle; }
+    .totals { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:18px 0; }
+    .totals div { border-top:2px solid var(--line); padding-top:8px; }
+    .totals b { display:block; font-size:32px; font-family:"IBM Plex Mono",monospace; line-height:1; }
+    .totals span { font-size:12px; color:var(--mute); }
+    .grid24 { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px; }
+    .mp { background:var(--panel); border:1px solid var(--line); padding:10px; display:flex; gap:8px; align-items:center; font-size:13px; }
+    .mp img { width:36px; height:36px; object-fit:cover; border-radius:2px; background:#1a2740; }
+    .card { background:var(--panel); border:1px solid var(--line); padding:14px; margin:10px 0; }
+    .meta { font-size:12px; color:var(--mute); line-height:1.45; }
+    .list a, .list .row { display:block; padding:12px 0; border-bottom:1px solid var(--line); }
+    .list .nr { font-family:"IBM Plex Mono",monospace; font-size:12px; color:#9ab0cc; }
+    .her { display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; }
+    .her img { width:96px; height:120px; object-fit:cover; background:#1a2740; }
+    .nums { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px; max-width:420px; }
+    .nums div { border:1px solid var(--line); padding:10px; }
+    .nums b { font-family:"IBM Plex Mono",monospace; font-size:22px; display:block; }
+    .nums span { font-size:11px; color:var(--mute); }
+    footer { padding:16px; border-top:1px solid var(--line); font-size:12px; color:var(--mute); }
+    .maplabel { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#6d7c90; margin-bottom:8px; }
+    @media (max-width:640px) {
+      .chamber { grid-template-columns:1fr 1fr; }
+      .totals { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <a href="index.html">Alle ti forslag</a>
-    <span>Votering 28509 · 19. juni 2026</span>
-  </header>
-  <div class="intro">
-    <h1>Salen, slik den sto.</h1>
-    <p>Alternativ votering, sak 200211. Ikke for mot mot: valget var Komiteen eller forslag nr. 1 og 2 fra SV, R og MDG. Vår telling fra Stortingets votering.</p>
+  <div class="wrap">
+    <header class="top">
+      <strong>Salen</strong>
+      <span>kart 28509 · 60°N</span>
+      <a href="index.html">Alle ti</a>
+    </header>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Sal</a>
+      <a href="#votering" data-tab="votering">Votering</a>
+      <a href="#parti" data-tab="parti">Parti</a>
+      <a href="#hen" data-tab="hen">Folk</a>
+    </nav>
+    <main>
+      <section data-view="hjem">
+        <p class="kicker">Vår telling fra Stortingets votering · 19. juni 2026</p>
+        <h1>Ni partier, én sal.</h1>
+        <p class="lede">Votering 28509, sak 200211. Valget var Komiteen eller forslag nr. 1 og 2 fra SV, R og MDG. Ikke for mot mot. Hvert punkt er én registrert stemme. Grått punkt: borte.</p>
+        <div class="legend">
+          <span><i class="sw" style="background:#7ea0d8"></i>Komiteen</span>
+          <span><i class="sw" style="background:#b9a882"></i>Forslag nr. 1 og 2</span>
+          <span><i class="sw" style="background:#3a4658"></i>Borte</span>
+        </div>
+        <p class="maplabel">Skjematisk sal · blokker etter parti</p>
+        <div class="chamber">
+          <a class="bloc" href="#parti">
+            <div class="nm"><span><i class="id" style="background:#0065F1"></i>Høyre</span><span>14/0/10</span></div>
+            <div class="dots" id="d-h"></div>
+          </a>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#E30613"></i>A</span><span>31/0/22</span></div>
+            <div class="dots" id="d-a"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#003087"></i>FrP</span><span>29/0/18</span></div>
+            <div class="dots" id="d-frp"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#F9C400"></i>KrF</span><span>3/0/4</span></div>
+            <div class="dots" id="d-krf"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#00843D"></i>Sp</span><span>5/0/4</span></div>
+            <div class="dots" id="d-sp"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#009640"></i>V</span><span>2/0/1</span></div>
+            <div class="dots" id="d-v"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#6A8F00"></i>MDG</span><span>0/5/3</span></div>
+            <div class="dots" id="d-mdg"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#980C1E"></i>R</span><span>0/5/4</span></div>
+            <div class="dots" id="d-r"></div>
+          </div>
+          <div class="bloc">
+            <div class="nm"><span><i class="id" style="background:#C8102E"></i>SV</span><span>0/5/4</span></div>
+            <div class="dots" id="d-sv"></div>
+          </div>
+        </div>
+        <div class="totals">
+          <div><b>84</b><span>Komiteen · vedtatt</span></div>
+          <div><b>15</b><span>Forslaget · falt</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <p class="meta">Hordaland i Høyre-gruppen: Erna Solberg, Peter Frølich, Ove Trellevik. Valgdistriktets navn er Hordaland.</p>
+        <p class="meta">MDG i 28509: Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther fremmet saken. Gruppen 0 komiteen / 5 forslag / 3 borte.</p>
+        <a class="card" href="#sak"><span class="kicker">Sak i kartet</span><h2 style="margin:.3rem 0">200211 Klimaavgifter</h2><p class="meta">Ferdigbehandlet. Forslaget ble ikke vedtatt. Åpne saken og Høyre-gruppen.</p></a>
+      </section>
+      <section data-view="votering">
+        <p class="kicker">Votering 28509 · 19. juni 2026 · kl. 12.32</p>
+        <h1>Komiteen mot forslaget.</h1>
+        <p class="lede">Alternativ votering mellom innstillingen og forslag nr. 1 og 2 fra SV, R og MDG. Sak 200211. Finanskomiteen. Saksordfører Tuva Moflag (A).</p>
+        <div class="totals">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslag nr. 1 og 2</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <p class="maplabel">Spor etter parti · komité / forslag / borte</p>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#E30613"></i>Arbeiderpartiet</span><span>31 / 0 / 22</span></div><div class="track"><div class="seg kom" style="flex:31">31</div><div class="seg bor" style="flex:22">22</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#003087"></i>Fremskrittspartiet</span><span>29 / 0 / 18</span></div><div class="track"><div class="seg kom" style="flex:29">29</div><div class="seg bor" style="flex:18">18</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#0065F1"></i>Høyre</span><span>14 / 0 / 10</span></div><div class="track"><div class="seg kom" style="flex:14">14</div><div class="seg bor" style="flex:10">10</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#F9C400"></i>Kristelig Folkeparti</span><span>3 / 0 / 4</span></div><div class="track"><div class="seg kom" style="flex:3">3</div><div class="seg bor" style="flex:4">4</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#00843D"></i>Senterpartiet</span><span>5 / 0 / 4</span></div><div class="track"><div class="seg kom" style="flex:5">5</div><div class="seg bor" style="flex:4">4</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#009640"></i>Venstre</span><span>2 / 0 / 1</span></div><div class="track"><div class="seg kom" style="flex:2">2</div><div class="seg bor" style="flex:1">1</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#6A8F00"></i>Miljøpartiet De Grønne</span><span>0 / 5 / 3</span></div><div class="track"><div class="seg alt" style="flex:5">5</div><div class="seg bor" style="flex:3">3</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#980C1E"></i>Rødt</span><span>0 / 5 / 4</span></div><div class="track"><div class="seg alt" style="flex:5">5</div><div class="seg bor" style="flex:4">4</div></div></div>
+        <div class="party"><div class="hd"><span><i class="id" style="background:#C8102E"></i>Sosialistisk Venstreparti</span><span>0 / 5 / 4</span></div><div class="track"><div class="seg alt" style="flex:5">5</div><div class="seg bor" style="flex:4">4</div></div></div>
+        <p class="meta">Borte = ingen registrert stemme. Vi fyller ikke inn fraværsgrunn. <a href="#saker" style="border-bottom:1px solid #5a6a80">Andre saker fra 19. juni</a></p>
+      </section>
+      <section data-view="parti">
+        <p class="kicker">Parti · Høyre · #0065F1 · 24 medlemmer</p>
+        <h1>Høyre i salen.</h1>
+        <p class="lede">I votering 28509 gikk Høyre-flertallet med komiteen: 14 komiteen, 0 forslag, 10 borte. Vår telling fra Stortingets votering.</p>
+        <div class="totals">
+          <div><b>14</b><span>Komiteen</span></div>
+          <div><b>0</b><span>Forslaget</span></div>
+          <div><b>10</b><span>Borte</span></div>
+        </div>
+        <div class="party"><div class="hd"><span>Høyre spor</span><span>14 / 0 / 10</span></div><div class="track"><div class="seg kom" style="flex:14">14</div><div class="seg bor" style="flex:10">10</div></div></div>
+        <h2>24 i gruppen</h2>
+        <div class="grid24">
+          <a class="mp" href="#hen"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><span>Erna Solberg<br><small>Hordaland</small></span></a>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/PCF" alt=""><span>Peter Frølich<br><small>Hordaland</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><span>Ove Trellevik<br><small>Hordaland</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/HEA" alt=""><span>Henrik Asheim<br><small>Akershus</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/NA" alt=""><span>Nikolai Astrup<br><small>Oslo</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/KARBJR" alt=""><span>Kari Sofie Bjørnsen<br><small>Akershus</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/ERLBE1" alt=""><span>Erlend Svardal Bøe<br><small>Troms</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/MAHF" alt=""><span>Mahmoud Farahmand<br><small>Telemark</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/AMAGUN" alt=""><span>Amalie Gunnufsen<br><small>Vest-Agder</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/MAHAG" alt=""><span>Margret Hagerup<br><small>Rogaland</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/TROH" alt=""><span>Trond Helleland<br><small>Buskerud</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/MUK" alt=""><span>Mudassar Kapur<br><small>Oslo</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/ERLL" alt=""><span>Erlend Larsen<br><small>Vestfold</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/ALI" alt=""><span>Anne K. Linnestad<br><small>Akershus</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/MHL" alt=""><span>Mari Holm Lønseth<br><small>Sør-Trøndelag</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/AIM" alt=""><span>Anna Molberg<br><small>Hedmark</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/MMO" alt=""><span>Monica Molvær<br><small>Møre og Romsdal</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/TAGP" alt=""><span>Tage Pettersen<br><small>Østfold</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/HSP" alt=""><span>Haagen Poppe<br><small>Aust-Agder</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/ALES" alt=""><span>Aleksander Stokkebø<br><small>Rogaland</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/IME" alt=""><span>Ine Eriksen Søreide<br><small>Oslo</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/BRDTHO" alt=""><span>Bård L. Thorheim<br><small>Nordland</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/TWT" alt=""><span>Tone W. Trøen<br><small>Akershus</small></span></div>
+          <div class="mp"><img src="https://test.hverdagstinget.no/api/photos/MTY" alt=""><span>Mathilde Tybring-Gjedde<br><small>Oslo</small></span></div>
+        </div>
+        <p class="meta" style="margin-top:12px">Avvik i gruppen (vår telling, sesjonen): Ove Trellevik 15, Mudassar Kapur 12, Mahmoud Farahmand 11, Peter Frølich 8, Erna Solberg 8.</p>
+      </section>
+      <section data-view="saker">
+        <p class="kicker">Saker som har vært i salen</p>
+        <h1>Fra voteringene 19. juni.</h1>
+        <div class="list">
+          <a href="#sak"><span class="nr">200211 · 28509</span><br><strong>Klimaavgifter til befolkningen</strong><br><span class="meta">Komiteen 84 · forslag 15 · 70 borte · ferdigbehandlet</span></a>
+          <div class="row"><span class="nr">200155 · 28508</span><br><strong>Lavere bensin- og dieselpriser</strong><br><span class="meta">71 for i innstillingens tilråding · ferdigbehandlet</span></div>
+          <div class="row"><span class="nr">200124 · 28505</span><br><strong>Kontantutbetaling</strong><br><span class="meta">Komiteen 84 · forslag 17 · ferdigbehandlet</span></div>
+          <div class="row"><span class="nr">200084 · 28502</span><br><strong>Energi og levekostnader</strong><br><span class="meta">Komiteen 68 · FrP-forslag 29 · ferdigbehandlet</span></div>
+          <div class="row"><span class="nr">200313 · 28499</span><br><strong>Skatte- og avgiftslovgivinga</strong><br><span class="meta">31 voteringer · 52 for i hovedvoteringen</span></div>
+          <div class="row"><span class="nr">200315</span><br><strong>Tilleggsbevilgninger</strong><br><span class="meta">Budsjett · 0 voteringer · ferdigbehandlet</span></div>
+          <div class="row"><span class="nr">200314</span><br><strong>Revidert nasjonalbudsjett</strong><br><span class="meta">Melding · ferdigbehandlet</span></div>
+          <div class="row"><span class="nr">200400</span><br><strong>Prediksjonsmarkeder</strong><br><span class="meta">Mottatt · 0 voteringer · har ikke vært i salen ennå</span></div>
+        </div>
+      </section>
+      <section data-view="sak">
+        <p class="kicker">Sak 200211 · ferdigbehandlet · Dok 8:256 S · Innst. 458 S</p>
+        <h1>Klimaavgifter, slik salen tok den.</h1>
+        <p class="lede">Forslag fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Finanskomiteen. Saksordfører Tuva Moflag (A). Votering 28509: Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Forslaget ble ikke vedtatt.</p>
+        <a class="card" href="#votering"><span class="kicker">Åpne kartet</span><p class="lede" style="margin-top:6px">Ni partiblokker og sporene i 28509.</p></a>
+        <a class="card" href="#hen"><span class="kicker">Høyre i saken</span><p class="lede" style="margin-top:6px">Erna Solberg: borte. Ingen registrert stemme.</p></a>
+        <p class="meta">Saksgang: fremmet 26. mars · referat 9. april · sendt komité 9. april · innstilling 12. juni · votering 19. juni.</p>
+      </section>
+      <section data-view="hen">
+        <p class="kicker">Folk · Høyre · Hordaland</p>
+        <div class="her">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1>Erna Solberg</h1>
+            <p class="lede">ES. Høyre, valgdistrikt Hordaland. I 28509: borte. Vi sier ikke mer enn det — borte er ingen registrert stemme.</p>
+            <div class="nums">
+              <div><b>249</b><span>for · vår telling</span></div>
+              <div><b>350</b><span>mot · vår telling</span></div>
+              <div><b>1121</b><span>borte · vår telling</span></div>
+              <div><b>8</b><span>avvik · vår telling</span></div>
+            </div>
+            <p class="meta" style="margin-top:12px">8 spørsmål. Siste registrerte votering i snapshotet: 19. juni, alle borte. <a href="#parti" style="border-bottom:1px solid #5a6a80">Til Høyre-gruppen</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
   </div>
-  <div class="legend">
-    <span><i class="sw" style="background:#24365c"></i>Komiteen</span>
-    <span><i class="sw" style="background:#6b6458"></i>Forslag nr. 1 og 2 fra SV, R og MDG</span>
-    <span><i class="sw" style="background:#2a3140"></i>Borte</span>
-  </div>
-  <div class="tracks">
-    <div class="party">
-      <header><span><i class="id" style="background:#E30613"></i>Arbeiderpartiet</span><span>31 / 0 / 22</span></header>
-      <div class="track">
-        <div class="seg kom" style="flex:31">31</div>
-        <div class="seg bor" style="flex:22">22</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#003087"></i>Fremskrittspartiet</span><span>29 / 0 / 18</span></header>
-      <div class="track">
-        <div class="seg kom" style="flex:29">29</div>
-        <div class="seg bor" style="flex:18">18</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#0065F1"></i>Høyre</span><span>14 / 0 / 10</span></header>
-      <div class="track">
-        <div class="seg kom" style="flex:14">14</div>
-        <div class="seg bor" style="flex:10">10</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#F9C400"></i>Kristelig Folkeparti</span><span>3 / 0 / 4</span></header>
-      <div class="track">
-        <div class="seg kom" style="flex:3">3</div>
-        <div class="seg bor" style="flex:4">4</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#00843D"></i>Senterpartiet</span><span>5 / 0 / 4</span></header>
-      <div class="track">
-        <div class="seg kom" style="flex:5">5</div>
-        <div class="seg bor" style="flex:4">4</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#009640"></i>Venstre</span><span>2 / 0 / 1</span></header>
-      <div class="track">
-        <div class="seg kom" style="flex:2">2</div>
-        <div class="seg bor" style="flex:1">1</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#6A8F00"></i>Miljøpartiet De Grønne</span><span>0 / 5 / 3</span></header>
-      <div class="track">
-        <div class="seg alt" style="flex:5">5</div>
-        <div class="seg bor" style="flex:3">3</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#980C1E"></i>Rødt</span><span>0 / 5 / 4</span></header>
-      <div class="track">
-        <div class="seg alt" style="flex:5">5</div>
-        <div class="seg bor" style="flex:4">4</div>
-      </div>
-    </div>
-    <div class="party">
-      <header><span><i class="id" style="background:#C8102E"></i>Sosialistisk Venstreparti</span><span>0 / 5 / 4</span></header>
-      <div class="track">
-        <div class="seg alt" style="flex:5">5</div>
-        <div class="seg bor" style="flex:4">4</div>
-      </div>
-    </div>
-  </div>
-  <div class="totals">
-    <div><b>84</b><span>Komiteen · vedtatt</span></div>
-    <div><b>15</b><span>Forslaget · falt</span></div>
-    <div><b>70</b><span>Borte</span></div>
-  </div>
-  <footer>
-    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-    <a href="index.html">Til oversikten</a>
-  </footer>
+  <script>
+    function dots(id, k, f, b){
+      const el = document.getElementById(id); if(!el) return;
+      el.innerHTML = '';
+      for (let i=0;i<k;i++) el.appendChild(Object.assign(document.createElement('i'),{className:'d k'}));
+      for (let i=0;i<f;i++) el.appendChild(Object.assign(document.createElement('i'),{className:'d f'}));
+      for (let i=0;i<b;i++) el.appendChild(Object.assign(document.createElement('i'),{className:'d b'}));
+    }
+    dots('d-h',14,0,10); dots('d-a',31,0,22); dots('d-frp',29,0,18);
+    dots('d-krf',3,0,4); dots('d-sp',5,0,4); dots('d-v',2,0,1);
+    dots('d-mdg',0,5,3); dots('d-r',0,5,4); dots('d-sv',0,5,4);
+    const tabOf = {hjem:'hjem',votering:'votering',parti:'parti',hen:'hen',saker:'hjem',sak:'votering'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1) || 'hjem';
+      if (!document.querySelector('[data-view="'+h+'"]')) h = 'hjem';
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === (tabOf[h]||'hjem')));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
 </body>
 </html>
