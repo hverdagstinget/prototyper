@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ansvar — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f4f3ee; --ink:#1a1d24; --mute:#66707e; --line:#d9dce3; --navy:#1e3a5f; --paper:#fff; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); }
+    body { font-family:"Source Sans 3",system-ui,sans-serif; min-height:100vh; padding-bottom:5.2rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .25rem; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--navy); letter-spacing:.18em; }
+    .top a { text-decoration:none; }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:"Source Serif 4",Georgia,serif; font-size:clamp(2rem,7vw,3.1rem); line-height:1.05; margin:.6rem 0 .45rem; }
+    h2 { font-family:"Source Serif 4",Georgia,serif; font-size:1.4rem; margin:1.25rem 0 .4rem; }
+    .lede { font-size:1.08rem; line-height:1.4; color:#2c3340; margin:0 0 1rem; }
+    .k { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); margin-top:.8rem; }
+    .tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:.55rem; margin:1rem 0; }
+    .tile { display:block; background:var(--paper); border:1px solid var(--line); text-decoration:none; padding:.7rem .65rem .75rem; min-height:7.2rem; }
+    .tile .p { font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .tile h3 { font-family:"Source Serif 4",serif; font-size:1.15rem; margin:.15rem 0 .35rem; }
+    .tile .n { font-size:.82rem; color:#3a4250; }
+    .tile.a { border-left:4px solid #E30613; }
+    .tile.frp { border-left:4px solid #003087; }
+    .tile.h { border-left:4px solid #0065F1; }
+    .tile.r { border-left:4px solid #980C1E; }
+    .tile.sp { border-left:4px solid #00843D; }
+    .tile.sv { border-left:4px solid #C8102E; }
+    .tile.mdg { border-left:4px solid #6A8F00; }
+    .tile.krf { border-left:4px solid #F9C400; }
+    .tile.v { border-left:4px solid #009640; }
+    .big { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:1rem 0; text-align:center; }
+    .big div { background:var(--paper); border:1px solid var(--line); padding:.8rem .3rem; }
+    .big b { display:block; font-family:"Source Serif 4",serif; font-size:2.2rem; line-height:.9; }
+    .big span { font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    .sheet { background:var(--paper); border:1px solid var(--line); padding:1rem; margin:1rem 0; }
+    .who { display:grid; grid-template-columns:4.4rem 1fr; gap:.75rem; align-items:center; margin:.8rem 0; }
+    .who img { width:4.4rem; height:5.5rem; object-fit:cover; background:#e6e8ee; }
+    .cmp { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin:1rem 0; }
+    .cmp div { background:var(--paper); border:1px solid var(--line); padding:.85rem .8rem; }
+    .cmp h3 { font-family:"Source Serif 4",serif; font-size:1.2rem; }
+    .list a, .list article { display:block; padding:.7rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .list h3 { font-size:1.05rem; font-family:"Source Serif 4",serif; }
+    .prow { display:grid; grid-template-columns:2.4rem 1fr 2.2rem 2.2rem 2.2rem; gap:.25rem; font-size:.82rem; padding:.3rem 0; border-bottom:1px dashed var(--line); }
+    .prow.head { font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); }
+    .gov { display:inline-block; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--navy); color:var(--navy); padding:.1rem .35rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:#fff; border-top:1px solid var(--line); }
+    nav.bar a { text-align:center; text-decoration:none; padding:.8rem .1rem; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    nav.bar a.on { color:var(--navy); font-weight:700; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.2rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--navy); }
+    p { line-height:1.45; }
+    .quiet { color:var(--mute); font-size:.85rem; margin:.5rem 0 1rem; }
+    @media (max-width:520px) { .tiles { grid-template-columns:1fr 1fr; } .tile { min-height:6.4rem; } }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Ansvar</b>
+    <a href="lyset.html">Alle skisser</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Ni partier · votering 28509 · sak 200211</p>
+      <h1>Hva de slapp gjennom. Hva de stanset.</h1>
+      <p class="lede">Klikk et parti. Se linjen på klimaavgiftene: komiteen eller forslag. Civic, ikke kampanje.</p>
+      <p class="quiet">Uka 0/0/0. Siste votering 19. juni 2026. Alternativ votering: komiteen mot forslag — ikke for/mot-farger.</p>
+      <div class="tiles">
+        <a class="tile a" href="#arbeiderpartiet">
+          <p class="p">A · 41 · <span class="gov">Regjering</span></p>
+          <h3>Arbeiderpartiet</h3>
+          <p class="n">31 komiteen · 0 forslag · 22 borte</p>
+        </a>
+        <a class="tile frp" href="#sammenlign">
+          <p class="p">FrP · 47</p>
+          <h3>Fremskrittspartiet</h3>
+          <p class="n">29 komiteen · 0 forslag · 18 borte</p>
+        </a>
+        <a class="tile h" href="#hoyre">
+          <p class="p">H · 24</p>
+          <h3>Høyre</h3>
+          <p class="n">14 komiteen · 0 forslag · 10 borte</p>
+        </a>
+        <a class="tile r" href="#sak">
+          <p class="p">R · 9</p>
+          <h3>Rødt</h3>
+          <p class="n">0 komiteen · 5 forslag · 4 borte</p>
+        </a>
+        <a class="tile sp" href="#sak">
+          <p class="p">Sp · 9</p>
+          <h3>Senterpartiet</h3>
+          <p class="n">5 komiteen · 0 forslag · 4 borte</p>
+        </a>
+        <a class="tile sv" href="#sak">
+          <p class="p">SV · 9</p>
+          <h3>SV</h3>
+          <p class="n">0 komiteen · 5 forslag · 4 borte</p>
+        </a>
+        <a class="tile mdg" href="#sak">
+          <p class="p">MDG · 8</p>
+          <h3>MDG</h3>
+          <p class="n">0 komiteen · 5 forslag · 3 borte</p>
+        </a>
+        <a class="tile krf" href="#sak">
+          <p class="p">KrF · 7</p>
+          <h3>KrF</h3>
+          <p class="n">3 komiteen · 0 forslag · 4 borte</p>
+        </a>
+        <a class="tile v" href="#sak">
+          <p class="p">V · 3</p>
+          <h3>Venstre</h3>
+          <p class="n">2 komiteen · 0 forslag · 1 borte</p>
+        </a>
+      </div>
+      <p>Komiteen vant 84–15. Forslaget ble ikke vedtatt. Borte = ingen registrert stemme. <a href="#sak">Saken →</a></p>
+    </section>
+
+    <section data-view="hoyre" hidden>
+      <p class="k">Høyre · 24 mandater · 28509</p>
+      <h1>Høyre stemte komiteen.</h1>
+      <p class="lede">De stanset MDG-forslaget. 14 komiteen, 0 forslag, 10 uten registrert stemme.</p>
+      <div class="big">
+        <div><b>14</b><span>Komiteen</span></div>
+        <div><b>0</b><span>Forslag</span></div>
+        <div><b>10</b><span>Borte</span></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h2 style="margin-top:0">Erna Solberg</h2>
+          <p>Hordaland. På denne voteringen: ingen registrert stemme. Sesjonen: 249 for, 350 mot, 1121 borte, 8 avvik, 8 spørsmål. Vår telling.</p>
+        </div>
+      </div>
+      <h2>Hordaland Høyre, samme votering</h2>
+      <div class="list">
+        <article>
+          <p class="k" style="margin:0">OBT · komiteen</p>
+          <h3>Ove Trellevik</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">ES · borte</p>
+          <h3>Erna Solberg</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">PCF · ikke i voteringen</p>
+          <h3>Peter Frølich</h3>
+          <p>Ikke i rullen. Det er noe annet enn borte. Liv Kari Eskeland står som vara, uten registrert stemme.</p>
+        </article>
+      </div>
+      <p class="quiet">Høyre spurte 683 ganger i sesjonen. Det er et annet signal enn stemmen 19. juni. <a href="#erna">Erna-kortet →</a></p>
+    </section>
+
+    <section data-view="arbeiderpartiet" hidden>
+      <p class="k">Arbeiderpartiet · 41 mandater · regjering</p>
+      <h1>Regjering, og komiteen.</h1>
+      <p class="lede">På 28509: 31 komiteen, 0 forslag, 22 borte. De bar innstillingen. De sitter i regjering.</p>
+      <div class="big">
+        <div><b>31</b><span>Komiteen</span></div>
+        <div><b>0</b><span>Forslag</span></div>
+        <div><b>22</b><span>Borte</span></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="Tuva Moflag">
+        <div>
+          <h2 style="margin-top:0">Tuva Moflag</h2>
+          <p>Saksordfører. Arbeiderpartiet. Innstillingen fra finanskomiteen ble den vinnende linjen.</p>
+        </div>
+      </div>
+      <h2>Hordaland Ap, samme votering</h2>
+      <div class="list">
+        <article>
+          <p class="k" style="margin:0">RUB · komiteen</p>
+          <h3>Rune Bakervik</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">LIM · komiteen</p>
+          <h3>Linda Monsen Merkesdal</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">BENJAK · borte</p>
+          <h3>Benjamin Jakobsen</h3>
+          <p>Ingen registrert stemme. Vi vet ikke hvorfor.</p>
+        </article>
+      </div>
+      <div class="big">
+        <div><b>435</b><span>majority_for · sesjonen · vår telling</span></div>
+        <div><b>1361</b><span>majority_mot · sesjonen · vår telling</span></div>
+        <div><b>22</b><span>borte i 28509</span></div>
+      </div>
+      <p>Borte = ingen registrert stemme. Ap stilte 24 spørsmål i sesjonen. FrP 1757. Ingenting gravd ned. <a href="#sammenlign">Sammenlign med FrP →</a></p>
+    </section>
+
+    <section data-view="sammenlign" hidden>
+      <p class="k">FrP mot A · samme votering 28509</p>
+      <h1>To store grupper, samme linje.</h1>
+      <p class="lede">Begge stemte komiteen. Begge stanset forslaget. Forskjellen er størrelse og hvem som sitter i regjering.</p>
+      <div class="cmp">
+        <div>
+          <p class="k" style="margin-top:0">FrP · 47</p>
+          <h3>29 / 0 / 18</h3>
+          <p>Komiteen, forslag, borte. Opposisjon. 1757 spørsmål i sesjonen.</p>
+        </div>
+        <div>
+          <p class="k" style="margin-top:0">A · 41 · regjering</p>
+          <h3>31 / 0 / 22</h3>
+          <p>Komiteen, forslag, borte. Regjering. 24 spørsmål i sesjonen. De svarer, de spør sjelden.</p>
+        </div>
+      </div>
+      <p>Hordaland FrP på 28509: Martin Virkesdal Jonsterhaug komiteen. Helge André Njåstad, Silje Hjemdal, Stig Atle Abrahamsen: ingen registrert stemme.</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="Martin Virkesdal Jonsterhaug">
+        <div>
+          <h3>Martin Virkesdal Jonsterhaug</h3>
+          <p>FrP · Hordaland · komiteen. Et navn på linjen som vant.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="Helge André Njåstad">
+        <div>
+          <h3>Helge André Njåstad</h3>
+          <p>FrP · Hordaland · borte i 28509. Spør 26. august. To ulike signal.</p>
+        </div>
+      </div>
+      <p class="quiet">Civic lesning: begge partiene slapp innstillingen gjennom og stanset forslag nr. 1 og 2. <a href="#hoyre">Høyre gjorde det samme, 14/0/10.</a></p>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k">Sak 200211 · ferdigbehandlet · ikke vedtatt</p>
+      <h1>Hvem stanset, hvem tok det opp.</h1>
+      <p>Representantforslag om å dele ut statens inntekter fra klimaavgifter. Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther. Finanskomiteen. Saksordfører Tuva Moflag (A). Dok 8:256 S, Innst. 458 S.</p>
+      <div class="sheet">
+        <p class="k" style="margin-top:0">28509 · 19. juni · alternativ</p>
+        <div class="big">
+          <div><b>84</b><span>Komiteen</span></div>
+          <div><b>15</b><span>Forslag</span></div>
+          <div><b>70</b><span>Borte</span></div>
+        </div>
+        <div class="prow head"><span>P</span><span>Parti</span><span>Kom</span><span>For</span><span>Bte</span></div>
+        <div class="prow"><span>A</span><span>Arbeiderpartiet</span><span>31</span><span>0</span><span>22</span></div>
+        <div class="prow"><span>FrP</span><span>Fremskrittspartiet</span><span>29</span><span>0</span><span>18</span></div>
+        <div class="prow"><span>H</span><span>Høyre</span><span>14</span><span>0</span><span>10</span></div>
+        <div class="prow"><span>KrF</span><span>Kristelig Folkeparti</span><span>3</span><span>0</span><span>4</span></div>
+        <div class="prow"><span>MDG</span><span>Miljøpartiet De Grønne</span><span>0</span><span>5</span><span>3</span></div>
+        <div class="prow"><span>R</span><span>Rødt</span><span>0</span><span>5</span><span>4</span></div>
+        <div class="prow"><span>SV</span><span>Sosialistisk Venstreparti</span><span>0</span><span>5</span><span>4</span></div>
+        <div class="prow"><span>Sp</span><span>Senterpartiet</span><span>5</span><span>0</span><span>4</span></div>
+        <div class="prow"><span>V</span><span>Venstre</span><span>2</span><span>0</span><span>1</span></div>
+      </div>
+      <h2>Andre saker, samme uke i juni</h2>
+      <div class="list">
+        <article>
+          <p class="k" style="margin:0">200155 · 71–28 · 70 borte</p>
+          <h3>Lavere bensin- og dieselpriser</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">200124 · komiteen 84 vs 17</p>
+          <h3>Kontantutbetaling</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">200084 · komiteen 68 vs FrP 29</p>
+          <h3>Energipriser</h3>
+        </article>
+        <article>
+          <p class="k" style="margin:0">200313 · 52–49</p>
+          <h3>Skatte- og avgiftslovgivinga</h3>
+        </article>
+      </div>
+      <p class="quiet">Åpne: 200400 SV, 200399 Sp Vedum, 200398 FrP Wiborg, 200397 KrF Ystebø, 200396 SV Hammer.</p>
+    </section>
+
+    <section data-view="erna" hidden>
+      <p class="k">Person · ES · Høyre</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1 style="font-size:2rem;margin:0">Erna Solberg</h1>
+          <p>Hordaland. Gruppen stemte komiteen. Hun har ingen registrert stemme i 28509.</p>
+        </div>
+      </div>
+      <div class="big">
+        <div><b>249</b><span>For</span></div>
+        <div><b>350</b><span>Mot</span></div>
+        <div><b>1121</b><span>Borte</span></div>
+      </div>
+      <p>8 avvik, 8 spørsmål. Vi vet ikke hvorfor stemmen mangler 19. juni. Vi tilskriver det ikke gruppen, og ikke henne som latskap. <a href="#hoyre">Tilbake til Høyre</a></p>
+    </section>
+
+
+    <section data-view="saker" hidden>
+      <p class="k">Saker · hvem fikk flertall</p>
+      <h1>Utfall med tre felt.</h1>
+      <p class="lede">Komiteen mot forslag der voteringen er alternativ. Borte alltid med. 144 saker ikke ferdigbehandlet. Denne uken: 0 voteringer. Siste votering 19. juni 2026.</p>
+      <div class="list">
+        <a href="#sak"><p class="k" style="margin:0">200211 · 28509</p><h3>Liland, Indgaard, Sjursæther · klimaavgifter</h3><p class="quiet">Komiteen 84 · forslag 15 · 70 borte · A 22 borte · ikke vedtatt</p></a>
+        <article><p class="k" style="margin:0">200155 · 28508</p><h3>Vedum m.fl. · bensin og diesel</h3><p class="quiet">71–28–70</p></article>
+        <article><p class="k" style="margin:0">200124 · 28505</p><h3>Haltbrekken m.fl. · kontantutbetaling</h3><p class="quiet">Komiteen 84 · forslag 17 · 68 borte</p></article>
+        <article><p class="k" style="margin:0">200084 · 28502</p><h3>Limi m.fl. · energi og levekostnader</h3><p class="quiet">Komiteen 68 · FrP-forslag 29 · 72 borte</p></article>
+        <article><p class="k" style="margin:0">200313 · 28499</p><h3>Skatte- og avgiftslovgivinga</h3><p class="quiet">52–49–68</p></article>
+        <article><p class="k" style="margin:0">200400</p><h3>SV · prediksjonsmarkeder</h3><p class="quiet">Mottatt</p></article>
+        <article><p class="k" style="margin:0">200399</p><h3>Sp · Hammerfest</h3><p class="quiet">Mottatt</p></article>
+        <article><p class="k" style="margin:0">200398</p><h3>FrP · bolig</h3><p class="quiet">Mottatt</p></article>
+        <article><p class="k" style="margin:0">200397</p><h3>KrF · abort</h3><p class="quiet">Mottatt</p></article>
+        <article><p class="k" style="margin:0">200396</p><h3>SV · Palestina</h3><p class="quiet">Mottatt</p></article>
+      </div>
+      <p class="quiet">A i regjering 24 spørsmål. FrP 1757. Vår telling.</p>
+    </section>
+
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  <nav class="bar">
+    <a href="#hjem" data-nav="hjem">Partier</a>
+    <a href="#hoyre" data-nav="hoyre">Høyre</a>
+    <a href="#arbeiderpartiet" data-nav="arbeiderpartiet">Ap</a>
+    <a href="#sammenlign" data-nav="sammenlign">FrP–A</a>
+    <a href="#sak" data-nav="sak">Sak</a>
+  </nav>
+  <script>
+    (function () {
+      var home = 'hjem';
+      var parent = { hjem:'hjem', hoyre:'hoyre', ap:'arbeiderpartiet', arbeiderpartiet:'arbeiderpartiet', sammenlign:'sammenlign', sak:'sak', erna:'hoyre', saker:'saker' };
+      function go() {
+        var id = (location.hash || '#' + home).slice(1) || home;
+        document.querySelectorAll('[data-view]').forEach(function (v) {
+          v.hidden = v.getAttribute('data-view') !== id;
+        });
+        document.querySelectorAll('nav.bar a').forEach(function (a) {
+          a.classList.toggle('on', a.getAttribute('data-nav') === (parent[id] || id));
+        });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
+</body>
+</html>
