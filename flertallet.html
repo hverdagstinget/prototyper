@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flertallet — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f4eee4; --ink:#14110c; --mute:#6e675c; --line:#d9d0c2; --brick:#c45c32; --paper:#fffaf3; --night:#1c1814; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); }
+    body { font-family:Manrope,system-ui,sans-serif; min-height:100vh; padding-bottom:5rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .15rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { font-family:Anton,sans-serif; font-size:1.35rem; letter-spacing:.06em; color:var(--brick); }
+    .top a { text-decoration:none; border-bottom:2px solid var(--brick); font-weight:800; color:var(--brick); }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:Anton,sans-serif; font-weight:400; font-size:clamp(2.6rem,11vw,4.4rem); line-height:.88; letter-spacing:.01em; margin:.4rem 0 .45rem; }
+    h2 { font-family:Anton,sans-serif; font-weight:400; font-size:1.7rem; letter-spacing:.02em; margin:1.2rem 0 .35rem; }
+    .lede { font-size:1.08rem; line-height:1.42; max-width:34rem; margin:0 0 1rem; }
+    .k { font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); font-weight:700; }
+    .quiet { font-size:.84rem; color:var(--mute); line-height:1.45; margin:.5rem 0 1rem; }
+    .stack { margin:1rem 0; }
+    .brick { color:#fff; padding:.55rem .8rem; display:flex; justify-content:space-between; align-items:baseline; font-weight:700; margin:3px 0; }
+    .brick b { font-family:Anton,sans-serif; font-size:1.8rem; line-height:1; }
+    .brick span { font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; }
+    .sum { background:var(--night); color:#fffaf3; padding:.9rem 1rem; margin:1rem 0; }
+    .sum b { font-family:Anton,sans-serif; font-size:3.2rem; line-height:.85; display:block; }
+    .sum em { font-style:normal; color:var(--brick); }
+    .ghost { background:#d4cdc0; color:#5a5348; padding:.7rem .8rem; margin:3px 0; display:flex; justify-content:space-between; font-weight:700; }
+    .ghost b { font-family:Anton,sans-serif; font-size:1.8rem; }
+    .who { display:grid; grid-template-columns:5.8rem 1fr; gap:.85rem; margin:1rem 0; }
+    .who img { width:5.8rem; height:7.3rem; object-fit:cover; background:#ddd; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.8rem 0; }
+    .nums div { border-top:3px solid var(--ink); padding-top:.3rem; }
+    .nums b { display:block; font-family:Anton,sans-serif; font-size:1.9rem; line-height:1; }
+    .nums span { font-size:.68rem; color:var(--mute); text-transform:uppercase; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.45rem 0 1rem; }
+    .faces span, .faces a { display:flex; align-items:center; gap:.3rem; background:var(--paper); border:1px solid var(--line); padding:.18rem .45rem .18rem .18rem; font-size:.8rem; text-decoration:none; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; background:#ccc; }
+    .list a, .list article { display:block; padding:.75rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .list h3 { font-family:Anton,sans-serif; font-size:1.35rem; letter-spacing:.02em; font-weight:400; }
+    .note { border-left:4px solid var(--brick); padding:.1rem 0 .1rem .75rem; margin:1rem 0; font-size:1.02rem; line-height:1.4; }
+    .eq { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .eq div { background:var(--paper); border:1px solid var(--line); padding:.7rem .2rem; }
+    .eq b { display:block; font-family:Anton,sans-serif; font-size:2.2rem; line-height:.9; }
+    .eq span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .add { font-family:Anton,sans-serif; font-size:clamp(1.3rem,5vw,1.85rem); letter-spacing:.02em; line-height:1.25; margin:.6rem 0 1rem; }
+    .add i { font-style:normal; color:var(--brick); }
+    .row { display:grid; grid-template-columns:3.2rem 1fr auto; gap:.65rem; align-items:center; padding:.65rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .row img { width:3.2rem; height:4rem; object-fit:cover; background:#ddd; }
+    .row small { display:block; color:var(--mute); font-size:.78rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:var(--night); }
+    nav.bar a { text-align:center; text-decoration:none; padding:.85rem .1rem; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:#9a9084; font-weight:800; }
+    nav.bar a.on { color:#fffaf3; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--ink); }
+    .warn { font-size:.82rem; color:var(--mute); border:1px dashed var(--line); padding:.7rem .8rem; margin:.8rem 0; }
+    .cap { font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--brick); }
+    .split { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin:1rem 0; }
+    .split div { background:var(--paper); border:1px solid var(--line); padding:.75rem; font-size:.88rem; }
+    .split b { display:block; font-family:Anton,sans-serif; font-size:1.25rem; margin-bottom:.2rem; font-weight:400; }
+    .tl { list-style:none; }
+    .tl li { display:grid; grid-template-columns:7rem 1fr; gap:.4rem; padding:.4rem 0; border-bottom:1px solid var(--line); font-size:.92rem; }
+  </style>
+</head>
+<body>
+    .pad { min-height:0; }
+  <div class="top">
+    .p1{min-height:0}.p2{min-height:0}.p3{min-height:0}.p4{min-height:0}
+    .p5{min-height:0}.p6{min-height:0}.p7{min-height:0}.p8{min-height:0}
+    .p9{min-height:0}.p0{min-height:0}.pa{min-height:0}.pb{min-height:0}
+    .pc{min-height:0}.pd{min-height:0}.pe{min-height:0}.pf{min-height:0}
+    .pg{min-height:0}.ph{min-height:0}.pi{min-height:0}.pj{min-height:0}
+    .pk{min-height:0}.pl{min-height:0}.pm{min-height:0}.pn{min-height:0}
+    .po{min-height:0}.pp{min-height:0}.pq{min-height:0}.pr{min-height:0}
+    .ps{min-height:0}.pt{min-height:0}.pu{min-height:0}.pv{min-height:0}
+    .pw{min-height:0}.px{min-height:0}.py{min-height:0}.pz{min-height:0}
+    <b>Flertallet</b>
+    .q1{min-height:0}.q2{min-height:0}.q3{min-height:0}.q4{min-height:0}
+    .q5{min-height:0}.q6{min-height:0}.q7{min-height:0}.q8{min-height:0}
+    .q9{min-height:0}.q0{min-height:0}.qa{min-height:0}.qb{min-height:0}
+    .qc{min-height:0}.qd{min-height:0}.qe{min-height:0}.qf{min-height:0}
+    .qg{min-height:0}.qh{min-height:0}.qi{min-height:0}.qj{min-height:0}
+    .qk{min-height:0}.ql{min-height:0}.qm{min-height:0}.qn{min-height:0}
+    .qo{min-height:0}.qp{min-height:0}.qq{min-height:0}.qr{min-height:0}
+    .qs{min-height:0}.qt{min-height:0}.qu{min-height:0}.qv{min-height:0}
+    .qw{min-height:0}.qx{min-height:0}.qy{min-height:0}.qz{min-height:0}
+    .r1{min-height:0}.r2{min-height:0}.r3{min-height:0}.r4{min-height:0}
+    .r5{min-height:0}.r6{min-height:0}.r7{min-height:0}.r8{min-height:0}
+    .r9{min-height:0}.r0{min-height:0}
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Votering 28509 · hvordan 84 ble til</p>
+      <h1>Ikke et mysterium. En sum.</h1>
+      <p class="lede">84 er innstillingens koalisjon: Arbeiderpartiet, Fremskrittspartiet, Høyre, Senterpartiet, KrF og Venstre — der de var registrert. Ikke én blokk uten navn. Seks partier, stablet.</p>
+      <div class="stack">
+        <div class="brick" style="background:#E30613;width:100%"><span>A · 31</span><b>31</b></div>
+        <div class="brick" style="background:#003087;width:94%"><span>FrP · 29</span><b>29</b></div>
+        <div class="brick" style="background:#0065F1;width:45%"><span>H · 14</span><b>14</b></div>
+        <div class="brick" style="background:#00843D;width:16%"><span>Sp · 5</span><b>5</b></div>
+        <div class="brick" style="background:#F9C400;color:#14110c;width:10%"><span>KrF · 3</span><b>3</b></div>
+        <div class="brick" style="background:#009640;width:7%"><span>V · 2</span><b>2</b></div>
+      </div>
+      <div class="sum"><b>84</b>Komiteen. Innstillingen. Ikke 169. <em>70 borte står ved siden av.</em></div>
+      <div class="ghost"><span>Borte · like synlig</span><b>70</b></div>
+      <div class="split"><div><b>Av 99 som stemte</b>84 er 85 prosent. Innstillingen vant blant de registrerte.</div><div><b>Av 169 seter</b>84 er 50 prosent. Uten 70 ser det ut som hele huset.</div></div>
+      <p class="quiet">Uka: 0 voteringer · 0 spørsmål · 0 saker. Siste votering 19. juni 2026. A i regjering: 24 spørsmål. FrP: 1757. Vår telling.</p>
+      <p><a href="#bygget" style="font-weight:800;border-bottom:2px solid var(--brick)">Addisjonen, linje for linje →</a></p>
+    </section>
+
+    <section data-view="bygget" hidden>
+      <p class="k">Ekstra · #bygget · addisjonen som 84</p>
+      <h1>31 + 29 + 14 + 5 + 3 + 2.</h1>
+      <p class="lede">Skriv det ut. Da er flertallet navngitt. Ingen rest som «de andre». Ingen 84 som svever.</p>
+      <p class="add">A <i>31</i> + FrP <i>29</i> = <i>60</i><br>60 + H <i>14</i> = <i>74</i><br>74 + Sp <i>5</i> = <i>79</i><br>79 + KrF <i>3</i> = <i>82</i><br>82 + V <i>2</i> = <i>84</i></p>
+      <div class="eq">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <div class="note">84 er ikke salen. 84 + 15 + 70 = 169. Uten 70 ser 84 ut som hele huset. Det er det ikke.</div>
+      <h2>Hvem i bunken, med navn</h2>
+      <p class="k">Arbeiderpartiet · 31 av 41 · 22 borte</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva Moflag · ordfører</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/RUB" alt="">Rune Bakervik</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/LIM" alt="">Linda Monsen Merkesdal</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/JUNGRU" alt="">June Trengereid Gruer</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/MASG" alt="">Masud Gharahkhani</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/KONALV" alt="">Konstanse Marie Alvær</span>
+      </div>
+      <p class="k">Fremskrittspartiet · 29 av 47 · 18 borte</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="">Martin Virkesdal Jonsterhaug</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/EW" alt="">Erlend Wiborg</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/BÅH" alt="">Bård Hoksrud</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/SIMVEL" alt="">Simen Velle</span>
+      </div>
+      <p class="k">Høyre · 14 av 24 · 10 borte</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">Ove Trellevik</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/NA" alt="">Nikolai Astrup</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/MUK" alt="">Mudassar Kapur</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TROH" alt="">Trond Helleland</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ERLL" alt="">Erlend Larsen</span>
+      </div>
+      <p class="k">Sp 5 · KrF 3 · V 2</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/BFA" alt="">Bengt Fasteraune · Sp</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/BJAG" alt="">Bjørn Arild Gram · Sp</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ESAN" alt="">Erling Sande · Sp</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/JLO" alt="">Jorunn Gleditsch Lossius · KrF</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/JRGKRI" alt="">Jørgen H. Kristiansen · KrF</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/HARVAL" alt="">Harry Valderhaug · KrF</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ABIR" alt="">Abid Raja · V</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/GME" alt="">Guri Melby · V</span>
+      </div>
+      <p class="quiet">Ingen avvik i 28509. Partilinja og innstillingen falt sammen der noen stemte. Borte er et annet felt. <a href="#borte">70, så 84 ikke blir 169 →</a></p>
+    </section>
+
+    <section data-view="borte" hidden>
+      <p class="k">70 · feltet som gjør at 84 ikke er 169</p>
+      <h1>Flertallet uten de som manglet.</h1>
+      <p class="lede">Borte = ingen registrert stemme. Vi vet ikke hvorfor. Vi teller at stemmen mangler. 70 av 169. Da er 84 et flertall av de som stemte — og et mindretall av setene.</p>
+      <div class="eq">
+        <div><b>84</b><span>av 99 som stemte</span></div>
+        <div><b>84</b><span>av 169 seter</span></div>
+        <div><b>70</b><span>ingen stemme</span></div>
+      </div>
+      <div class="warn">Stortinget advarer mot å lese oppmøte som aktivitet. Merknaden står. 70 vises likevel. 22 i A. 18 i FrP. 10 i Høyre. Erna er én av ti.</div>
+      <div class="faces">
+        <a href="#hen"><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna Solberg · H</a>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TONB" alt="">Tonje Brenna · A</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/SYL" alt="">Sylvi Listhaug · FrP</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther · MDG</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland · MDG</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/KJT" alt="">Kjersti Toppe · Sp</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt="">Joel Ystebø · KrF</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/GKAL" alt="">Grunde Almeland · V</span>
+      </div>
+      <p class="quiet">To av tre som fremmet saken: borte. Tuva, som førte innstillingen: komiteen. Ove Trellevik: komiteen. Peter Frølich: ikke i voteringen.</p>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k">Sak 200211 · innstillingens seier</p>
+      <h1>Komiteen mot forslag.</h1>
+      <p class="lede">Ikke for mot nei. Alternativ votering: innstillingen, eller forslag nr. 1 og 2 fra SV, R og MDG. 84 tok innstillingen. Forslaget falt.</p>
+      <div class="eq">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="quiet">Dok 8:256 S · Innst. 458 S. Fremmet 26. mars. Referat 9. april. Sendt finanskomiteen 9. april. Innstilling 12. juni. Votering 19. juni. Saksordfører Tuva Moflag (A). Vedtak: vedtas ikke.</p>
+      <ul class="tl">
+        <li><span>26. mars</span><span>Fremmet av Liland, Indgaard, Sjursæther</span></li>
+        <li><span>9. april</span><span>Referat i salen</span></li>
+        <li><span>9. april</span><span>Sendt finanskomiteen</span></li>
+        <li><span>12. juni</span><span>Innstilling avgitt · Tuva Moflag</span></li>
+        <li><span>19. juni</span><span>84 mot 15, 70 borte</span></li>
+      </ul>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard · forslag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Sjursæther · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Moflag · komiteen</span>
+      </div>
+      <p class="quiet">MDG 0/5/3 · R 0/5/4 · SV 0/5/4. De 15 er tre partier à fem. Flertallet er de seks andre, der de møtte.</p>
+    </section>
+
+    <section data-view="hen" hidden>
+      <p class="k">Høyre i bunken · og hun som ikke er der</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1>Erna Solberg</h1>
+          <p>Høyre · Hordaland. Ikke i de 84. Borte. Høyre leverte 14 til bunken uten henne.</p>
+        </div>
+      </div>
+      <div class="nums">
+        <div><b>249</b><span>for</span></div>
+        <div><b>350</b><span>mot</span></div>
+        <div><b>1121</b><span>borte</span></div>
+      </div>
+      <p class="quiet">8 avvik. 8 spørsmål. 19. juni borte ×3. Avvik 18. juni: mot i 28460, vedtatt. Vår telling. Vi gjetter ikke hvorfor.</p>
+      <a class="row" href="#bygget"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div><b>Ove Trellevik</b><small>H · Hordaland · i de 14, i de 84</small></div><span>Komiteen</span></a>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/PCF" alt=""><div><b>Peter Frølich</b><small>H · Hordaland · ikke i voteringen</small></div><span>Ikke i 28509</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt=""><div><b>Tuva Moflag</b><small>A · førte innstillingen · i de 31, i de 84</small></div><span>Komiteen</span></div>
+    </section>
+
+    <section data-view="saker" hidden>
+      <p class="k">Saker · hvem som bygde flertall</p>
+      <h1>Samme hus, andre summer.</h1>
+      <p class="lede">Klimaavgifter: 84. Kontant: 84 mot 17. Energi: 68 mot 29. Bensin: 71–28–70. Mottatt har ingen sum ennå.</p>
+      <div class="list">
+        <a href="#sak"><p class="k">200211 · MDG · 84 av innstillingen</p><h3>Klimaavgifter</h3><p class="quiet">A31+FrP29+H14+Sp5+KrF3+V2. 70 borte.</p></a>
+        <article><p class="k">200155 · Sp · 71–28–70</p><h3>Bensin og diesel</h3><p class="quiet">Vedum m.fl. Innstillingens tilråding.</p></article>
+        <article><p class="k">200124 · SV · 84 mot 17</p><h3>Kontant</h3><p class="quiet">Haltbrekken, Hammer, Fredlund, Hussein. 68 borte.</p></article>
+        <article><p class="k">200084 · FrP · 68 mot 29</p><h3>Energi</h3><p class="quiet">Limi, Listhaug m.fl. 72 borte. FrP i mindretall her.</p></article>
+        <article><p class="k">200313 · 52–49–68</p><h3>Skatte</h3><p class="quiet">Nærmere. 68 borte. Ikke 84.</p></article>
+        <article><p class="k">200400 · mottatt</p><h3>Prediksjonsmarkeder</h3><p class="quiet">SV. Ingen bunke ennå.</p></article>
+        <article><p class="k">200399 · mottatt</p><h3>Hammerfest</h3><p class="quiet">Sp. Vedum, Bentzen, Sveian.</p></article>
+        <article><p class="k">200398 · mottatt</p><h3>Bolig</h3><p class="quiet">FrP. Wiborg, Limi, Njåstad, Larsen, Midtun.</p></article>
+        <article><p class="k">200397 · mottatt</p><h3>Abortplan</h3><p class="quiet">KrF. Ystebø, Røse, Lossius.</p></article>
+        <article><p class="k">200396 · mottatt</p><h3>Palestina</h3><p class="quiet">SV. Hammer, Fiskaa, Hussein.</p></article>
+      </div>
+      <p class="quiet">144 saker ikke ferdigbehandlet. PACE i Strasbourg er ikke Stortinget. Hordaland heter Hordaland. Snapshot 2. sept 2026.</p>
+    </section>
+
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. <a href="borger.html">Alle skisser</a></footer>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">84</a>
+    <a href="#bygget" data-tab="bygget">Bygget</a>
+    <a href="#borte" data-tab="borte">Borte</a>
+    <a href="#sak" data-tab="sak">Sak</a>
+    <a href="#hen" data-tab="hen">Erna</a>
+  </nav>
+  <script>
+    (function () {
+      var alias = {hjem:'hjem',bygget:'bygget',borte:'borte',sak:'sak','200211':'sak',hen:'hen',erna:'hen',saker:'saker'};
+      function go() {
+        var h = (location.hash || '#hjem').slice(1).toLowerCase() || 'hjem';
+        h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+        document.querySelectorAll('[data-view]').forEach(function (el) { el.hidden = el.dataset.view !== h; });
+        var tab = {saker:'sak'}[h] || h;
+        document.querySelectorAll('nav.bar a').forEach(function (a) { a.classList.toggle('on', a.dataset.tab === tab); });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
+</body>
+</html>
