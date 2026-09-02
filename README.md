@@ -1,5 +1,5 @@
-# Hverdagstinget — ti designprototyper
+# Hverdagstinget — ti hele apper
 
-Statiske HTML-skisser mot et snapshot av test-API 2. sept 2026. Ikke live-appen. Live test: https://test.hverdagstinget.no
+Statiske HTML-prototyper mot et snapshot av test-API 2. sept 2026. Ikke live-appen.
 
-Hub: index.html
+Hub: https://hverdagstinget.github.io/prototyper/
