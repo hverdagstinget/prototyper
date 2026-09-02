@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fra A til Å — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400;1,7..72,600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f7f1e4; --ink:#241c12; --mute:#7a6e5c; --line:#e0d4be; --paper:#fffaf0; --oak:#5c3a1e; --gold:#c9a227; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); }
+    body { font-family:Karla,system-ui,sans-serif; min-height:100vh; padding-bottom:5rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.2rem .15rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { font-family:Literata,Georgia,serif; font-size:1.15rem; letter-spacing:0; text-transform:none; color:var(--oak); }
+    .top a { text-decoration:none; border-bottom:1px solid var(--gold); font-weight:700; }
+    .wrap { max-width:38rem; margin:0 auto; padding:0 1.2rem 2rem; }
+    h1 { font-family:Literata,Georgia,serif; font-weight:600; font-size:clamp(2.05rem,7.5vw,3.15rem); line-height:1.05; margin:.45rem 0 .4rem; }
+    h2 { font-family:Literata,Georgia,serif; font-size:1.4rem; margin:1.3rem 0 .4rem; }
+    .lede { font-family:Literata,Georgia,serif; font-size:1.22rem; line-height:1.42; font-style:italic; margin:0 0 1rem; color:#3a3024; }
+    .k { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); font-weight:700; }
+    .plain { font-size:1.02rem; line-height:1.55; margin:.45rem 0 .85rem; }
+    .ch { background:var(--paper); border:1px solid var(--line); padding:1.05rem 1rem 1.1rem; margin:.75rem 0; text-decoration:none; display:block; }
+    .ch .n { font-family:Literata,serif; font-size:2rem; color:var(--gold); line-height:1; }
+    .ch h3 { font-family:Literata,serif; font-size:1.28rem; margin:.15rem 0 .3rem; }
+    .label { display:inline-block; background:#efe4cc; padding:.08rem .4rem; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--oak); margin-top:.35rem; }
+    .who { display:grid; grid-template-columns:5.6rem 1fr; gap:.85rem; margin:1rem 0; align-items:start; }
+    .who img { width:5.6rem; height:7.1rem; object-fit:cover; background:#ddd4c0; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .trip div { background:var(--oak); color:var(--paper); padding:.75rem .2rem; }
+    .trip b { display:block; font-family:Literata,serif; font-size:2rem; line-height:.9; color:var(--gold); }
+    .trip span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:#e8dcc4; }
+    .steg { display:grid; grid-template-columns:5.4rem 1fr; gap:.55rem; padding:.85rem 0; border-bottom:1px solid var(--line); }
+    .steg .d { font-family:Literata,serif; font-size:1.05rem; color:var(--oak); }
+    .steg h3 { font-family:Literata,serif; font-size:1.2rem; }
+    .steg p { font-size:.92rem; line-height:1.45; margin-top:.2rem; color:#3a3024; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0 1rem; }
+    .faces span, .faces a { display:flex; align-items:center; gap:.3rem; background:var(--paper); border:1px solid var(--line); padding:.18rem .45rem .18rem .18rem; font-size:.8rem; text-decoration:none; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; background:#ccc; }
+    .list a, .list article { display:block; padding:.75rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .list h3 { font-family:Literata,serif; font-size:1.2rem; }
+    .quiet { font-size:.84rem; color:var(--mute); line-height:1.45; margin:.5rem 0 1rem; }
+    .note { border-left:3px solid var(--gold); padding:.1rem 0 .1rem .75rem; margin:1rem 0; font-family:Literata,serif; font-size:1.08rem; line-height:1.4; }
+    .off { background:#241c12; color:#f7f1e4; padding:1rem; margin:1rem 0; }
+    .off .k { color:var(--gold); }
+    .off p { margin:.35rem 0; line-height:1.45; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:#241c12; }
+    nav.bar a { text-align:center; text-decoration:none; padding:.85rem .1rem; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:#b8a888; font-weight:700; }
+    nav.bar a.on { color:var(--gold); }
+    footer.site { max-width:38rem; margin:0 auto; padding:1.15rem 1.2rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--ink); }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.8rem 0; }
+    .nums div { border-top:2px solid var(--oak); padding-top:.35rem; }
+    .nums b { display:block; font-family:Literata,serif; font-size:1.7rem; }
+    .nums span { font-size:.68rem; color:var(--mute); text-transform:uppercase; letter-spacing:.06em; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Fra A til Å</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Én sak · fortalt ferdig · uten stortingsord først</p>
+      <h1>Tre personer ville gi klimaavgiftene tilbake.</h1>
+      <p class="lede">De skrev et forslag. Huset leste det opp. En komité skrev at det ikke skulle vedtas. Salen stemte. Forslaget falt. Sytti hadde ingen stemme registrert.</p>
+      <p class="plain">Det er hele historien. Under står den i fem åpne kapitler — ingenting er slått sammen, ingenting er gjemt bak «les mer». Etter historien kommer de offisielle merkelappene: representantforslag, innstilling, alternativ votering, ferdigbehandlet.</p>
+      <p class="quiet">Uka: 0 voteringer · 0 spørsmål · 0 saker. Siste votering 19. juni 2026. PACE i Strasbourg er ikke et møte i Stortinget.</p>
+      <a class="ch" href="#steg">
+        <p class="n">01–05</p>
+        <h3>Fem datoer. Ingen sammenklappet.</h3>
+        <p class="plain" style="margin:0">26. mars · 9. april · 9. april · 12. juni · 19. juni. Fra de tre skrev, til salen stemte.</p>
+      </a>
+      <div class="faces">
+        <a href="#folk"><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland</a>
+        <a href="#folk"><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Oda Indgaard</a>
+        <a href="#folk"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther</a>
+        <a href="#folk"><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva Moflag</a>
+      </div>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="quiet">Borte = ingen registrert stemme. Vi vet ikke hvorfor. Vi teller at den mangler. Hordaland heter Hordaland.</p>
+      <p><a href="#offisielt">De offisielle merkelappene →</a></p>
+    </section>
+
+    <section data-view="steg" hidden>
+      <p class="k">Ekstra · #steg · fem datoer · ingenting sammenklappet</p>
+      <h1>Slik gikk saken, dag for dag.</h1>
+      <p class="lede">Les det som en historie. Merkelappene står under hvert steg, i klammer, for den som vil lære ordene etterpå.</p>
+
+      <article class="steg">
+        <div class="d">26. mars</div>
+        <div>
+          <h3>De leverte teksten.</h3>
+          <p>Tre representanter fra Miljøpartiet De Grønne skrev at statens inntekter fra klimaavgifter burde deles ut til folk. De tre: Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther. Frøya er fra Hordaland.</p>
+          <p>De ba om to ting: at pengene fra CO₂-avgiften på bensin og autodiesel går tilbake til innbyggere, med mer til dem som bor der arbeidsgiveravgiften er redusert. Og at regjeringen utreder om ordningen kan trekkes ut til andre CO₂-avgifter.</p>
+          <span class="label">Offisielt: fremmet · Dokument 8:256 S (2025–2026)</span>
+        </div>
+      </article>
+
+      <article class="steg">
+        <div class="d">9. april</div>
+        <div>
+          <h3>Salen hørte at det fantes.</h3>
+          <p>Forslaget ble lest opp i Stortinget. Ikke debattert ferdig. Ikke stemt over. Bare gjort kjent, så alle vet at det er kommet inn. Dette er husets måte å si «vi har mottatt dette».</p>
+          <span class="label">Offisielt: referat · Stortingsreferat 09.04.2026</span>
+        </div>
+      </article>
+
+      <article class="steg">
+        <div class="d">9. april</div>
+        <div>
+          <h3>Det gikk til et rom med færre.</h3>
+          <p>Samme dag ble saken sendt til finanskomiteen. Der sitter et utvalg representanter som skal skrive hva Stortinget bør gjøre. En av dem fikk jobben med å føre pennen: Tuva Moflag, Arbeiderpartiet, Akershus.</p>
+          <p>Komiteen er ikke salen. Komiteen er porten. Det som kommer ut der, kalles innstilling — et råd om vedtak.</p>
+          <span class="label">Offisielt: sendt komité · Finanskomiteen · saksordfører Tuva Moflag</span>
+        </div>
+      </article>
+
+      <article class="steg">
+        <div class="d">12. juni</div>
+        <div>
+          <h3>Komiteen sa nei.</h3>
+          <p>Innstillingen kom. Rådet var at forslaget ikke vedtas. Teksten som senere ble 84 stemmer, ble skrevet her. Fra de tre leverte, til dette arket: syttåtte dager.</p>
+          <span class="label">Offisielt: innstilling avgitt · Innst. 458 S (2025–2026)</span>
+        </div>
+      </article>
+
+      <article class="steg">
+        <div class="d">19. juni</div>
+        <div>
+          <h3>Salen stemte. Forslaget falt.</h3>
+          <p>Debatt, så votering. Ikke ja mot nei som to farger. To pakker mot hverandre: komiteens råd, eller forslag nr. 1 og 2 fra SV, R og MDG. 84 gikk med komiteen. 15 gikk med forslaget. 70 hadde ingen registrert stemme.</p>
+          <p>Av de tre som skrev: Oda Indgaard stemte forslaget. Ingrid Liland og Frøya Skjold Sjursæther: borte. Vi finner ikke på hvorfor.</p>
+          <span class="label">Offisielt: debatt og votering 28509 · ferdigbehandlet · vedtas ikke</span>
+        </div>
+      </article>
+
+      <div class="note">Fem steg, alle synlige. Ingen er slått sammen til «saksgang». Datoene står.</div>
+      <p class="quiet">Vedtak i samsvar med innstillingen. Dokument 8:256 S – vedtas ikke. <a href="#offisielt">Til de offisielle ordene →</a></p>
+    </section>
+
+    <section data-view="offisielt" hidden>
+      <p class="k">Etter historien · husets egne merkelapper</p>
+      <h1>Nå de offisielle ordene.</h1>
+      <p class="lede">Du har lest saken. Her er det Stortinget kaller det samme.</p>
+      <div class="off">
+        <p class="k">Type</p>
+        <p>Representantforslag. Spor: forslag fra representanter. Sak 200211. Sesjon 2025–2026.</p>
+        <p class="k" style="margin-top:.7rem">Dokumenter</p>
+        <p>Dokument 8:256 S (2025–2026). Innst. 458 S (2025–2026). Finanskomiteen. Saksordfører Tuva Moflag (A).</p>
+        <p class="k" style="margin-top:.7rem">Votering</p>
+        <p>28509. Alternativ votering mellom innstillingen og forslag nr. 1 og 2 fra SV, R og MDG. Komiteen 84. Forslag 15. Borte 70. Vedtatt: innstillingen. Forslaget: ikke vedtatt.</p>
+        <p class="k" style="margin-top:.7rem">Status</p>
+        <p>Ferdigbehandlet. Vedtak: «Dokument 8:256 S (2025–2026) … vedtas ikke.»</p>
+      </div>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="plain">A 31 komiteen, 22 borte. FrP 29 og 18. H 14 og 10. Sp 5 og 4. KrF 3 og 4. V 2 og 1. MDG 5 forslag, 3 borte. R 5 og 4. SV 5 og 4. Ingen avvik i denne voteringen. Vår telling.</p>
+      <p class="quiet">A i regjering: 24 spørsmål. FrP: 1757. 665 saker i sesjonen. 475 med votering.</p>
+    </section>
+
+    <section data-view="folk" hidden>
+      <p class="k">Folkene i historien · navn, ikke roller alene</p>
+      <h1>Hvem som skrev, førte, stemte, manglet.</h1>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther">
+        <div>
+          <h2 style="margin-top:0">Frøya Skjold Sjursæther</h2>
+          <p>MDG · Hordaland. En av tre som skrev. 19. juni: borte. 11 avvik i vår telling, andre voteringer.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="Ingrid Liland">
+        <div>
+          <h2 style="margin-top:0">Ingrid Liland</h2>
+          <p>MDG · Oslo. Skrev. 19. juni: borte.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="Oda Indgaard">
+        <div>
+          <h2 style="margin-top:0">Oda Indgaard</h2>
+          <p>MDG · Nord-Trøndelag. Skrev. 19. juni: forslag. Den av de tre som hadde registrert stemme.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="Tuva Moflag">
+        <div>
+          <h2 style="margin-top:0">Tuva Moflag</h2>
+          <p>A · Akershus. Førte innstillingen. Stemte komiteen. Arbeiderpartiet: 31 komiteen, 0 forslag, 22 borte.</p>
+        </div>
+      </div>
+      <h2>Hordaland i samme votering</h2>
+      <p class="quiet">Fem med komiteen, to med forslaget, ni borte. Peter Frølich er ikke i voteringen.</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/RUB" alt="">Bakervik · A · komiteen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/LIM" alt="">Merkesdal · A · komiteen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/JUNGRU" alt="">Gruer · A · komiteen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="">Jonsterhaug · FrP · komiteen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">Trellevik · H · komiteen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="">Hammer · SV · forslag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="">Marhaug · R · forslag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna · H · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya · MDG · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/KJT" alt="">Toppe · Sp · borte</span>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h2 style="margin-top:0">Erna Solberg</h2>
+          <p>Høyre · Hordaland. I denne saken: borte. 249 for · 350 mot · 1121 borte. 8 avvik. Vår telling.</p>
+          <div class="nums">
+            <div><b>249</b><span>for</span></div>
+            <div><b>350</b><span>mot</span></div>
+            <div><b>1121</b><span>borte</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-view="saker" hidden>
+      <p class="k">Andre saker · samme hus · samme uke i juni</p>
+      <h1>Tre som falt. Noen som venter.</h1>
+      <p class="lede">Klimaavgiftene er én historie. Samme dag stemte salen over kontant og energi. De falt også. Fem saker ligger bare som mottatt.</p>
+      <div class="list">
+        <a href="#steg">
+          <p class="k">200211 · MDG · ferdig · falt</p>
+          <h3>Klimaavgifter</h3>
+          <p class="quiet">Komiteen 84 · forslag 15 · 70 borte. Historien over.</p>
+        </a>
+        <article>
+          <p class="k">200155 · Sp · ferdig · 71–28–70</p>
+          <h3>Bensin og diesel</h3>
+          <p class="quiet">Vedum m.fl. Innstillingens tilråding. Erna: borte.</p>
+        </article>
+        <article>
+          <p class="k">200124 · SV · ferdig · falt</p>
+          <h3>Kontantutbetaling</h3>
+          <p class="quiet">Haltbrekken, Hammer, Fredlund, Hussein. Komiteen 84 · forslag 17 · 68 borte.</p>
+        </article>
+        <article>
+          <p class="k">200084 · FrP · ferdig · falt</p>
+          <h3>Energi og levekostnader</h3>
+          <p class="quiet">Limi, Listhaug m.fl. Komiteen 68 · FrP-forslag 29 · 72 borte.</p>
+        </article>
+        <article>
+          <p class="k">200400 · mottatt · 0 voteringer</p>
+          <h3>Prediksjonsmarkeder</h3>
+          <p class="quiet">Høyer-Berntsen, Eidsvoll, Fiskaa, Lie. SV. Ingen steg i salen ennå.</p>
+        </article>
+        <article>
+          <p class="k">200399 · mottatt</p>
+          <h3>Hammerfest gasskraft</h3>
+          <p class="quiet">Vedum, Bentzen, Sveian. Sp.</p>
+        </article>
+        <article>
+          <p class="k">200398 · mottatt</p>
+          <h3>Bolig</h3>
+          <p class="quiet">Wiborg, Limi, Njåstad, Larsen, Midtun. FrP.</p>
+        </article>
+        <article>
+          <p class="k">200397 · mottatt</p>
+          <h3>Abortplan</h3>
+          <p class="quiet">Ystebø, Røse, Lossius. KrF. Ystebø: Hordaland.</p>
+        </article>
+        <article>
+          <p class="k">200396 · mottatt</p>
+          <h3>Palestina</h3>
+          <p class="quiet">Hammer, Fiskaa, Hussein. SV. Hammer: Hordaland.</p>
+        </article>
+      </div>
+      <p class="quiet">144 saker ikke ferdigbehandlet. Denne uken står stille. Siste stortingsmøte 1. september. Vår telling.</p>
+    </section>
+
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. <a href="borger.html">Alle skisser</a></footer>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Historien</a>
+    <a href="#steg" data-tab="steg">Stegene</a>
+    <a href="#folk" data-tab="folk">Folk</a>
+    <a href="#offisielt" data-tab="offisielt">Offisielt</a>
+    <a href="#saker" data-tab="saker">Saker</a>
+  </nav>
+  <script>
+    (function () {
+      var alias = {hjem:'hjem',steg:'steg',folk:'folk',offisielt:'offisielt',sak:'offisielt','200211':'steg',saker:'saker',erna:'folk'};
+      function go() {
+        var h = (location.hash || '#hjem').slice(1).toLowerCase() || 'hjem';
+        h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+        document.querySelectorAll('[data-view]').forEach(function (el) { el.hidden = el.dataset.view !== h; });
+        document.querySelectorAll('nav.bar a').forEach(function (a) { a.classList.toggle('on', a.dataset.tab === h); });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
+</body>
+</html>
