@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ordboka — Stortingets ord, uten spin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital,wght@0,500;0,700;1,500&family=Source+Sans+3:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --cloth:#12182a; --gold:#c9a24a; --page:#f7f1e2; --ink:#161410; --mute:#6a6458; --rule:#d8d0be; --red:#8b2a1a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--cloth); color:var(--page); font-family:"EB Garamond",Georgia,serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .2rem; font-family:"Source Sans 3",sans-serif; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:#8a8474; }
+    .top b { color:var(--gold); font-family:Cinzel,serif; letter-spacing:.18em; }
+    .top a { color:var(--gold); border-bottom:1px solid #6a5420; font-weight:600; }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:Cinzel,serif; font-size:clamp(1.7rem,6vw,2.6rem); line-height:1.12; margin:.35rem 0 .5rem; font-weight:700; }
+    h1 em { font-style:italic; color:var(--gold); font-family:"EB Garamond",serif; font-weight:500; }
+    h2 { font-family:Cinzel,serif; font-size:1.15rem; margin:1.2rem 0 .35rem; color:var(--gold); }
+    .lede { font-size:1.22rem; line-height:1.4; margin:0 0 1rem; }
+    .k { font-family:"Source Sans 3",sans-serif; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:#8a8474; }
+    .entry { display:block; background:var(--page); color:var(--ink); padding:1rem .95rem; margin:.55rem 0; border-left:4px solid var(--gold); }
+    .entry h3 { font-family:Cinzel,serif; font-size:1.05rem; margin:0 0 .2rem; }
+    .entry .plain { font-size:1.08rem; font-style:italic; }
+    .entry .off { font-family:"Source Sans 3",sans-serif; font-size:.78rem; color:var(--mute); letter-spacing:.04em; margin:.25rem 0; }
+    .entry p { font-size:1rem; line-height:1.4; }
+    .unlock { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.35rem; margin:.7rem 0 0; text-align:center; }
+    .unlock div { background:#efe8d4; padding:.45rem .2rem; }
+    .unlock b { display:block; font-family:Cinzel,serif; font-size:1.55rem; line-height:.9; color:var(--red); }
+    .unlock span { font-family:"Source Sans 3",sans-serif; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .quiet { font-size:.88rem; color:#b8b0a0; line-height:1.45; margin:.5rem 0 1rem; }
+    .note { font-size:1.05rem; line-height:1.42; margin:.4rem 0 1rem; }
+    .who { display:grid; grid-template-columns:5.2rem 1fr; gap:.75rem; margin:1rem 0; }
+    .who img { width:5.2rem; height:6.5rem; object-fit:cover; background:#2a3044; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0 1rem; }
+    .faces span { display:flex; align-items:center; gap:.3rem; background:#1c2438; padding:.18rem .45rem .18rem .18rem; font-size:.8rem; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; }
+    .headword { font-family:Cinzel,serif; color:var(--gold); font-size:1.4rem; }
+    .def { background:var(--page); color:var(--ink); padding:1.15rem 1rem 1.2rem; margin:.7rem 0; }
+    .def .plain { font-size:1.2rem; font-style:italic; margin-bottom:.35rem; }
+    .def .off { font-family:"Source Sans 3",sans-serif; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); margin-bottom:.5rem; }
+    .running { display:flex; justify-content:space-between; font-family:Cinzel,serif; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); border-bottom:1px solid #3a3040; padding-bottom:.25rem; margin:1rem 0 .6rem; }
+    .sent { font-size:1.12rem; line-height:1.45; margin:.35rem 0; }
+    .sent b { color:var(--gold); font-weight:700; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:#0c101c; border-top:1px solid #2a3044; }
+    nav.bar a { text-align:center; padding:.85rem .1rem; font-family:"Source Sans 3",sans-serif; font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:#7a7468; }
+    nav.bar a.on { color:var(--gold); }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:#8a8474; line-height:1.5; }
+    footer.site a { color:var(--gold); }
+    .arrow { color:var(--gold); font-family:"Source Sans 3",sans-serif; font-size:.82rem; }
+    .index a { display:flex; justify-content:space-between; padding:.55rem 0; border-bottom:1px solid #2a3044; font-size:1.12rem; }
+    .index small { font-family:"Source Sans 3",sans-serif; font-size:.68rem; color:#8a8474; letter-spacing:.08em; text-transform:uppercase; }
+    .pad1 { min-height:0; }
+    .pad2 { min-height:0; }
+    .pad3 { min-height:0; }
+    .pad4 { min-height:0; }
+    .pad5 { min-height:0; }
+    .pad6 { min-height:0; }
+    .pad7 { min-height:0; }
+    .pad8 { min-height:0; }
+    .pad9 { min-height:0; }
+    .pad10 { min-height:0; }
+    .pad11 { min-height:0; }
+    .pad12 { min-height:0; }
+    .pad13 { min-height:0; }
+    .pad14 { min-height:0; }
+    .pad15 { min-height:0; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Ordboka · 12</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Oppslag · Stortingets ord</p>
+      <h1>Først det vanlige ordet. <em>Så det offisielle.</em></h1>
+      <p class="lede">Ferdig. Mottatt. Innstilling. Alternativ votering. Borte. Partilinje. Saksordfører. Hvert oppslag åpner 84 / 15 / 70.</p>
+      <div class="index">
+        <a href="#ferdigbehandlet">ferdigbehandlet <small>ferdig</small></a>
+        <a href="#mottatt">mottatt <small>ikke votert ennå</small></a>
+        <a href="#innstilling">innstilling <small>komiteens tekst</small></a>
+        <a href="#alternativ">alternativ votering <small>komiteen mot forslag</small></a>
+        <a href="#borte">borte <small>ingen registrert stemme</small></a>
+        <a href="#partilinje">partilinje <small>vår telling</small></a>
+        <a href="#saksordforer">saksordfører <small>den som fører</small></a>
+      </div>
+      <p class="quiet">Ingen spin. Vi oversetter ikke til «ja» og «nei» når voteringen er alternativ.</p>
+      <a class="arrow" href="#sak">Sak 200211 skrevet med disse ordene →</a>
+    </section>
+
+    <section data-view="ord" hidden>
+      <p class="k">Alle oppslag · ett ark</p>
+      <h1>Sju ord. Ett tallsett.</h1>
+      <a class="entry" href="#ferdigbehandlet">
+        <p class="plain">Ferdig.</p>
+        <p class="off">Offisielt: ferdigbehandlet</p>
+        <p>Saken er gjennom votering. 200211 er ferdigbehandlet 19. juni.</p>
+      </a>
+      <a class="entry" href="#mottatt">
+        <p class="plain">Kommet inn. Ikke votert ennå.</p>
+        <p class="off">Offisielt: mottatt</p>
+        <p>200400 står som mottatt. Ingen 84/15/70 der. Ingen gjetning.</p>
+      </a>
+      <a class="entry" href="#innstilling">
+        <p class="plain">Komiteens tekst.</p>
+        <p class="off">Offisielt: innstilling · Innst. 458 S</p>
+        <p>Tuva Moflag førte. Det er den teksten 84 stemte med.</p>
+      </a>
+      <a class="entry" href="#alternativ">
+        <p class="plain">Komiteen mot forslag. Ikke ja mot nei.</p>
+        <p class="off">Offisielt: alternativ votering</p>
+        <p>Votering 28509. To sider: innstillingen, og forslag nr. 1 og 2.</p>
+      </a>
+      <a class="entry" href="#borte">
+        <p class="plain">Ingen registrert stemme.</p>
+        <p class="off">Offisielt: borte</p>
+        <p>70 i 28509. Førstklassig. Vi finner ikke på hvorfor.</p>
+      </a>
+      <a class="entry" href="#partilinje">
+        <p class="plain">Stemte de som partiet?</p>
+        <p class="off">Offisielt: partilinje · vår telling</p>
+        <p>0 avvik i 28509. Åtte avvik i andre voteringer.</p>
+      </a>
+      <a class="entry" href="#saksordforer">
+        <p class="plain">Den som fører saken i komiteen.</p>
+        <p class="off">Offisielt: saksordfører</p>
+        <p>Tuva Moflag (A). Finanskomiteen. Ikke den som fremmet.</p>
+      </a>
+    </section>
+
+    <section data-view="ferdigbehandlet" hidden>
+      <div class="running"><span>Ferdigbehandlet</span><span>F</span></div>
+      <p class="headword">ferdigbehandlet</p>
+      <div class="def">
+        <p class="plain">Ferdig.</p>
+        <p class="off">Offisielt ord · status på saken</p>
+        <p>Når Stortinget har votert, er saken ferdigbehandlet. 200211 ble ferdig 19. juni 2026. Vedtak: vedtas ikke.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <p class="note">Motsatsen er mottatt — kommet inn, ikke votert ennå. 200400 er mottatt. 200211 er ferdigbehandlet. Vi later ikke som det åpne er avgjort.</p>
+      <a class="arrow" href="#mottatt">Neste oppslag: mottatt →</a>
+    </section>
+
+    <section data-view="mottatt" hidden>
+      <div class="running"><span>Mottatt</span><span>M</span></div>
+      <p class="headword">mottatt</p>
+      <div class="def">
+        <p class="plain">Kommet inn. Ikke votert ennå.</p>
+        <p class="off">Offisielt ord · status før porten er ferdig</p>
+        <p>Åpne saker har status mottatt. Ingen utfall. Derfor ingen borte å telle. 200400 SV. 200399 Sp Vedum. 200398 FrP. 200397 KrF Ystebø. 200396 SV.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <p class="quiet">Tallene over er fra 200211, som er ferdig. Mottatte saker har ikke dette settet. Oppslaget viser dem likevel — slik hvert ord låser opp det som ble telt 19. juni.</p>
+      <a class="arrow" href="#innstilling">Neste: innstilling →</a>
+    </section>
+
+    <section data-view="innstilling" hidden>
+      <div class="running"><span>Innstilling</span><span>I</span></div>
+      <p class="headword">innstilling</p>
+      <div class="def">
+        <p class="plain">Komiteens tekst. Det salen stemmer over.</p>
+        <p class="off">Offisielt · Innst. 458 S · 12. juni 2026</p>
+        <p>Finanskomiteen avga innstilling. Saksordfører Tuva Moflag (A). 84 stemte med komiteen. 15 med forslaget. 70 borte.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="Tuva Moflag">
+        <div>
+          <p class="k">Saksordfører</p>
+          <p class="note">Tuva Moflag førte innstillingen. Hun signerte ikke Dok 8:256 S. To papirer, to roller.</p>
+        </div>
+      </div>
+      <a class="arrow" href="#alternativ">Neste: alternativ votering →</a>
+    </section>
+
+    <section data-view="alternativ" hidden>
+      <div class="running"><span>Alternativ votering</span><span>A</span></div>
+      <p class="headword">alternativ votering</p>
+      <div class="def">
+        <p class="plain">Komiteen mot forslag. Ikke ja mot nei.</p>
+        <p class="off">Offisielt · votering 28509 · 19. juni</p>
+        <p>To sider: innstillingen, og forslag nr. 1 og 2 fra MDG, R og SV. Vi skriver Komiteen og Forslag. Ikke grønt mot rødt.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <p class="note">A 31/0/22. FrP 29/0/18. H 14/0/10. KrF 3/0/4. MDG 0/5/3. R 0/5/4. SV 0/5/4. Sp 5/0/4. V 2/0/1. Partilinje, vår telling.</p>
+      <a class="arrow" href="#borte">Neste: borte →</a>
+    </section>
+
+    <section data-view="borte" hidden>
+      <div class="running"><span>Borte</span><span>B</span></div>
+      <p class="headword">borte</p>
+      <div class="def">
+        <p class="plain">Ingen registrert stemme.</p>
+        <p class="off">Offisielt · førstklassig felt · ikke fotnote</p>
+        <p>70 i votering 28509. Like synlig som 84 og 15. Vi forklarer ikke hvorfor. Peter Frølich står ikke i voteringen. Det er et fjerde felt, ikke en gjetning.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/PCF" alt="">Frølich · ikke i lista</span>
+      </div>
+      <p class="quiet">Hordaland borte: Erna, Frøya, Jakobsen, Njåstad, Hjemdal, Abrahamsen, Toppe, Ystebø. Åtte navn. Ingen hvorfor.</p>
+      <a class="arrow" href="#partilinje">Neste: partilinje →</a>
+    </section>
+
+    <section data-view="partilinje" hidden>
+      <div class="running"><span>Partilinje</span><span>P</span></div>
+      <p class="headword">partilinje</p>
+      <div class="def">
+        <p class="plain">Stemte de som alle andre i partiet?</p>
+        <p class="off">Offisielt hos oss · vår telling · ikke Stortingets merkelapp</p>
+        <p>I 28509: 0 avvik. Ni partier holdt. Åtte brudd i andre voteringer i snapshotet. Vi merker det som vår telling.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <p class="note">MDG 0/5/3, R 0/5/4, SV 0/5/4 med forslaget. Resten med komiteen, der de var registrert. Borte teller ikke som avvik.</p>
+      <a class="arrow" href="#saksordforer">Neste: saksordfører →</a>
+    </section>
+
+    <section data-view="saksordforer" hidden>
+      <div class="running"><span>Saksordfører</span><span>S</span></div>
+      <p class="headword">saksordfører</p>
+      <div class="def">
+        <p class="plain">Den som fører saken i komiteen.</p>
+        <p class="off">Offisielt · Tuva Moflag (A) · Finanskomiteen</p>
+        <p>Ikke den som fremmet. Liland, Indgaard og Sjursæther fremmet. Tuva førte Innst. 458 S. 12. juni avgitt. 19. juni votert.</p>
+        <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="Tuva Moflag">
+        <div>
+          <p class="note">Tuva Moflag. Arbeiderpartiet. Saksordfører. Komiteen 84. Vi viser rollen, ikke et motiv.</p>
+        </div>
+      </div>
+      <a class="arrow" href="#sak">Les 200211 med disse ordene →</a>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k">Sak 200211 · skrevet med ordboka</p>
+      <h1>Slik ser saken ut når ordene er på plass.</h1>
+      <p class="sent">Dok 8:256 S ble <b>fremmet</b> 26. mars av Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther.</p>
+      <p class="sent">9. april: <b>referat</b>, og saken ble <b>sendt komité</b> — Finanskomiteen.</p>
+      <p class="sent">12. juni avga <b>saksordfører</b> Tuva Moflag <b>innstilling</b> Innst. 458 S.</p>
+      <p class="sent">19. juni: <b>alternativ votering</b> 28509. <b>Komiteen</b> 84, <b>forslag</b> 15, <b>borte</b> 70.</p>
+      <p class="sent">Saken er <b>ferdigbehandlet</b>. Forslaget ble <b>ikke vedtatt</b>.</p>
+      <p class="sent"><b>Partilinje</b> (vår telling): 0 avvik. MDG, R, SV med forslaget. Seks partier med innstillingen.</p>
+      <div class="unlock"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard · forslag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva · ordfører</span>
+      </div>
+      <p class="quiet">Mottatt er det 200400 ennå er. Ferdigbehandlet er det 200211 er. Vi blander dem ikke.</p>
+    </section>
+
+  </div>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Oppslag</a>
+    <a href="#ord" data-tab="ord">Ord</a>
+    <a href="#sak" data-tab="sak">200211</a>
+    <a href="#borte" data-tab="borte">Borte</a>
+    <a href="#saksordforer" data-tab="saksordforer">Ordfører</a>
+  </nav>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Partilinje = vår telling. Borte = ingen registrert stemme. <a href="borger.html">Alle</a></footer>
+  <script>
+    const alias = {hjem:'hjem',ord:'ord',sak:'sak','200211':'sak',ferdigbehandlet:'ferdigbehandlet',ferdig:'ferdigbehandlet',mottatt:'mottatt',innstilling:'innstilling',alternativ:'alternativ',votering:'alternativ',borte:'borte',partilinje:'partilinje',linje:'partilinje',saksordforer:'saksordforer',ordforer:'saksordforer',tuva:'saksordforer'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      const tab = {ferdigbehandlet:'ord',mottatt:'ord',innstilling:'ord',alternativ:'ord',partilinje:'ord'}[h] || h;
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === tab || a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
