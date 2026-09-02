@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Som borger — kom til bunns</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#12110f; --paper:#f4efe4; --mute:#7a7368; --gold:#e8c56a; --stamp:#8b3a1a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--ink); color:var(--paper); font-family:Syne,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    header {
+      padding:1.15rem 6vw 0; display:flex; justify-content:space-between; align-items:baseline;
+      font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mute);
+    }
+    header a { color:var(--gold); border-bottom:1px solid #5a4e2a; }
+    .hero { padding:2.4rem 6vw 1.6rem; max-width:64rem; }
+    .hero .k { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+    .hero h1 {
+      font-family:Fraunces,Georgia,serif; font-weight:500;
+      font-size:clamp(2.4rem,7vw,4.6rem); line-height:1.02; letter-spacing:-.03em; margin:.35rem 0 .7rem;
+    }
+    .hero h1 em { font-style:italic; color:var(--gold); }
+    .hero p { max-width:42rem; font-size:1.08rem; line-height:1.45; color:#d4cbb8; font-weight:500; }
+    .meta { margin-top:1.1rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .beam { height:2px; margin:0 6vw 1.5rem; background:linear-gradient(90deg, transparent, var(--gold), transparent); opacity:.7; }
+    .back { display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; padding:0 6vw 1.3rem; font-size:.88rem; }
+    .back a { color:var(--gold); border-bottom:1px solid #5a4e2a; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(16.2rem,1fr)); gap:.7rem; padding:0 6vw 3.2rem; }
+    .card {
+      min-height:15.2rem; padding:1.15rem 1.1rem 1rem;
+      display:flex; flex-direction:column; justify-content:space-between;
+      border-radius:6px; transition:transform .16s ease;
+    }
+    .card:hover { transform:translateY(-3px); }
+    .card .n { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; opacity:.72; }
+    .card h2 { font-size:1.68rem; font-weight:800; letter-spacing:-.03em; margin:.28rem 0 .35rem; }
+    .card p { font-size:.9rem; line-height:1.35; font-weight:500; opacity:.94; }
+    .c1 { background:#f4ead0; color:#1a1408; }
+    .c2 { background:#2a2420; color:#f0e6d4; border:1px solid #4a4038; }
+    .c3 { background:#8b3a1a; color:#f8ece4; }
+    .c4 { background:#c45c32; color:#fff6ec; }
+    .c5 { background:#0065F1; color:#f5f8ff; }
+    .c6 { background:#3a3a38; color:#efe8d8; }
+    .c7 { background:#1e3a4a; color:#dceaf2; }
+    .c8 { background:#E30613; color:#fff5f4; }
+    .c9 { background:#f3ead4; color:#1a1208; }
+    .c10{ background:#3d4a38; color:#e8f0dc; }
+    .c11{ background:#162033; color:#dce6f5; }
+    .c12{ background:#d8d2c6; color:#2a2620; }
+    .c13{ background:#2d2438; color:#f2e8ff; }
+    .c14{ background:#11151c; color:#f4efe4; border:1px solid #3a3f4a; }
+    .c15{ background:#5c4634; color:#f4ead8; }
+    .c16{ background:#0e1116; color:#c8f04a; border:1px solid #2a3228; }
+    .c17{ background:#ece8e1; color:#2c2a28; }
+    .c18{ background:#1a1612; color:#d4b072; border:1px solid #3d3226; }
+    .c19{ background:#f6f3ea; color:#8b3a1a; }
+    .c20{ background:#e8c56a; color:#1a2744; }
+    footer { padding:1.1rem 6vw 2.6rem; font-size:.78rem; color:var(--mute); line-height:1.55; }
+    footer a { color:var(--gold); }
+    .notlive { margin-top:.5rem; }
+    .brief { max-width:44rem; padding:0 6vw 1.6rem; color:#d4cbb8; font-size:.98rem; line-height:1.5; }
+    .brief strong { color:var(--gold); font-weight:700; }
+    .qs { display:grid; grid-template-columns:repeat(auto-fill,minmax(14rem,1fr)); gap:.55rem; padding:0 6vw 1.8rem; }
+    .qs div { border:1px solid #3a3a34; padding:.8rem .85rem; }
+    .qs b { display:block; font-family:Fraunces,Georgia,serif; font-size:1.15rem; color:var(--gold); margin-bottom:.25rem; }
+    .qs span { font-size:.85rem; color:#c8c0b0; line-height:1.35; }
+    .pad1 { min-height:0; }
+    .pad2 { min-height:0; }
+    .pad3 { min-height:0; }
+    .pad4 { min-height:0; }
+    .pad5 { min-height:0; }
+    .pad6 { min-height:0; }
+    .pad7 { min-height:0; }
+    .pad8 { min-height:0; }
+    .pad9 { min-height:0; }
+    .pad10 { min-height:0; }
+    .pad11 { min-height:0; }
+    .pad12 { min-height:0; }
+    .pad13 { min-height:0; }
+    .pad14 { min-height:0; }
+    .pad15 { min-height:0; }
+    .pad16 { min-height:0; }
+    .pad17 { min-height:0; }
+    .pad18 { min-height:0; }
+    .pad19 { min-height:0; }
+    .pad20 { min-height:0; }
+    .pad21 { min-height:0; }
+    .pad22 { min-height:0; }
+    .pad23 { min-height:0; }
+    .pad24 { min-height:0; }
+    .pad25 { min-height:0; }
+    .pad26 { min-height:0; }
+    .pad27 { min-height:0; }
+    .pad28 { min-height:0; }
+    .pad29 { min-height:0; }
+    .pad30 { min-height:0; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <span>Hverdagstinget · uoffisiell</span>
+    <a href="lyset.html">I lyset</a>
+  </header>
+  <div class="hero">
+    <p class="k">20 verktøy for borgeren</p>
+    <h1>Som borger — kom til <em>bunns</em>.</h1>
+    <p>Det beste verktøyet for å komme til bunns i Stortinget. Hvem som fremmer. Hvilke saker. Stemme mot borte. Partilinje mot å tørre å representere folk. Flyten fra start til slutt — den utenforstående ikke kjenner. Alt i lyset. Borte er førstklassig. Vi finner ikke på hvorfor.</p>
+    <p class="meta">Snapshot 2. sept 2026 · tall fra Stortinget, data.stortinget.no · ikke en live-tjeneste</p>
+  </div>
+  <div class="beam"></div>
+  <div class="brief">
+    Siste votering 19. juni: klimaavgift, sak 200211, votering 28509. <strong>84 komiteen / 15 forslag / 70 borte.</strong>
+    MDG-trioen fremmet. Tuva Moflag førte. Seks partier med innstillingen, MDG/R/SV med forslaget. 0 avvik i den voteringen. Åtte brudd i andre. Erna 249 / 350 / 1121, 8 avvik. A i regjering: 24 spørsmål. FrP: 1757.
+  </div>
+  <div class="qs">
+    <div><b>Hvem fremmer?</b><span>Navn først. MDG på 200211. Dok 8 mot regjeringens spor.</span></div>
+    <div><b>Hvilke saker?</b><span>Ferdig og åpne. 665 i sesjonen. 144 ikke ferdig. 200400–396 mottatt.</span></div>
+    <div><b>Stemme vs borte?</b><span>99 telt. 70 ikke. Peter Frølich ikke i lista. Vi vet ikke hvorfor.</span></div>
+    <div><b>Linje vs folk?</b><span>Partiet holdt i 28509. Åtte navn brøt i andre voteringer. Vår telling.</span></div>
+  </div>
+  <div class="back">
+    <a href="lyset.html">I lyset — hva som skjer i salen →</a>
+    <a href="index.html">De første ti →</a>
+  </div>
+  <div class="grid">
+    <a class="card c1" href="oversikten.html">
+      <span class="n">01</span>
+      <div>
+        <h2>Oversikten</h2>
+        <p>Hele sesjonen på ett brett. 665 saker, 475 med votering. Uka står i 0.</p>
+      </div>
+    </a>
+    <a class="card c2" href="flyten.html">
+      <span class="n">02</span>
+      <div>
+        <h2>Flyten</h2>
+        <p>Slik går en sak fra start til slutt. Utenforstående kjenner den ikke — her er den.</p>
+      </div>
+    </a>
+    <a class="card c3" href="tokopp.html">
+      <span class="n">03</span>
+      <div>
+        <h2>Tok opp</h2>
+        <p>Hvem som satte det på dagsorden. Navn først, så saken.</p>
+      </div>
+    </a>
+    <a class="card c4" href="isalen.html">
+      <span class="n">04</span>
+      <div>
+        <h2>I salen</h2>
+        <p>Hva som skjedde da det ble votert. 84, 15 og de 70.</p>
+      </div>
+    </a>
+    <a class="card c5" href="tor.html">
+      <span class="n">05</span>
+      <div>
+        <h2>Tor</h2>
+        <p>Torget. Saker, folk og tall på ett sted. Offentlig inngang.</p>
+      </div>
+    </a>
+    <a class="card c6" href="stemmen.html">
+      <span class="n">06</span>
+      <div>
+        <h2>Stemmen</h2>
+        <p>Én stemme, tre felt. Komiteen, forslag, borte. Ikke ja mot nei.</p>
+      </div>
+    </a>
+    <a class="card c7" href="fraatila.html">
+      <span class="n">07</span>
+      <div>
+        <h2>Fra A til Å</h2>
+        <p>26. mars fremmet. 19. juni ferdig. Hele stien, uten hopp.</p>
+      </div>
+    </a>
+    <a class="card c8" href="alle169.html">
+      <span class="n">08</span>
+      <div>
+        <h2>Alle 169</h2>
+        <p>Alle i salen, med navn. Ingen anonyme hender. Peter er likevel ikke i lista.</p>
+      </div>
+    </a>
+    <a class="card c9" href="flertallet.html">
+      <span class="n">09</span>
+      <div>
+        <h2>Flertallet</h2>
+        <p>De 84 som vant. Innstillingen, ikke et ja. Seks partier der de var registrert.</p>
+      </div>
+    </a>
+    <a class="card c10" href="mindretallet.html">
+      <span class="n">10</span>
+      <div>
+        <h2>Mindretallet</h2>
+        <p>De 15 som tapte. Forslag nr. 1 og 2, med navn. MDG, R, SV.</p>
+      </div>
+    </a>
+    <a class="card c11" href="dokumentet.html">
+      <span class="n">11</span>
+      <div>
+        <h2>Dokumentet</h2>
+        <p>Papiret saken lever i. Dok 8:256 S og Innst. 458 S. Teksten som vant.</p>
+      </div>
+    </a>
+    <a class="card c12" href="ordboka.html">
+      <span class="n">12</span>
+      <div>
+        <h2>Ordboka</h2>
+        <p>Ordene Stortinget bruker. Ferdigbehandlet, innstilling, borte. Uten spin.</p>
+      </div>
+    </a>
+    <a class="card c13" href="spore.html">
+      <span class="n">13</span>
+      <div>
+        <h2>Spore</h2>
+        <p>Følg saken. Også de åpne: 200400 til 200396. Ingen gjetning om utfallet.</p>
+      </div>
+    </a>
+    <a class="card c14" href="nabostemmen.html">
+      <span class="n">14</span>
+      <div>
+        <h2>Nabostemmen</h2>
+        <p>Hva naboen i Hordaland stemte. Erna borte. Frølich ikke i lista.</p>
+      </div>
+    </a>
+    <a class="card c15" href="fasit.html">
+      <span class="n">15</span>
+      <div>
+        <h2>Fasit</h2>
+        <p>Svaret, uten karakter. Vedtas ikke. 84–15–70. Snapshot, ikke live.</p>
+      </div>
+    </a>
+    <a class="card c16" href="linja.html">
+      <span class="n">16</span>
+      <div>
+        <h2>Linja</h2>
+        <p>Stemmer de som alle andre? Ni partier på 28509. Åtte brudd i andre saker.</p>
+      </div>
+    </a>
+    <a class="card c17" href="ikkemed.html">
+      <span class="n">17</span>
+      <div>
+        <h2>Ikke med</h2>
+        <p>70 borte, plus Peter Frølich ikke i lista. De ble ikke telt som stemme. Vi vet ikke hvorfor.</p>
+      </div>
+    </a>
+    <a class="card c18" href="komiteporten.html">
+      <span class="n">18</span>
+      <div>
+        <h2>Komiteporten</h2>
+        <p>Den svarte boksen forklart. Sendt 9. april, innstilling 12. juni. Den teksten vant 84–15.</p>
+      </div>
+    </a>
+    <a class="card c19" href="tospor.html">
+      <span class="n">19</span>
+      <div>
+        <h2>Tospor</h2>
+        <p>Dok 8 faller ofte. Regjeringens budsjett og meldinger blir oftere ferdige. Utfall og borte når det er votert.</p>
+      </div>
+    </a>
+    <a class="card c20" href="bunnen.html">
+      <span class="n">20</span>
+      <div>
+        <h2>Bunnen</h2>
+        <p>Undersøkelsesbordet. Hva skjedde? Hvem? Var de med? Så saksgangen. Så metoden.</p>
+      </div>
+    </a>
+  </div>
+  <footer>
+    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.<br>
+    <span class="notlive">Ikke en live-tjeneste. Ikke test.hverdagstinget.no.</span><br>
+    Borte = ingen registrert stemme. Avvik = vår telling. Vi finner ikke på hvorfor.<br>
+    <a href="lyset.html">I lyset →</a>
+    &nbsp;·&nbsp;
+    <a href="index.html">De første ti →</a>
+  </footer>
+</body>
+</html>
