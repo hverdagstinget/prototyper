@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stillhet — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#eef1f4; --ink:#2a3340; --mute:#7a8794; --line:#d4dbe3; --hush:#9aa6b2; --paper:#f7f9fb; --lamp:#c9d6e4; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); }
+    body { font-family:"Atkinson Hyperlegible",system-ui,sans-serif; min-height:100vh; padding-bottom:4.8rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.2rem 0; font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top a { text-decoration:none; border-bottom:1px solid var(--hush); }
+    .wrap { max-width:36rem; margin:0 auto; padding:0 1.2rem 2rem; }
+    h1 { font-family:Newsreader,Georgia,serif; font-weight:400; font-style:italic; font-size:clamp(2.3rem,8vw,3.5rem); line-height:.98; }
+    h2 { font-family:Newsreader,Georgia,serif; font-size:1.55rem; font-weight:600; margin:1.3rem 0 .4rem; }
+    .lede { font-family:Newsreader,Georgia,serif; font-size:1.22rem; line-height:1.38; margin:.5rem 0 1.1rem; }
+    .lights { display:grid; gap:.65rem; margin:1rem 0; }
+    .light { background:var(--paper); border:1px solid var(--line); padding:1rem 1rem 1.05rem; text-decoration:none; display:block; }
+    .light .k { font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .light h3 { font-family:Newsreader,serif; font-size:1.55rem; font-weight:600; margin:.15rem 0 .3rem; }
+    .zero { font-family:Newsreader,serif; font-size:3.2rem; font-style:italic; line-height:.85; display:block; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .trip div { background:var(--paper); border:1px solid var(--line); padding:.7rem .2rem; }
+    .trip b { display:block; font-family:Newsreader,serif; font-size:2rem; line-height:.9; }
+    .trip span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .who { display:grid; grid-template-columns:5.6rem 1fr; gap:.85rem; margin:1rem 0; }
+    .who img { width:5.6rem; height:7.1rem; object-fit:cover; filter:grayscale(1); opacity:.92; background:#d0d6dc; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:1rem 0; }
+    .nums div { border-top:1px solid var(--ink); padding-top:.4rem; }
+    .nums b { display:block; font-family:Newsreader,serif; font-size:1.8rem; }
+    .nums span { font-size:.72rem; color:var(--mute); }
+    .row { display:block; padding:.8rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .row .k { font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; }
+    .faces span { display:flex; align-items:center; gap:.3rem; background:var(--paper); padding:.2rem .45rem .2rem .2rem; font-size:.8rem; border:1px solid var(--line); }
+    .faces img { width:1.45rem; height:1.45rem; object-fit:cover; background:#ccc; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(4,1fr); background:var(--paper); border-top:1px solid var(--line); }
+    nav.bar a { text-align:center; text-decoration:none; padding:.8rem .1rem; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+    nav.bar a.on { color:var(--ink); }
+    footer.site { max-width:36rem; margin:0 auto; padding:1.2rem 1.2rem 5.2rem; font-size:.75rem; color:var(--mute); }
+    .warn { border:1px dashed var(--hush); padding:.85rem; font-size:.9rem; line-height:1.45; color:#4a5560; margin:1rem 0; }
+    .week { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin:1rem 0; }
+    .week span { display:block; text-align:center; padding:10px 0; background:var(--paper); font-size:.72rem; color:var(--mute); }
+    .week .on { background:var(--ink); color:var(--paper); }
+    .qrow { display:grid; grid-template-columns:3.2rem 1fr 3.4rem; gap:.5rem; padding:.45rem 0; border-bottom:1px solid var(--line); font-size:.92rem; align-items:baseline; }
+    .qrow b { font-size:.78rem; }
+    .note { font-size:.88rem; color:var(--mute); line-height:1.45; margin:.4rem 0 1rem; }
+    .lamp { width:100%; height:8px; background:var(--lamp); margin:1.1rem 0 .4rem; }
+    .cal-cap { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); margin-top:1rem; }
+    .last { background:var(--paper); padding:1rem; border-left:3px solid var(--ink); margin:1rem 0; }
+    .last h3 { font-family:Newsreader,serif; font-size:1.4rem; margin-bottom:.3rem; }
+    .s00,.s01,.s02,.s03,.s04,.s05,.s06,.s07,.s08,.s09,.s10,.s11,.s12,.s13,.s14,.s15,.s16,.s17,.s18,.s19,.s20,.s21,.s22,.s23,.s24 { min-height:0; }
+  </style>
+</head>
+<body>
+  <div class="top"><span>Stillhet</span><a href="lyset.html">Alle</a></div>
+  <div class="wrap">
+    <section data-view="hjem">
+      <p class="note" style="margin-top:1rem">Tre lys. Aldri ett ord for «lat».</p>
+      <h1>Det som ikke står.</h1>
+      <p class="lede">Mangler i registreringen: voteringer denne uka, spørsmål fra noen partier, stemmer som ikke ble lagt inn. Tre separate lys.</p>
+      <div class="lights">
+        <a class="light" href="#uka"><p class="k">Lys 1 · voteringer registrert mot ikke</p><span class="zero">0</span><h3>voteringer denne uka</h3><p>Siste registrerte: 19. juni, 84–15–70. Telleren står. Uka er tom.</p></a>
+        <a class="light" href="#sporsmal"><p class="k">Lys 2 · spørsmål stilt mot ikke</p><h3>FrP 1757 · A 24</h3><p>Arbeiderpartiet sitter i regjering. 24 registrerte spørsmål i tellingen. FrP 1757. Ikke et sinnelag. En telling.</p></a>
+        <a class="light" href="#erna"><p class="k">Lys 3 · stemmer registrert mot ikke</p><h3>Erna 1121 borte</h3><p>249 for, 350 mot, 1121 uten registrert stemme. Vår telling. I 28509: borte, én av 70.</p></a>
+      </div>
+      <div class="warn">Stortinget advarer mot å lese fremmøte som aktivitet. Vi viser likevel tallene. Vi sier ikke hvorfor noen mangler. Vi kaller det ikke latskap.</div>
+      <h2>Partienes tre tellinger, ikke mash</h2>
+      <p>FrP: 1757 spørsmål, 47 medlemmer, 18 borte i 28509. A: 24 spørsmål, 41 medlemmer, 22 borte i 28509, i regjering. H: 683 spørsmål, 10 borte i 28509. Tre kolonner. Ingen felles dom.</p>
+      <p class="note">MDG fremmet 200211 og hadde 3 borte i voteringen, 5 på forslag. Forslag-lyset og votering-lyset er ulike.</p>
+      <div class="lamp" aria-hidden="true"></div>
+      <p class="note">4180 spørsmål totalt i snapshotet. 144 saker ikke ferdigbehandlet. 0 saker, 0 spørsmål, 0 voteringer denne uka.</p>
+    </section>
+    <section data-view="sporsmal" hidden>
+      <h1 style="margin-top:.8rem">Spørsmål, et eget lys.</h1>
+      <p class="lede">Hvem som har registrerte spørsmål, og hvem som har få. Ikke mash med voteringer eller forslag.</p>
+      <div class="qrow"><b>FrP</b><span>Fremskrittspartiet · 47 medlemmer</span><span>1757</span></div>
+      <div class="qrow"><b>H</b><span>Høyre · 24</span><span>683</span></div>
+      <div class="qrow"><b>Sp</b><span>Senterpartiet · 9</span><span>390</span></div>
+      <div class="qrow"><b>SV</b><span>Sosialistisk Venstreparti · 9</span><span>360</span></div>
+      <div class="qrow"><b>R</b><span>Rødt · 9</span><span>294</span></div>
+      <div class="qrow"><b>MDG</b><span>Miljøpartiet De Grønne · 8</span><span>278</span></div>
+      <div class="qrow"><b>KrF</b><span>Kristelig Folkeparti · 7</span><span>265</span></div>
+      <div class="qrow"><b>V</b><span>Venstre · 3</span><span>129</span></div>
+      <div class="qrow"><b>A</b><span>Arbeiderpartiet · i regjering · 41</span><span>24</span></div>
+      <p class="note">A 24 står i lyset fordi tallet er der. Regjeringsparti stiller færre spørsmål til egen regjering. Det er en registrering.</p>
+      <h2>Siste spørsmål som faktisk står</h2>
+      <article class="row"><p class="k">26. august · skriftlig · landbruks- og matministeren</p><h3>Erlend Larsen, Høyre</h3><p>Gjødselforskriften. Besvart 31. august.</p></article>
+      <article class="row"><p class="k">26. august · to spørsmål · næringsministeren</p><h3>Helge André Njåstad, FrP · Hordaland</h3><p>KLP og egenregi. Besvart 2. sept. Samme mann var borte i 28509. To lys, ikke ett.</p></article>
+      <article class="row"><p class="k">26. august · klima- og miljøministeren</p><h3>Maren Grøthe, Sp</h3><p>Vern av Børgin. Besvart 1. sept.</p></article>
+      <p class="note">Erna: 8 spørsmål i tellingen. 1121 borte i voteringstellingen. To kolonner.</p>
+    </section>
+    <section data-view="saker" hidden>
+      <h1 style="margin-top:.8rem">Forslag, et eget lys.</h1>
+      <p class="lede">Hvem som har satt saker på dagsorden, og sakene som venter uten votering. Ikke mash med spørsmål eller borte-tall.</p>
+      <a class="row" href="#sak"><p class="k">Fremmet og ferdig · 200211</p><h3>Liland, Indgaard, Sjursæther · klimaavgift</h3><p>Falt 84–15 med 70 borte. Forslaget står. Utfallet står. Borte står i votering-lyset.</p></a>
+      <article class="row"><p class="k">Fremmet og ferdig · 200124 / 200084</p><h3>Kontant (SV) og energi (FrP)</h3><p>Begge falt. 68 og 72 borte. Egne voteringstall.</p></article>
+      <article class="row"><p class="k">Mottatt · 0 voteringer · 200400–396</p><h3>Fem åpne Dok 8</h3><p>Prediksjon, Hammerfest, bolig, abortplan, Palestina. Fremmet. Ikke votert. Ingen stillhet i forslaget — stillhet i utfallet.</p></article>
+      <article class="row"><p class="k">Regjeringen · 200315 og 200314</p><h3>Tillegg og RNB</h3><p>Ferdigbehandlet, 0 voteringer. Ingen stemmetall å vise.</p></article>
+      <p class="note">144 saker ikke ferdigbehandlet. 665 saker i sesjonen. 475 med votering.</p>
+    </section>
+    <section data-view="sak" hidden>
+      <p class="note" style="margin-top:.9rem">Sak 200211 · tre lys samtidig</p>
+      <h1>Klimaavgiften er der. Uka er det ikke.</h1>
+      <p class="lede">Forslaget ble fremmet. Det ble votert 19. juni. Denne uka: 0. Siste resultat står likevel.</p>
+      <div class="trip"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      <p>MDG-trio: Liland, Indgaard, Sjursæther. Ordfører Tuva Moflag. Ferdigbehandlet. Ikke vedtatt.</p>
+      <p class="note">Hordaland borte: Solberg, Sjursæther, Jakobsen, Njåstad, Hjemdal, Abrahamsen, Toppe, Ystebø. Frølich ikke i voteringen.</p>
+      <p><a href="#uka">Tom uke, samme tall →</a></p>
+    </section>
+    <section data-view="uka" hidden>
+      <p class="cal-cap">Uka i snapshotet · 2. sept 2026</p>
+      <h1>Tom uke. Siste votering synlig.</h1>
+      <p class="lede">0 voteringer. 0 spørsmål. 0 saker. Telleren står. 19. juni vises likevel i full bredde: 84, 15 og 70.</p>
+      <div class="week"><span>ma</span><span>ti</span><span>on</span><span>to</span><span>fr</span><span>lø</span><span>sø</span><span>31</span><span>1</span><span class="on">2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+      <p class="note">1. sept: siste Stortingsmøte i snapshotet. 27. sept: PACE Strasbourg — ikke et Stortingsmøte. Ingen votering i mellomtiden i tellingen.</p>
+      <div class="last">
+        <p class="k" style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)">Siste votering · 19. juni · 28509</p>
+        <h3>Klimaavgift. Komiteen 84. Forslag 15. Borte 70.</h3>
+        <p>Forslaget ble ikke vedtatt. 70 av 169 hadde ingen registrert stemme. Dette er ikke ukas hendelse. Det er den siste hendelsen.</p>
+        <div class="trip"><div><b>84</b><span>Komiteen</span></div><div><b>15</b><span>Forslag</span></div><div><b>70</b><span>Borte</span></div></div>
+      </div>
+      <p class="note">Vi kaller det 0 registreringer denne uka.</p>
+    </section>
+    <section data-view="erna" hidden>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <p class="note">Høyre · Hordaland</p>
+          <h1>1121 i borte-lyset.</h1>
+          <p>Åtte spørsmål i spørsmål-lyset. Ingen av de siste Dok 8 som forslagsstiller.</p>
+        </div>
+      </div>
+      <div class="nums"><div><b>249</b><span>For</span></div><div><b>350</b><span>Mot</span></div><div><b>1121</b><span>Borte</span></div></div>
+      <p class="note">8 avvik · 8 spørsmål · vår telling. 28509: ingen registrert stemme. 28460: avvik, mot.</p>
+      <div class="warn">Tre lys: spørsmål hun har stilt (8), forslag hun ikke står på i dette snapshotet (0 av de siste Dok 8), stemmer hun ikke har registrert (1121). Ikke ett merkelapp.</div>
+      <p>Hordaland-kollega Njåstad: borte i 28509, og to spørsmål 26. august. Samme regel. To lys.</p>
+    </section>
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  <nav class="bar">
+    <a href="#hjem" data-nav="hjem">Stillhet</a>
+    <a href="#uka" data-nav="uka">Uka</a>
+    <a href="#sporsmal" data-nav="sporsmal">Spørsmål</a>
+    <a href="#erna" data-nav="erna">Erna</a>
+  </nav>
+  <script>
+    (function () {
+      var home = 'hjem';
+      var parent = { hjem:'hjem', uka:'uka', sporsmal:'sporsmal', saker:'sporsmal', sak:'uka', erna:'erna' };
+      function go() {
+        var id = (location.hash || '#' + home).slice(1) || home;
+        document.querySelectorAll('[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== id; });
+        document.querySelectorAll('nav.bar a').forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-nav') === (parent[id] || id)); });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go); go();
+    })();
+  </script>
+</body>
+</html>
