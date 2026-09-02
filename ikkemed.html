@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ikke med — de som ikke ble telt som stemme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#ece8e1; --ink:#2c2a28; --mute:#7a756c; --line:#d2cdc4; --paper:#f7f4ee; --empty:#c9c3b8; --accent:#4a5560; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.2rem .2rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--ink); letter-spacing:.2em; }
+    .top a { border-bottom:1px solid var(--empty); }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.2rem 2rem; }
+    h1 { font-family:"Cormorant Garamond",Georgia,serif; font-weight:500; font-size:clamp(2.4rem,9vw,3.8rem); line-height:.95; }
+    h1 em { font-style:italic; }
+    h2 { font-family:"Cormorant Garamond",Georgia,serif; font-size:1.6rem; font-weight:600; margin:1.35rem 0 .4rem; }
+    .lede { font-family:"Cormorant Garamond",Georgia,serif; font-size:1.28rem; line-height:1.35; font-style:italic; color:#3a3834; margin:.45rem 0 1.1rem; }
+    .k { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+    .num { font-family:"Cormorant Garamond",serif; font-size:clamp(4.4rem,18vw,7.2rem); line-height:.8; letter-spacing:-.04em; }
+    .num span { display:block; font-size:.95rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); font-family:Karla,sans-serif; font-weight:500; margin-top:.4rem; }
+    .score { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.45rem; margin:1rem 0; text-align:center; }
+    .score div { background:var(--paper); border:1px solid var(--line); padding:.7rem .2rem; }
+    .score b { display:block; font-family:"Cormorant Garamond",serif; font-size:2.1rem; line-height:.9; }
+    .score span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .sheet { background:var(--paper); border:1px dashed var(--empty); padding:1rem 1.05rem; margin:1rem 0; }
+    .caption { font-family:"Cormorant Garamond",serif; font-size:1.15rem; font-style:italic; border-left:2px solid var(--ink); padding:.15rem 0 .15rem .75rem; margin:1rem 0; }
+    .who { display:grid; grid-template-columns:4.2rem 1fr; gap:.8rem; align-items:center; padding:.7rem 0; border-bottom:1px solid var(--line); }
+    .who img { width:4.2rem; height:5.3rem; object-fit:cover; filter:grayscale(1); background:var(--empty); }
+    .who h3 { font-family:"Cormorant Garamond",serif; font-size:1.3rem; font-weight:600; line-height:1.05; }
+    .who small { display:block; color:var(--mute); font-size:.8rem; margin-top:.12rem; }
+    .hero { display:grid; grid-template-columns:7rem 1fr; gap:1rem; margin:1rem 0; }
+    .hero img { width:7rem; height:8.9rem; object-fit:cover; filter:grayscale(1); background:var(--empty); }
+    .wall { display:grid; grid-template-columns:repeat(auto-fill,minmax(4.7rem,1fr)); gap:.4rem; margin:1rem 0; }
+    .tile { text-align:center; font-size:.62rem; color:var(--mute); line-height:1.15; }
+    .tile img { width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(1); background:var(--empty); display:block; margin-bottom:.18rem; }
+    .tile b { display:block; color:var(--ink); font-weight:500; font-size:.68rem; }
+    .empty-seat { border:1px dashed var(--empty); background:transparent; display:flex; align-items:flex-end; justify-content:center; padding:.3rem; aspect-ratio:3/4; font-size:.62rem; color:var(--mute); text-align:center; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:1rem 0; }
+    .nums div { border-top:2px solid var(--ink); padding-top:.35rem; }
+    .nums b { display:block; font-family:"Cormorant Garamond",serif; font-size:1.9rem; line-height:.9; }
+    .nums span { font-size:.7rem; color:var(--mute); }
+    .list a, .list article { display:block; padding:.7rem 0; border-bottom:1px solid var(--line); }
+    .list h3 { font-family:"Cormorant Garamond",serif; font-size:1.22rem; }
+    .quiet { font-size:.82rem; color:var(--mute); margin:.6rem 0 1rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:var(--bg); border-top:1px solid var(--line); }
+    nav.bar a { text-align:center; padding:.8rem .12rem; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    nav.bar a.on { color:var(--ink); font-weight:700; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.2rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    .by-party { display:grid; grid-template-columns:2.6rem 1fr 2.6rem; gap:.3rem; font-size:.85rem; padding:.32rem 0; border-bottom:1px dashed var(--line); }
+    .note { font-size:.9rem; line-height:1.45; margin:.5rem 0 1rem; }
+    @media (max-width:480px) { .hero { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Ikke med</b>
+    <span>votering 28509</span>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k" style="margin-top:.9rem">Sak 200211 · 19. juni 2026</p>
+      <p class="num">70<span>hadde ingen registrert stemme</span></p>
+      <p class="lede">De ble ikke telt som ja. Ikke som nei. De står som borte. Vi vet ikke hvorfor. Vi teller at stemmen mangler.</p>
+      <div class="score">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="caption">Borte = ingen registrert stemme. Det er et faktum i protokollen, ikke en karakter. Stortinget advarer mot å lese oppmøte som aktivitet.</p>
+      <div class="sheet">
+        <p class="k">Pluss én som ikke er i lista</p>
+        <a class="who" href="#peter" style="border:0;padding:.2rem 0 0">
+          <img src="https://test.hverdagstinget.no/api/photos/PCF" alt="Peter Frølich">
+          <div>
+            <h3>Peter Frølich</h3>
+            <small>Høyre · Hordaland · ikke i voteringen 28509. Vi teller ham ikke som borte. Han er ikke i lista.</small>
+          </div>
+        </a>
+      </div>
+      <h2>To av tre som fremmet saken</h2>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="Ingrid Liland">
+        <div><h3>Ingrid Liland</h3><small>MDG · Oslo · forslagsstiller · borte</small></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther">
+        <div><h3>Frøya Skjold Sjursæther</h3><small>MDG · Hordaland · forslagsstiller · borte</small></div>
+      </div>
+      <p class="quiet">Oda Indgaard stemte med forslaget. Vi finner ikke på hvorfor de to andre mangler.</p>
+      <a class="who" href="#erna">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div><h3>Erna Solberg</h3><small>Høyre · Hordaland · borte i 28509 · 1121 borte sesjonen</small></div>
+      </a>
+      <p class="quiet">Uka: 0 voteringer. Siste votering 19. juni. <a href="#lista">De 70, med navn →</a></p>
+    </section>
+
+    <section data-view="lista" hidden>
+      <p class="k" style="margin-top:.9rem">70 navn · ingen registrert stemme</p>
+      <h1>De som <em>ikke ble telt</em>.</h1>
+      <p class="lede">Hvert ansikt er én manglende stemme i 28509. Ikke en forklaring. Borgeren kan se at de ikke ble telt som stemme.</p>
+      <div class="wall">
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/AGNVIL" alt=""><b>Agnes Nærland Viljugrein</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/AICS" alt=""><b>Aina Stenersen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/ALES" alt=""><b>Aleksander Stokkebø</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/AMAGUN" alt=""><b>Amalie Gunnufsen</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/BENBEN" alt=""><b>Bent-Joacim Bentzen</b><span>Sp</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/BENEST" alt=""><b>Bente Estil</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt=""><b>Benjamin Jakobsen</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/BERST" alt=""><b>Bengt Rune Strifeldt</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/BLA" alt=""><b>Bjørn Larsen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/DHO" alt=""><b>Dagfinn Henrik Olsen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/ELW" alt=""><b>Elise Waagen</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/ERIHAG" alt=""><b>Erik Hager</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/ERLBE1" alt=""><b>Erlend Svardal Bøe</b><span>H</span></div>
+        <a class="tile" href="#erna"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><b>Erna Solberg</b><span>H</span></a>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/EVR" alt=""><b>Even A. Røed</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/FB" alt=""><b>Farahnaz Bahrami</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt=""><b>Frøya Skjold Sjursæther</b><span>MDG</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/GEIRAJ" alt=""><b>Geir Jørgensen</b><span>R</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/GKAL" alt=""><b>Grunde Almeland</b><span>V</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/GP" alt=""><b>Geir Pollestad</b><span>Sp</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HANASK" alt=""><b>Hans Edvard Askjer</b><span>KrF</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HANSTE" alt=""><b>Hanne Beate Stenvaag</b><span>R</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HASABD" alt=""><b>Hashim Abdi</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HEA" alt=""><b>Henrik Asheim</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HEGNYH" alt=""><b>Hege Bae Nyholt</b><span>R</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HLI" alt=""><b>Hans Andreas Limi</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HNJ" alt=""><b>Helge André Njåstad</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/HSP" alt=""><b>Haagen Poppe</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/IDARSE" alt=""><b>Ida Lindtveit Røse</b><span>KrF</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/IME" alt=""><b>Ine Eriksen Søreide</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt=""><b>Ingrid Liland</b><span>MDG</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/ISABUS" alt=""><b>Isak Veierud Busch</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/JANHOG" alt=""><b>Jan Erik Hogstad</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/JOATAN" alt=""><b>Joakim Myklebost Tangen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt=""><b>Joel Ystebø</b><span>KrF</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/JONSAY" alt=""><b>Jonas Andersen Sayed</b><span>KrF</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/JULEIK" alt=""><b>Julia Eikeland</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/KATLIE" alt=""><b>Kathy Lie</b><span>SV</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/KIB" alt=""><b>Kirsti Bergstø</b><span>SV</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/KJT" alt=""><b>Kjersti Toppe</b><span>Sp</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/KRISIV" alt=""><b>Kristoffer Sivertsen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/LAHA" alt=""><b>Lars Haltbrekken</b><span>SV</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/LARREM" alt=""><b>Lars Rem</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/LIE" alt=""><b>Liv Kari Eskeland</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/LINHAU" alt=""><b>Line Marlene Haugen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/LISSEL" alt=""><b>Lise Selnes</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/MAHAG" alt=""><b>Margret Hagerup</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/MATHEN" alt=""><b>Mats Henriksen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/MHL" alt=""><b>Mari Holm Lønseth</b><span>H</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/MORKOL" alt=""><b>Morten Kolbjørnsen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/MORSAN" alt=""><b>Morten Sandanger</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/MOW" alt=""><b>Morten Wold</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/NF" alt=""><b>Nils-Ole Foshaug</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/PERKJL" alt=""><b>Per Vidar Kjølmoen</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/REMSLV" alt=""><b>Remi Sølvberg</b><span>R</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/RUTHOP" alt=""><b>Ruth Mariann Hop</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/SIGRAF" alt=""><b>Sigurd Kvammen Rafaelsen</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt=""><b>Silje Hjemdal</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/SIRJEN" alt=""><b>Siren Julianne Jensen</b><span>MDG</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/SMY" alt=""><b>Sverre Myrli</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/STIA" alt=""><b>Stig Atle Abrahamsen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/SUNEID" alt=""><b>Sunniva Holmås Eidsvoll</b><span>SV</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/SYL" alt=""><b>Sylvi Listhaug</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/TAJ" alt=""><b>Tor André Johnsen</b><span>FrP</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/TG" alt=""><b>Trond Giske</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/TMV" alt=""><b>Trygve Slagsvold Vedum</b><span>Sp</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/TONB" alt=""><b>Tonje Brenna</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/TRISUN" alt=""><b>Trine Lise Sundnes</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/TRV" alt=""><b>Truls Vasvik</b><span>A</span></div>
+        <div class="tile"><img src="https://test.hverdagstinget.no/api/photos/YSTMAT" alt=""><b>Øystein Mathisen</b><span>A</span></div>
+      </div>
+      <h2>Per parti i 28509</h2>
+      <div class="by-party"><span>A</span><span>31 komiteen · 0 forslag</span><b>22</b></div>
+      <div class="by-party"><span>FrP</span><span>29 komiteen · 0 forslag</span><b>18</b></div>
+      <div class="by-party"><span>H</span><span>14 komiteen · 0 forslag</span><b>10</b></div>
+      <div class="by-party"><span>KrF</span><span>3 komiteen · 0 forslag</span><b>4</b></div>
+      <div class="by-party"><span>Sp</span><span>5 komiteen · 0 forslag</span><b>4</b></div>
+      <div class="by-party"><span>R</span><span>0 komiteen · 5 forslag</span><b>4</b></div>
+      <div class="by-party"><span>SV</span><span>0 komiteen · 5 forslag</span><b>4</b></div>
+      <div class="by-party"><span>MDG</span><span>0 komiteen · 5 forslag</span><b>3</b></div>
+      <div class="by-party"><span>V</span><span>2 komiteen · 0 forslag</span><b>1</b></div>
+      <p class="quiet">70. Vår telling av lista. Peter Frølich er ikke med her.</p>
+    </section>
+
+    <section data-view="erna" hidden>
+      <p class="k" style="margin-top:.9rem">Høyre · Hordaland · 1121</p>
+      <div class="hero">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h1>Erna Solberg</h1>
+          <p class="lede">I 28509: borte. Sesjonen: 1121 uten registrert stemme. Vi vet ikke hvorfor.</p>
+        </div>
+      </div>
+      <div class="nums">
+        <div><b>249</b><span>for</span></div>
+        <div><b>350</b><span>mot</span></div>
+        <div><b>1121</b><span>borte</span></div>
+      </div>
+      <div class="nums">
+        <div><b>8</b><span>avvik · vår telling</span></div>
+        <div><b>8</b><span>spørsmål</span></div>
+        <div><b>599</b><span>til stede</span></div>
+      </div>
+      <p class="caption">1121 vises fordi de er i protokollen. Stortinget advarer mot oppmøte som aktivitet. Vi moraliserer ikke. Vi gjetter ikke.</p>
+      <p class="note">Samme uke: avvik i 28460 (mot, PST romertall III, vedtatt). Borte i 28509. Begge tallene står. Høyre 14/0/10 i klimaavgift-voteringen.</p>
+      <p class="quiet">Ove Trellevik stemte med komiteen. Peter Frølich er ikke i lista.</p>
+    </section>
+
+    <section data-view="peter" hidden>
+      <p class="k" style="margin-top:.9rem">Ikke i lista · Høyre · Hordaland</p>
+      <div class="hero">
+        <img src="https://test.hverdagstinget.no/api/photos/PCF" alt="Peter Frølich">
+        <div>
+          <h1>Peter Frølich</h1>
+          <p class="lede">Han er Hordalands tredje Høyre-representant. I votering 28509 står han ikke. Vi teller ham ikke som borte.</p>
+        </div>
+      </div>
+      <div class="sheet">
+        <p class="k">Hva lista viser</p>
+        <p>169 plasser i salen. 84 + 15 + 70 = 169. Peter er ikke blant de 169 i denne protokollen. Liv Kari Eskeland er oppført som vara for PCF og var selv borte.</p>
+      </div>
+      <p class="caption">Vi vet ikke hvorfor han mangler. Vi finner ikke på en grunn. Borgeren ser at han ikke ble telt som stemme — fordi han ikke er i lista i det hele tatt.</p>
+      <h2>Hordaland, Høyre</h2>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">
+        <div><h3>Ove Trellevik</h3><small>komiteen · i lista</small></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="">
+        <div><h3>Erna Solberg</h3><small>borte · i lista</small></div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/PCF" alt="">
+        <div><h3>Peter Frølich</h3><small>ikke i lista</small></div>
+      </div>
+      <p class="quiet">8 avvik sesjonen, vår telling — samme tall som Erna. Det er en annen telling enn 28509.</p>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k" style="margin-top:.9rem">Sak 200211 · hva de ikke var med i</p>
+      <h1>Klimaavgiften. Ferdig. Uten 70 stemmer.</h1>
+      <p class="lede">Representantforslag fra Liland, Indgaard og Sjursæther. Komiteen 84, forslag 15. Vedtak: vedtas ikke.</p>
+      <div class="score">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <div class="list">
+        <article>
+          <p class="k">26. mars 2026</p>
+          <h3>Fremmet</h3>
+          <p>Dok 8:256 S. Tre navn, MDG.</p>
+        </article>
+        <article>
+          <p class="k">9. april</p>
+          <h3>Referat og sendt komité</h3>
+          <p>Finanskomiteen. Ordfører Tuva Moflag (A).</p>
+        </article>
+        <article>
+          <p class="k">12. juni</p>
+          <h3>Innstilling avgitt</h3>
+          <p>Innst. 458 S. Teksten som vant 19. juni.</p>
+        </article>
+        <article>
+          <p class="k">19. juni</p>
+          <h3>Votering ferdig</h3>
+          <p>84–15–70. De 70 ble ikke telt som stemme.</p>
+        </article>
+      </div>
+      <p class="quiet">Hordaland borte: Erna, Frøya, Benjamin Jakobsen, Njåstad, Hjemdal, Abrahamsen, Toppe, Ystebø. Plus vara-bildet i distriktet. Peter: ikke i lista.</p>
+    </section>
+
+  </div>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Borte</a>
+    <a href="#lista" data-tab="lista">Lista</a>
+    <a href="#erna" data-tab="erna">Erna</a>
+    <a href="#peter" data-tab="peter">Peter</a>
+    <a href="#sak" data-tab="sak">200211</a>
+  </nav>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Borte = ingen registrert stemme. Vi vet ikke hvorfor.</footer>
+  <script>
+    const alias = {hjem:'hjem',lista:'lista',erna:'erna',hen:'erna',peter:'peter',froelich:'peter',frolic:'peter',sak:'sak','200211':'sak'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
