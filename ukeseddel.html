@@ -7,9 +7,355 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07140f;
+      --paper: #e7f0d8;
+      --ink: #102018;
+      --mute: #5a6a58;
+      --line: #c5d4b0;
+      --green: #1f6b45;
+      --amber: #c9a227;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Space Grotesk", system-ui, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    [data-view][hidden] { display: none !important; }
+    .stage {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 12px 28px;
+    }
+    .alle {
+      width: min(100%, 420px);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: #b7c9a8;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .alle a { border-bottom: 1px solid #6a8a70; }
+    .pad {
+      width: min(100%, 420px);
+      background: var(--paper);
+      color: var(--ink);
+      min-height: calc(100vh - 70px);
+      box-shadow: 6px 8px 0 #040a07;
+      display: flex;
+      flex-direction: column;
+    }
+    header.top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 12px 14px 8px;
+      border-bottom: 2px dashed var(--ink);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    header.top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 18px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    nav.bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 2px solid var(--ink);
+    }
+    nav.bar a {
+      text-align: center;
+      padding: 9px 2px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    nav.bar a.on {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    main { padding: 16px 14px 36px; flex: 1; }
+    h1 {
+      font-size: clamp(1.6rem, 7vw, 2.2rem);
+      letter-spacing: -.03em;
+      line-height: 1.05;
+    }
+    h2 { font-size: 1.05rem; margin: 1.1rem 0 .4rem; }
+    .kicker {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .lede { margin: .35rem 0 .9rem; line-height: 1.4; }
+    .zeros {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--ink);
+      margin: 12px 0;
+    }
+    .zeros div { background: var(--paper); padding: 10px 6px; text-align: center; }
+    .zeros b {
+      display: block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    .zeros span {
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 4.8rem 1fr;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 13px;
+    }
+    .row .d {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--mute);
+    }
+    .light {
+      background: #f4f8ea;
+      border: 2px solid var(--ink);
+      padding: 12px;
+      margin: 12px 0;
+    }
+    .light .big {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 1.7rem;
+      letter-spacing: -.04em;
+    }
+    .score {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .score b {
+      display: block;
+      font-size: 1.5rem;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .score span {
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .cal {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      margin: 10px 0;
+    }
+    .cal span, .cal b {
+      display: block;
+      text-align: center;
+      padding: 8px 0 6px;
+      font-size: 11px;
+      background: #dce8c8;
+      color: var(--mute);
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .cal .wd {
+      background: transparent;
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 2px 0;
+    }
+    .cal .today { background: var(--ink); color: var(--paper); }
+    .cal .meet { outline: 2px solid var(--green); color: var(--ink); }
+    .cal .pace { outline: 1px dashed var(--mute); }
+    .list a, .list .item {
+      display: block;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .meta { font-size: 12px; color: var(--mute); line-height: 1.45; }
+    .her { display: flex; gap: 12px; }
+    .her img { width: 72px; height: 92px; object-fit: cover; background: #c8d4b4; }
+    .nums {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .nums div { border-top: 1px solid var(--ink); padding-top: 4px; }
+    .nums b {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 1.4rem;
+      display: block;
+    }
+    footer.site {
+      padding: 12px 14px 18px;
+      font-size: 11px;
+      color: var(--mute);
+      font-family: "IBM Plex Mono", monospace;
+      border-top: 1px dashed var(--line);
+    }
+    .stamp {
+      display: inline-block;
+      border: 2px solid var(--green);
+      color: var(--green);
+      padding: 3px 7px;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transform: rotate(-4deg);
+      margin: 8px 0;
+    }
+  </style>
 </head>
 <body>
-  <div class="alle"><a href="lyset.html">Alle</a></div>
-  <p>Ukeseddel — full file follows in next commit if truncated.</p>
+  <div class="stage">
+    <div class="alle"><span>Hverdagstinget · ukeseddel</span><a href="lyset.html">Alle</a></div>
+    <div class="pad">
+      <header class="top">
+        <strong>Ukeseddel</strong>
+        <span>uke 36 · 2. sept</span>
+      </header>
+      <nav class="bar">
+        <a href="#hjem" data-tab="hjem">Uke</a>
+        <a href="#saker" data-tab="saker">Saker</a>
+        <a href="#kalender" data-tab="kalender">Kalender</a>
+        <a href="#hen" data-tab="hen">Folk</a>
+      </nav>
+      <main>
+        <section data-view="hjem">
+          <p class="kicker">Hva som faktisk skjedde · 1.–7. sept 2026</p>
+          <h1>Seddelen er tom. Forrige fylte linje står.</h1>
+          <p class="lede">Denne uken: 0 voteringer, 0 spørsmål, 0 saker. Det er en stille uke. Vi kaller den ikke noe annet. Derfor ligger 19. juni fortsatt i lyset.</p>
+          <div class="zeros">
+            <div><b>0</b><span>voteringer</span></div>
+            <div><b>0</b><span>spørsmål</span></div>
+            <div><b>0</b><span>saker</span></div>
+          </div>
+          <p class="stamp">Ikke flyttet</p>
+          <div class="light">
+            <p class="kicker">Siste fylte linje · 19. juni 2026 · kl. 12.32</p>
+            <p class="big">28509 · sak 200211</p>
+            <p>Klimaavgifter til befolkningen. Alternativ votering: Komiteen mot forslag nr. 1 og 2 fra SV, R og MDG.</p>
+            <div class="score">
+              <div><b>84</b><span>Komiteen</span></div>
+              <div><b>15</b><span>Forslaget</span></div>
+              <div><b>70</b><span>Borte</span></div>
+            </div>
+            <p class="meta" style="margin-top:8px">Forslaget ble ikke vedtatt. Ferdigbehandlet. Borte er ingen registrert stemme.</p>
+            <p class="meta"><a href="#sak" style="border-bottom:1px solid var(--ink)">Åpne saken</a></p>
+          </div>
+          <h2>Ukas rader</h2>
+          <div class="row"><span class="d">1. sept</span><span>Møte i Stortinget, i snapshotet. Ikke en sending. Ingen votering registrert denne dagen i ukestellingen.</span></div>
+          <div class="row"><span class="d">2. sept</span><span>I dag. 0 / 0 / 0. Snapshot.</span></div>
+          <div class="row"><span class="d">3. sept</span><span>Ingen registrert votering, spørsmål eller sak i ukestellingen.</span></div>
+          <div class="row"><span class="d">4. sept</span><span>Tom rad.</span></div>
+          <div class="row"><span class="d">5. sept</span><span>Tom rad.</span></div>
+          <div class="row"><span class="d">6. sept</span><span>Tom rad.</span></div>
+          <div class="row"><span class="d">7. sept</span><span>Tom rad.</span></div>
+          <p class="meta" style="margin-top:10px">4180 spørsmål i sesjonen totalt. A 24, FrP 1757. Denne uken: 0. Siste votering er 19. juni, ikke 1. sept.</p>
+        </section>
+        <section data-view="saker" hidden>
+          <p class="kicker">Saker på seddelen</p>
+          <h1>Det som ble fylt inn 19. juni, og det som venter.</h1>
+          <div class="list">
+            <a href="#sak"><span class="kicker">200211 · ferdig · 28509</span><br><strong>Klimaavgifter</strong><br><span class="meta">84 / 15 / 70 · Komiteen mot forslag</span></a>
+            <div class="item"><span class="kicker">200155 · ferdig · 28508</span><br><strong>Bensin og diesel</strong><br><span class="meta">71 for · 28 mot · 70 borte</span></div>
+            <div class="item"><span class="kicker">200124 · ferdig · 28505</span><br><strong>Kontantutbetaling</strong><br><span class="meta">Komiteen 84 · forslag 17 · 68 borte</span></div>
+            <div class="item"><span class="kicker">200084 · ferdig · 28502</span><br><strong>Energi og levekostnader</strong><br><span class="meta">Komiteen 68 · FrP 29 · 72 borte</span></div>
+            <div class="item"><span class="kicker">200313 · ferdig · 28499</span><br><strong>Skatte- og avgiftslovgivinga</strong><br><span class="meta">52 / 49 / 68 · 31 voteringer</span></div>
+            <div class="item"><span class="kicker">200400 · mottatt</span><br><strong>Prediksjonsmarkeder</strong><br><span class="meta">0 voteringer. Ikke ferdig.</span></div>
+            <div class="item"><span class="kicker">200399–200396 · mottatt</span><br><strong>Åpne representantforslag</strong><br><span class="meta">144 uferdige totalt.</span></div>
+          </div>
+        </section>
+        <section data-view="sak" hidden>
+          <p class="kicker">Sak 200211 · Dok 8:256 S · Innst. 458 S</p>
+          <h1>Linjen som ikke er visket.</h1>
+          <p class="lede">Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther fremmet. Tuva Moflag (A) var saksordfører. 19. juni: Komiteen 84, forslag 15, 70 borte. Forslaget ble ikke vedtatt.</p>
+          <div class="score">
+            <div><b>84</b><span>Komiteen</span></div>
+            <div><b>15</b><span>Forslaget</span></div>
+            <div><b>70</b><span>Borte</span></div>
+          </div>
+          <h2>Hvem</h2>
+          <p class="meta">Fremmet: MDG. Stoppet: innstillingen, 84. Borte: 70. Hordaland i voteringen: 5 komiteen, 2 forslag, 9 borte. Valgdistriktets navn er Hordaland.</p>
+          <p class="meta" style="margin-top:8px">Gang: fremmet 26. mars · referat 9. april · innstilling 12. juni · votering 19. juni.</p>
+        </section>
+        <section data-view="kalender" hidden>
+          <p class="kicker">Kalender · september 2026 · fakta, ikke forestilling</p>
+          <h1>1. sept er et møte. Ikke en sending.</h1>
+          <p class="lede">Siste møte i Stortinget i dette snapshotet: 1. september 2026. Det står som dato. Det er ikke et show å følge. 27. sept er PACE i Strasbourg — ikke Stortinget.</p>
+          <div class="cal">
+            <span class="wd">ma</span><span class="wd">ti</span><span class="wd">on</span><span class="wd">to</span><span class="wd">fr</span><span class="wd">lø</span><span class="wd">sø</span>
+            <span></span>
+            <b class="meet">1</b>
+            <b class="today">2</b>
+            <span>3</span><span>4</span><span>5</span><span>6</span>
+            <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+            <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+            <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span>
+            <b class="pace">27</b>
+            <span>28</span><span>29</span><span>30</span>
+          </div>
+          <div class="row"><span class="d">1. sept</span><span>Siste møte, Stortinget, i snapshotet. Kalenderfakta.</span></div>
+          <div class="row"><span class="d">2. sept</span><span>I dag. Ukeseddelen viser 0 / 0 / 0.</span></div>
+          <div class="row"><span class="d">19. juni</span><span>Siste votering. Står fortsatt. 84–15–70.</span></div>
+          <div class="row"><span class="d">27. sept</span><span>PACE, Strasbourg. Ikke et Stortingsmøte.</span></div>
+          <p class="meta" style="margin-top:10px">Uken er stille. Vi skriver ikke ferie. Vi skriver hva som er registrert: ingenting denne uken, og 19. juni i fullt lys.</p>
+        </section>
+        <section data-view="hen" hidden>
+          <p class="kicker">Folk · Høyre · Hordaland</p>
+          <div class="her">
+            <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+            <div>
+              <h1>Erna Solberg</h1>
+              <p class="meta">På seddelen for 19. juni: borte. Ingen registrert stemme i 28509. Vi fyller ikke inn grunn.</p>
+            </div>
+          </div>
+          <div class="nums">
+            <div><b>249</b><span class="meta">for · vår telling</span></div>
+            <div><b>350</b><span class="meta">mot · vår telling</span></div>
+            <div><b>1121</b><span class="meta">borte · vår telling</span></div>
+            <div><b>8</b><span class="meta">spørsmål</span></div>
+          </div>
+          <p class="meta" style="margin-top:10px">0 av de siste Dok 8 i snapshotet som forslagsstiller. 8 avvik, vår telling. Hordaland.</p>
+        </section>
+      </main>
+      <footer class="site">
+        Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
+        Avledede tall = vår telling.
+      </footer>
+    </div>
+  </div>
+  <script>
+    const tabOf = {hjem:'hjem',saker:'saker',sak:'saker',kalender:'kalender',hen:'hen'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1) || 'hjem';
+      if (!document.querySelector('[data-view="'+h+'"]')) h = 'hjem';
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === (tabOf[h]||'hjem')));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
 </body>
 </html>
