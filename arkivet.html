@@ -3,104 +3,245 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Arkivet — sesjon 2025–2026 — Hverdagstinget</title>
+  <title>Arkivet — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #f4ead8; color: #2c2218; font-family: Figtree, system-ui, sans-serif; }
-    a { color: inherit; }
-    .room { max-width: 44rem; margin: 0 auto; padding: 1.4rem 1.3rem 3rem; }
-    .nav { font-size: .82rem; color: #6a5c4c; }
-    .nav a { text-decoration: none; border-bottom: 1px solid #b8a890; }
-    h1 {
-      font-family: "Libre Baskerville", Georgia, serif;
-      font-weight: 400; font-size: clamp(2rem, 6vw, 3rem);
-      margin: 1.6rem 0 .5rem; line-height: 1.15;
+    :root { --bg:#f7f1e4; --ink:#2a2218; --mute:#6a5c4c; --rule:#d4c6b0; --card:#fffaf0; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); font-family:Figtree,system-ui,sans-serif; }
+    a { color:inherit; }
+    .room { max-width:720px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; padding:0 22px; }
+    header.top {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:22px 0 10px; font-size:13px; color:var(--mute);
     }
-    .lead { font-size: 1.05rem; line-height: 1.5; color: #4a3e32; max-width: 34rem; margin-bottom: 2rem; }
-    .shelf { border-top: 1px solid #cbbba4; }
-    article { padding: 1.15rem 0 1.2rem; border-bottom: 1px solid #cbbba4; }
-    .nr {
-      font-size: .75rem; letter-spacing: .16em; text-transform: uppercase;
-      color: #7a6a56; font-weight: 600;
+    header.top b { font-family:"Libre Baskerville",Georgia,serif; font-size:20px; color:var(--ink); font-weight:400; }
+    header.top a { text-decoration:none; border-bottom:1px solid var(--rule); }
+    nav.bar {
+      display:flex; gap:22px; border-bottom:1px solid var(--rule); padding-bottom:10px;
+      position:sticky; top:0; background:var(--bg); z-index:4;
     }
-    h2 {
-      font-family: "Libre Baskerville", serif;
-      font-size: 1.22rem; font-weight: 400; line-height: 1.3;
-      margin: .25rem 0 .45rem;
+    nav.bar a {
+      font-size:13px; letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
+      color:var(--mute); padding-bottom:8px; border-bottom:1px solid transparent;
     }
-    .meta { font-size: .92rem; color: #5a4c3c; line-height: 1.4; }
-    .st {
-      display: inline-block; margin-top: .45rem;
-      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+    nav.bar a.on { color:var(--ink); border-bottom-color:var(--ink); }
+    main { padding:28px 0 64px; flex:1; }
+    [data-view][hidden] { display:none !important; }
+    h1 { font-family:"Libre Baskerville",Georgia,serif; font-weight:400; font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.2; }
+    .lead { font-size:1.05rem; line-height:1.55; color:#4a3e32; max-width:36rem; margin:12px 0 28px; }
+    .count { font-family:"Libre Baskerville",serif; font-size:3.2rem; font-weight:400; letter-spacing:-.03em; }
+    .count span { display:block; font-family:Figtree,sans-serif; font-size:13px; color:var(--mute); letter-spacing:.12em; text-transform:uppercase; margin-top:4px; }
+    .shelf { border-top:1px solid var(--rule); }
+    article { padding:18px 0 20px; border-bottom:1px solid var(--rule); }
+    .nr { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); font-weight:600; }
+    article h2 { font-family:"Libre Baskerville",serif; font-size:1.25rem; font-weight:400; margin:6px 0 8px; line-height:1.3; }
+    article p { color:#4a3e32; line-height:1.5; font-size:.98rem; }
+    .st { font-style:italic; color:var(--mute); }
+    .docs { margin:16px 0; }
+    .doc {
+      display:block; background:var(--card); border:1px solid var(--rule);
+      padding:14px 16px; margin-bottom:8px; text-decoration:none;
     }
-    .ferdig { color: #5c4634; }
-    .mott { color: #8a5a28; }
-    footer { margin-top: 2rem; font-size: .8rem; color: #6a5c4c; }
-    footer a { color: #2c2218; }
+    .doc b { font-family:"Libre Baskerville",serif; font-weight:400; display:block; margin-bottom:4px; }
+    .cardp {
+      display:grid; grid-template-columns:96px 1fr; gap:18px; align-items:start;
+      background:var(--card); border:1px solid var(--rule); padding:18px;
+    }
+    .cardp img { width:96px; height:120px; object-fit:cover; background:#e8dcc8; }
+    .nums { display:grid; grid-template-columns:repeat(2,1fr); gap:12px 24px; margin-top:18px; }
+    .nums b { font-family:"Libre Baskerville",serif; font-size:1.6rem; display:block; font-weight:400; }
+    .nums span { font-size:12px; color:var(--mute); }
+    .om p { margin-bottom:14px; line-height:1.55; max-width:38rem; }
+    footer { padding:16px 0 36px; font-size:12px; color:var(--mute); border-top:1px solid var(--rule); }
+    .topics { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 24px; }
+    .topics span { border:1px solid var(--rule); padding:4px 8px; font-size:12px; color:var(--mute); }
+    .hours { display:flex; gap:24px; flex-wrap:wrap; margin:8px 0 24px; font-size:13px; color:var(--mute); }
+    .hours b { color:var(--ink); font-weight:600; }
+    .call { font-variant-numeric:tabular-nums; letter-spacing:.04em; }
+    .excerpt { font-family:"Libre Baskerville",serif; font-size:1.05rem; line-height:1.6; font-style:italic;
+      max-width:38rem; margin:12px 0 20px; }
+    .roles { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+    .roles div { border-top:1px solid var(--rule); padding-top:10px; }
+    .roles b { display:block; font-family:"Libre Baskerville",serif; font-weight:400; margin-bottom:4px; }
+    .shelf-label { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); margin:24px 0 6px; }
+    .cv { font-size:14px; line-height:1.5; color:#4a3e32; }
+    .cv li { list-style:none; padding:6px 0; border-bottom:1px solid var(--rule); }
+    @media (max-width:560px) { .roles { grid-template-columns:1fr; } }
+    a.ghost { text-decoration:none; }
   </style>
 </head>
 <body>
   <div class="room">
-    <p class="nav"><a href="index.html">Alle ti forslag</a></p>
-    <h1>Arkivet for sesjon 2025–2026.</h1>
-    <p class="lead">Åtte mapper på bordet. Syv ferdigbehandlet, én mottatt. 665 saker totalt i sesjonen, 475 med votering. Her er det som ligger nærmest.</p>
-    <div class="shelf">
-      <article>
-        <p class="nr">Sak 200315 · Budsjett</p>
-        <h2>Tilleggsbevilgninger og omprioriteringer i statsbudsjettet 2026</h2>
-        <p class="meta">Fra regjeringen. 0 voteringer.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200314 · Melding</p>
-        <h2>Revidert nasjonalbudsjett 2026</h2>
-        <p class="meta">Fra regjeringen. 0 voteringer.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200313 · Budsjett</p>
-        <h2>Endringar i skatte- og avgiftslovgivinga</h2>
-        <p class="meta">31 voteringer. Hovedvotering 52 for, 49 mot, 68 borte. 19. juni 2026.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200211 · Representantforslag · Dok 8:256 S</p>
-        <h2>Dele ut statens inntekter fra klimaavgifter til befolkningen</h2>
-        <p class="meta">Fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther (MDG). 1 votering, alternativ: Komiteen 84 mot forslag nr. 1 og 2 fra SV, R og MDG 15. 70 borte. Forslaget vedtas ikke.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200155 · Representantforslag</p>
-        <h2>Lavere bensin- og dieselpriser</h2>
-        <p class="meta">2 voteringer. Innstillingens tilråding 71 for, 28 mot, 70 borte. Fra Senterpartiet.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200124 · Representantforslag</p>
-        <h2>En løsning for kontantutbetaling til befolkningen</h2>
-        <p class="meta">2 voteringer. Alternativ: Komiteen 84 mot forslag nr. 1 fra SV, R, MDG og V 17. 68 borte.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200084 · Representantforslag</p>
-        <h2>Tiltak for å dempe økte energipriser og levekostnader</h2>
-        <p class="meta">1 votering. Alternativ: Komiteen 68 mot forslag nr. 1 fra FrP 29. 72 borte. Fra Fremskrittspartiet, blant andre Martin Virkesdal Jonsterhaug.</p>
-        <span class="st ferdig">Ferdigbehandlet</span>
-      </article>
-      <article>
-        <p class="nr">Sak 200400 · Representantforslag</p>
-        <h2>Regulering av prediksjonsmarkeder og styrket tilsyn</h2>
-        <p class="meta">Fra Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa og Kathy Lie (SV). 0 voteringer.</p>
-        <span class="st mott">Mottatt</span>
-      </article>
-    </div>
-    <footer>
-      Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-      <a href="index.html">Til oversikten</a>
-    </footer>
+    <header class="top">
+      <b>Arkivet</b>
+      <span>sesjon 2025–2026</span>
+      <a href="index.html">Alle ti</a>
+    </header>
+    <nav class="bar">
+      <a href="#hjem" data-tab="hjem">Hyller</a>
+      <a href="#sak" data-tab="sak">Sak</a>
+      <a href="#hen" data-tab="hen">Folk</a>
+      <a href="#om" data-tab="om">Om</a>
+    </nav>
+    <main>
+      <section data-view="hjem">
+        <p class="nr">Lesesal · snapshot 2. sept 2026</p>
+        <h1>Sesjonen i hyllene.</h1>
+        <p class="lead">665 saker i sesjon 2025–2026. 475 med votering. Her står åtte i fremre rekke: sju ferdigbehandlet, én mottatt. Mottatt er ikke ferdig. Ferdigbehandlet er ferdig.</p>
+        <p class="count">665<span>saker i sesjonen</span></p>
+        <div class="topics">
+          <span>EU/EØS 65</span><span>Helsevesen 52</span><span>Kommunikasjonsteknologi 49</span>
+          <span>Grunnloven 42</span><span>Trygder 42</span>
+        </div>
+        <div class="hours">
+          <div><b>475</b> med votering</div>
+          <div><b>7</b> ferdig i fremre rekke</div>
+          <div><b>1</b> mottatt</div>
+          <div><b>19. juni</b> siste votering</div>
+        </div>
+        <p class="shelf-label">Hylle A · representantforslag</p>
+        <div class="shelf">
+          <article>
+            <a class="ghost" href="#sak">
+              <p class="nr">200211 · representantforslag · ferdigbehandlet</p>
+              <h2>Klimaavgifter til befolkningen</h2>
+              <p>Dok 8:256 S, Innst. 458 S. Finanskomiteen. Én votering: Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Forslaget ble ikke vedtatt.</p>
+            </a>
+          </article>
+          <article>
+            <p class="nr">200400 · representantforslag · mottatt</p>
+            <h2>Prediksjonsmarkeder og styrket tilsyn</h2>
+            <p class="st">Ikke ferdig.</p>
+            <p>Fra Mirell Høyer-Berntsen, Sunniva Holmås Eidsvoll, Ingrid Fiskaa og Kathy Lie. 0 voteringer.</p>
+          </article>
+          <article>
+            <p class="nr">200315 · budsjett · ferdigbehandlet</p>
+            <h2>Tilleggsbevilgninger og omprioriteringer i statsbudsjettet 2026</h2>
+            <p>0 voteringer.</p>
+          </article>
+          <article>
+            <p class="nr">200314 · melding · ferdigbehandlet</p>
+            <h2>Revidert nasjonalbudsjett 2026</h2>
+            <p>Ferdig. Ingen votering i denne listen.</p>
+          </article>
+          <article>
+            <p class="nr">200313 · budsjett · ferdigbehandlet</p>
+            <h2>Endringar i skatte- og avgiftslovgivinga</h2>
+            <p>31 voteringer. Hovedvotering: 52 for.</p>
+          </article>
+          <article>
+            <p class="nr">200155 · representantforslag · ferdigbehandlet</p>
+            <h2>Lavere bensin- og dieselpriser</h2>
+            <p>Innstillingens tilråding: 71 for.</p>
+          </article>
+          <article>
+            <p class="nr">200124 · representantforslag · ferdigbehandlet</p>
+            <h2>Kontantutbetaling til befolkningen</h2>
+            <p>Komiteen 84, forslag 17.</p>
+          </article>
+          <article>
+            <p class="nr">200084 · representantforslag · ferdigbehandlet</p>
+            <h2>Energi og levekostnader</h2>
+            <p>Komiteen 68, FrP-forslag 29.</p>
+          </article>
+        </div>
+        <p class="lead" style="margin-top:24px"><a href="#saker">Samme åtte, som katalogkort →</a></p>
+      </section>
+      <section data-view="saker">
+        <p class="nr">Katalog</p>
+        <h1>Åtte kort.</h1>
+        <p class="lead">Hyllene og katalogen er det samme rommet, to innganger. 200211 har egen leseplass.</p>
+        <div class="shelf">
+          <article><a class="ghost" href="#sak"><p class="nr">200211</p><h2>Klimaavgifter</h2><p>Ferdigbehandlet · 1 votering · 84 / 15 / 70</p></a></article>
+          <article><p class="nr">200400</p><h2>Prediksjonsmarkeder</h2><p>Mottatt · 0 voteringer</p></article>
+          <article><p class="nr">200315</p><h2>Tilleggsbevilgninger</h2><p>Ferdigbehandlet · budsjett · 0 voteringer</p></article>
+          <article><p class="nr">200314</p><h2>RNB 2026</h2><p>Ferdigbehandlet · melding</p></article>
+          <article><p class="nr">200313</p><h2>Skatte- og avgiftslovgivinga</h2><p>Ferdigbehandlet · 31 voteringer · 52 for</p></article>
+          <article><p class="nr">200155</p><h2>Bensin og diesel</h2><p>Ferdigbehandlet · 71 for</p></article>
+          <article><p class="nr">200124</p><h2>Kontantutbetaling</h2><p>Ferdigbehandlet · komiteen 84 / forslag 17</p></article>
+          <article><p class="nr">200084</p><h2>Energi og levekostnader</h2><p>Ferdigbehandlet · komiteen 68 / FrP 29</p></article>
+        </div>
+      </section>
+      <section data-view="sak">
+        <p class="nr">Sak 200211 · ferdigbehandlet · sesjon 2025–2026</p>
+        <h1>Representantforslag om å dele ut statens inntekter fra klimaavgifter til befolkningen</h1>
+        <p class="lead">Fra Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Finanskomiteen. Saksordfører Tuva Moflag (A). Dok 8:256 S (2025–2026), Innst. 458 S (2025–2026).</p>
+        <p class="lead">Votering 28509, 19. juni 2026. Alternativ mellom komiteen og forslag nr. 1 og 2 fra SV, R og MDG. Komiteen 84, forslaget 15, 70 borte. Forslaget ble ikke vedtatt.</p>
+        <p class="nr">Dokumenter i mappen</p>
+        <div class="docs">
+          <div class="doc"><b>Dokument 8:256 S (2025–2026)</b><span class="nr">Representantforslag · fremmet 26. mars</span></div>
+          <div class="doc"><b>Stortingsreferat 9. april 2026</b><span class="nr">Referat · sendt komité samme dag</span></div>
+          <div class="doc"><b>Innst. 458 S (2025–2026)</b><span class="nr">Innstilling avgitt 12. juni</span></div>
+          <div class="doc"><b>Stortingsreferat 19. juni 2026</b><span class="nr">Debatt og votering 28509</span></div>
+        </div>
+        <p class="excerpt">«Dokument 8:256 S (2025–2026) – Representantforslag fra stortingsrepresentantene Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther om å dele ut statens inntekter fra klimaavgifter til befolkningen – vedtas ikke.»</p>
+        <div class="roles">
+          <div><b>Forslagsstillere</b>Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther · MDG</div>
+          <div><b>Saksordfører</b>Tuva Moflag · Arbeiderpartiet</div>
+          <div><b>Komité</b>Finanskomiteen</div>
+          <div><b>Utfall</b>Forslaget ble ikke vedtatt</div>
+        </div>
+        <p class="lead">Saksgang: fremmet 26. mars → referat 9. april → sendt komité 9. april → innstilling 12. juni → votering 19. juni → ferdigbehandlet.</p>
+        <p><a href="#hen">Katalogkort: Erna Solberg, borte i 28509</a></p>
+      </section>
+      <section data-view="hen">
+        <p class="nr">Personkort · ES</p>
+        <div class="cardp">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h1 style="font-size:1.8rem">Erna Solberg</h1>
+            <p class="lead" style="margin:8px 0 0">Høyre. Valgdistrikt Hordaland. Representant, sete 3, perioden 2025–2029.</p>
+          </div>
+        </div>
+        <div class="nums">
+          <div><b>249</b><span>for · vår telling</span></div>
+          <div><b>350</b><span>mot · vår telling</span></div>
+          <div><b>1121</b><span>borte · vår telling</span></div>
+          <div><b>8</b><span>avvik · vår telling</span></div>
+        </div>
+        <ul class="cv">
+          <li>Valgdistrikt Hordaland · ikke et annet navn</li>
+          <li>Utenriks- og forsvarskomiteen · medlem</li>
+          <li>Den utvidede utenriks- og forsvarskomité · medlem</li>
+          <li>Valgkomiteen · andre nestleder</li>
+          <li>Europautvalget · medlem</li>
+          <li>Siste 19. juni: alle borte i snapshotet</li>
+        </ul>
+        <p class="lead">8 spørsmål. I votering 28509, sak 200211, 19. juni: borte. Borte betyr ingen registrert stemme. Vi skriver ikke inn en grunn.</p>
+        <p><a href="#sak">Tilbake til mappen 200211</a></p>
+      </section>
+      <section data-view="om">
+        <p class="nr">Kolofon</p>
+        <h1>Om dette rommet.</h1>
+        <div class="om">
+          <p>Arkivet er uoffisielt. Tallene kommer fra Stortinget, data.stortinget.no. Snapshot 2. september 2026. Dette er ikke en live-tjeneste.</p>
+          <p>Borte betyr ingen registrert stemme. Vi fyller ikke inn hvorfor noen mangler i protokollen.</p>
+          <p>Hordaland er valgdistriktets navn slik Stortinget bruker det. Vi retter det ikke til noe annet.</p>
+          <p>Ferdigbehandlet betyr at saken er ferdig. Mottatt betyr at den ikke er det. I alternativ votering skriver vi Komiteen mot forslaget, ikke for mot mot.</p>
+          <p>Tall merket «vår telling» er summer vi har gjort på Stortingets egne poster — for, mot, borte, avvik. 475 saker med votering og 665 saker i sesjonen er slike tellinger over sesjon 2025–2026.</p>
+          <p>Siste votering i snapshotet er 19. juni 2026. Siste møte i Stortinget er 1. september 2026. Uken 1.–7. sept har 0 voteringer, 0 spørsmål, 0 saker.</p>
+          <p>Avvik (vår telling), som eksempel: Bjørnar Moxnes (R), Jonas Andersen Sayed (KrF), Marthe Hammer (SV), Martin Virkesdal Jonsterhaug (FrP), Konstanse Marie Alvær (A).</p>
+          <p>Emner i sesjonen, vår telling: EU/EØS 65, helsevesen 52, kommunikasjonsteknologi 49, Grunnloven 42, trygder 42.</p>
+          <p>Partifordeling i votering 28509, vår telling: A 31/0/22, FrP 29/0/18, H 14/0/10, KrF 3/0/4, MDG 0/5/3, R 0/5/4, SV 0/5/4, Sp 5/0/4, V 2/0/1 — skrevet som komiteen / forslag / borte.</p>
+          <p>Lesesalen er et snapshot, ikke en live-tjeneste.</p>
+        </div>
+      </section>
+    </main>
+    <footer>Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
   </div>
+  <script>
+    const tabOf = {hjem:'hjem',saker:'hjem',sak:'sak',hen:'hen',om:'om'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1) || 'hjem';
+      if (!document.querySelector('[data-view="'+h+'"]')) h = 'hjem';
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === (tabOf[h]||'hjem')));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
 </body>
 </html>
