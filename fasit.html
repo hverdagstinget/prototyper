@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fasit — svaret, uten karakter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,700;1,7..72,500&family=IBM+Plex+Sans:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --paper:#f7f1dc; --line:#d4c9a8; --ink:#1a1610; --mute:#6e6758; --pen:#b42318; --navy:#1a2744; --ok:#2c4a38; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--paper); color:var(--ink); font-family:Literata,Georgia,serif; }
+    body { background-image:repeating-linear-gradient(transparent, transparent 1.7rem, var(--line) 1.7rem, var(--line) calc(1.7rem + 1px)); background-attachment:fixed; }
+    a { color:inherit; text-decoration:none; }
+    [data-view][hidden] { display:none !important; }
+    body { padding-bottom:4.8rem; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .2rem; font-family:"IBM Plex Sans",sans-serif; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--pen); font-family:Caveat,cursive; font-size:1.35rem; letter-spacing:0; text-transform:none; }
+    .top a { color:var(--pen); border-bottom:1px solid var(--pen); font-weight:600; }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-size:clamp(1.9rem,6.5vw,2.9rem); line-height:1.08; font-weight:700; margin:.35rem 0 .5rem; }
+    h1 em { font-style:italic; color:var(--pen); }
+    h2 { font-size:1.28rem; margin:1.15rem 0 .4rem; }
+    .lede { font-size:1.18rem; line-height:1.42; margin:0 0 1rem; }
+    .k { font-family:"IBM Plex Sans",sans-serif; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); font-weight:600; }
+    .sent { font-size:1.35rem; line-height:1.4; margin:.55rem 0; }
+    .sent b { color:var(--pen); }
+    .mark { font-family:Caveat,cursive; color:var(--pen); font-size:1.55rem; display:inline-block; transform:rotate(-6deg); font-weight:700; margin-left:.25rem; }
+    .box { background:rgba(255,252,244,.92); border:1px solid var(--line); padding:1rem .95rem; margin:.75rem 0; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .trip div { background:rgba(255,252,244,.95); border:2px solid var(--ink); padding:.7rem .2rem; }
+    .trip b { display:block; font-size:2.15rem; line-height:.9; }
+    .trip span { font-family:"IBM Plex Sans",sans-serif; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .item { display:block; padding:.8rem 0; border-bottom:1px dashed var(--line); }
+    .item h3 { font-size:1.15rem; margin:.1rem 0 .2rem; }
+    .item p { font-size:.95rem; color:#3a3428; }
+    .quiet { font-size:.86rem; color:var(--mute); line-height:1.45; margin:.45rem 0 1rem; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0 1rem; }
+    .faces span { display:flex; align-items:center; gap:.28rem; background:rgba(255,252,244,.95); border:1px solid var(--line); padding:.15rem .4rem .15rem .15rem; font-size:.8rem; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; background:#ddd; }
+    .who { display:grid; grid-template-columns:5.2rem 1fr; gap:.75rem; margin:1rem 0; }
+    .who img { width:5.2rem; height:6.5rem; object-fit:cover; background:#ddd; }
+    .arrow { color:var(--pen); font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:.86rem; }
+    .party { display:grid; grid-template-columns:3rem 1fr auto; gap:.4rem; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; padding:.32rem 0; border-bottom:1px solid var(--line); }
+    .red { color:var(--pen); font-family:Caveat,cursive; font-size:1.4rem; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:var(--navy); }
+    nav.bar a { text-align:center; padding:.85rem .1rem; font-family:"IBM Plex Sans",sans-serif; font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:#8a94a8; font-weight:600; }
+    nav.bar a.on { color:#f7f1dc; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--pen); }
+    .x { font-family:Caveat,cursive; font-size:2.4rem; color:var(--pen); line-height:1; }
+    .tl { list-style:none; margin:.5rem 0 1rem; }
+    .tl li { display:grid; grid-template-columns:7rem 1fr; gap:.4rem; padding:.4rem 0; border-bottom:1px dashed var(--line); }
+    .tl b { font-family:"IBM Plex Sans",sans-serif; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); }
+    .pad1 { min-height:0; }
+    .pad2 { min-height:0; }
+    .pad3 { min-height:0; }
+    .pad4 { min-height:0; }
+    .pad5 { min-height:0; }
+    .pad6 { min-height:0; }
+    .pad7 { min-height:0; }
+    .pad8 { min-height:0; }
+    .pad9 { min-height:0; }
+    .pad10 { min-height:0; }
+    .pad11 { min-height:0; }
+    .pad12 { min-height:0; }
+    .pad13 { min-height:0; }
+    .pad14 { min-height:0; }
+    .pad15 { min-height:0; }
+    .pad16 { min-height:0; }
+    .pad17 { min-height:0; }
+    .pad18 { min-height:0; }
+    .pad19 { min-height:0; }
+    .pad20 { min-height:0; }
+    .pad21 { min-height:0; }
+    .pad22 { min-height:0; }
+    .pad23 { min-height:0; }
+    .pad24 { min-height:0; }
+    .pad25 { min-height:0; }
+    .pad26 { min-height:0; }
+    .pad27 { min-height:0; }
+    .pad28 { min-height:0; }
+    .pad29 { min-height:0; }
+    .pad30 { min-height:0; }
+    .pad31 { min-height:0; }
+    .pad32 { min-height:0; }
+    .pad33 { min-height:0; }
+    .pad34 { min-height:0; }
+    .pad35 { min-height:0; }
+    .pad36 { min-height:0; }
+    .pad37 { min-height:0; }
+    .pad38 { min-height:0; }
+    .pad39 { min-height:0; }
+    .pad40 { min-height:0; }
+    .pad41 { min-height:0; }
+    .pad42 { min-height:0; }
+    .pad43 { min-height:0; }
+    .pad44 { min-height:0; }
+    .pad45 { min-height:0; }
+    .pad46 { min-height:0; }
+    .pad47 { min-height:0; }
+    .pad48 { min-height:0; }
+    .pad49 { min-height:0; }
+    .pad50 { min-height:0; }
+    .pad51 { min-height:0; }
+    .pad52 { min-height:0; }
+    .pad53 { min-height:0; }
+    .pad54 { min-height:0; }
+    .pad55 { min-height:0; }
+    .pad56 { min-height:0; }
+    .pad57 { min-height:0; }
+    .pad58 { min-height:0; }
+    .pad59 { min-height:0; }
+    .pad60 { min-height:0; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Fasit · 15</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Svaret · uten karakter · sak 200211</p>
+      <h1>Naboen kan lese dette <em>høyt</em>.</h1>
+      <p class="sent">MDG ville gi klimaavgiftene tilbake.</p>
+      <p class="sent">Stortinget sa nei.</p>
+      <p class="sent"><b>84</b> komiteen. <b>15</b> forslag. <b>70</b> borte.</p>
+      <p class="mark">Ikke vedtatt.</p>
+      <div class="box">
+        <p class="k">Hvem</p>
+        <p>Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther fremmet. Tuva Moflag (A) var saksordfører. Finanskomiteen. Dok 8:256 S ble Innst. 458 S. Votering 28509, 19. juni.</p>
+      </div>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva</span>
+      </div>
+      <a class="arrow" href="#nei">Neste setning: Stortinget sa nei →</a>
+    </section>
+
+    <section data-view="nei" hidden>
+      <p class="k">Utfall · vedtas ikke</p>
+      <p class="x">Nei.</p>
+      <h1>Stortinget sa nei.</h1>
+      <p class="lede">Det er fasiten. Ikke en karakter. Ikke et motiv. Innstillingen vant den alternative voteringen.</p>
+      <div class="box">
+        <p class="sent">MDG ville gi klimaavgiftene tilbake.</p>
+        <p class="sent">Stortinget sa <b>nei</b>.</p>
+      </div>
+      <p class="quiet">«Nei» her betyr: forslaget ble ikke vedtatt. Salen stemte komiteen mot forslag, ikke ja mot nei som feltnavn. Vi oversetter utfallet til nabo-setningen. Feltene forblir Komiteen, Forslag, Borte.</p>
+      <ul class="tl">
+        <li><b>26. mars</b><span>Fremmet. Dok 8:256 S.</span></li>
+        <li><b>9. april</b><span>Referat. Sendt Finanskomiteen.</span></li>
+        <li><b>12. juni</b><span>Innst. 458 S. Tuva Moflag.</span></li>
+        <li><b>19. juni</b><span>Votering 28509. Ferdig. Nei.</span></li>
+      </ul>
+      <a class="arrow" href="#tall">Tallene bak nei →</a>
+    </section>
+
+    <section data-view="tall" hidden>
+      <p class="k">Votering 28509 · 19. juni 2026</p>
+      <h1>84, 15 og de 70.</h1>
+      <p class="lede">Komiteen mot forslag. Borte førstklassig. Det er hele fasiten i tall.</p>
+      <div class="trip">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="k">Partilinje · vår telling · 0 avvik</p>
+      <div class="party"><b>A</b><span>Komiteen / forslag / borte</span><b>31 / 0 / 22</b></div>
+      <div class="party"><b>FrP</b><span>Komiteen / forslag / borte</span><b>29 / 0 / 18</b></div>
+      <div class="party"><b>H</b><span>Komiteen / forslag / borte</span><b>14 / 0 / 10</b></div>
+      <div class="party"><b>KrF</b><span>Komiteen / forslag / borte</span><b>3 / 0 / 4</b></div>
+      <div class="party"><b>MDG</b><span>Komiteen / forslag / borte</span><b>0 / 5 / 3</b></div>
+      <div class="party"><b>R</b><span>Komiteen / forslag / borte</span><b>0 / 5 / 4</b></div>
+      <div class="party"><b>SV</b><span>Komiteen / forslag / borte</span><b>0 / 5 / 4</b></div>
+      <div class="party"><b>Sp</b><span>Komiteen / forslag / borte</span><b>5 / 0 / 4</b></div>
+      <div class="party"><b>V</b><span>Komiteen / forslag / borte</span><b>2 / 0 / 1</b></div>
+      <p class="quiet">Seks partier med innstillingen. MDG, R, SV med forslaget. Peter Frølich ikke i voteringen. Vi vet ikke hvorfor.</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya">
+        <div>
+          <p class="k">En av fremmerne · Hordaland</p>
+          <p>Frøya Skjold Sjursæther signerte Dok 8:256 S. I fasiten for 28509: borte. To av tre fremmere uten registrert stemme. Indgaard: forslag.</p>
+        </div>
+      </div>
+      <a class="arrow" href="#liste">Andre fasiter samme sesjon →</a>
+    </section>
+
+    <section data-view="liste" hidden>
+      <p class="k">Flere fasiter · nabo-setninger</p>
+      <h1>Bensin. Kontant. Energi. Skatte.</h1>
+      <p class="lede">Samme sal. Andre papirer. Samme regel: utfall når det er votert. Borte når det er votert.</p>
+      <a class="item" href="#tall">
+        <p class="k">200211 · klima · 28509</p>
+        <h3>MDG ville gi klimaavgiftene tilbake. Stortinget sa nei.</h3>
+        <p>Komiteen 84, forslag 15, 70 borte. Ikke vedtatt.</p>
+      </a>
+      <article class="item">
+        <p class="k">200155 · bensin · Sp</p>
+        <h3>Sp ville ha lavere bensin- og dieselpriser. Stortinget sa ja.</h3>
+        <p>71 for, 28 mot, 70 borte. Vedtatt.</p>
+      </article>
+      <article class="item">
+        <p class="k">200124 · kontant · SV</p>
+        <h3>SV ville ha kontantutbetaling. Stortinget sa nei.</h3>
+        <p>Komiteen 84 mot forslag 17, 68 borte. Ikke vedtatt. Hammer medforslagsstiller.</p>
+      </article>
+      <article class="item">
+        <p class="k">200084 · energi · FrP</p>
+        <h3>FrP ville noe annet på energi og levekostnader. Stortinget sa nei til det forslaget.</h3>
+        <p>Komiteen 68 mot FrP-forslag 29, 72 borte. Jonsterhaug medforslagsstiller.</p>
+      </article>
+      <article class="item">
+        <p class="k">200313 · skatte · regjeringen</p>
+        <h3>Regjeringen ville endre skatte- og avgiftslovgivinga. Stortinget sa ja, knapt.</h3>
+        <p>52 for, 49 mot, 68 borte. 31 voteringer. 19. juni.</p>
+      </article>
+      <p class="quiet">Åpne, derfor ingen fasit ennå: 200400 SV, 200399 Sp Vedum, 200398 FrP, 200397 KrF Ystebø, 200396 SV. Mottatt. Ikke votert. Vi fyller ikke inn svaret.</p>
+      <a class="arrow" href="#metode">Hvordan fasiten er laget →</a>
+    </section>
+
+    <section data-view="metode" hidden>
+      <p class="k">Metode · snapshot · ikke live</p>
+      <h1>Fasit er telling. Ikke tolkning.</h1>
+      <p class="lede">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Ikke en live-tjeneste.</p>
+      <div class="box">
+        <p class="sent">Vi skriver Komiteen og Forslag når voteringen er alternativ.</p>
+        <p class="sent">Vi skriver Borte når det ikke er registrert stemme.</p>
+        <p class="sent">Vi skriver ikke hvorfor.</p>
+      </div>
+      <p>Partilinje er vår telling. 0 avvik i 28509. Åtte avvik i andre voteringer i snapshotet. Erna 249 / 350 / 1121, 8 avvik.</p>
+      <p class="quiet">Saksgang 200211: fremmet 26. mars, referat 9. april, sendt komité 9. april, innstilling 12. juni, votering 19. juni. Ferdigbehandlet. Vedtas ikke.</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/TUMO" alt="">Tuva · ordfører</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna · borte</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/PCF" alt="">Frølich · ikke i lista</span>
+      </div>
+      <p class="red">Ingen karakter. Bare svaret.</p>
+    </section>
+
+    <section data-view="hordaland" hidden>
+      <p class="k">Fasit for Hordaland · 15 naboer</p>
+      <h1>Fire, to, åtte — og én utenfor lista.</h1>
+      <p class="lede">Komiteen: Bakervik, Merkesdal, Jonsterhaug, Trellevik. Forslag: Hammer, Marhaug. Borte: Erna, Frøya, Jakobsen, Njåstad, Hjemdal, Abrahamsen, Toppe, Ystebø. Frølich ikke i voteringen.</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/RUB" alt="">RUB</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/LIM" alt="">LIM</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="">MARJON</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">OBT</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="">Hammer</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="">Marhaug</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya</span>
+      </div>
+      <p class="sent">MDG ville gi klimaavgiftene tilbake. Stortinget sa nei. I Hordaland stemte to med forslaget. Fire med komiteen. Åtte var borte.</p>
+      <a class="arrow" href="#hjem">Tilbake til de tre setningene →</a>
+    </section>
+
+  </div>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">Fasit</a>
+    <a href="#nei" data-tab="nei">Nei</a>
+    <a href="#tall" data-tab="tall">Tall</a>
+    <a href="#liste" data-tab="liste">Liste</a>
+    <a href="#metode" data-tab="metode">Metode</a>
+  </nav>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. Borte = ingen registrert stemme. Vi finner ikke på hvorfor. <a href="borger.html">Alle</a></footer>
+  <script>
+    const alias = {hjem:'hjem',nei:'nei',tall:'tall','28509':'tall',liste:'liste',bensin:'liste',kontant:'liste',energi:'liste',skatte:'liste',metode:'metode',hordaland:'hordaland','200211':'hjem'};
+    function show(){
+      let h = (location.hash||'#hjem').slice(1).toLowerCase() || 'hjem';
+      h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+      document.querySelectorAll('[data-view]').forEach(el => el.hidden = el.dataset.view !== h);
+      document.querySelectorAll('nav.bar a').forEach(a => a.classList.toggle('on', a.dataset.tab === h));
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', show); show();
+  </script>
+</body>
+</html>
