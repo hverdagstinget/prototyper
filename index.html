@@ -3,174 +3,137 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ti måter å se Stortinget på — Hverdagstinget</title>
+  <title>Ti hele apper — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --ink:#0c0b09; --paper:#efe8d8; --mute:#8a8170; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: var(--ink); color: var(--paper); }
-    body { font-family: Syne, system-ui, sans-serif; min-height: 100vh; }
-    a { color: inherit; text-decoration: none; }
+    :root { --ink:#100e0c; --paper:#f3efe6; --mute:#7a7368; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--ink); color:var(--paper); font-family:Syne,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
     header {
-      padding: 1.25rem 6vw 0;
-      display: flex; justify-content: space-between; align-items: baseline;
-      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--mute);
+      padding:1.2rem 6vw 0; display:flex; justify-content:space-between; align-items:baseline;
+      font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mute);
     }
-    header nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
-    header nav a:hover { color: var(--paper); }
-    .hero { padding: 3.2rem 6vw 2.4rem; max-width: 58rem; }
+    .hero { padding:2.8rem 6vw 2rem; max-width:58rem; }
     .hero h1 {
-      font-family: "Instrument Serif", Georgia, serif;
-      font-size: clamp(2.8rem, 8vw, 5.6rem);
-      font-weight: 400; line-height: .92;
-      letter-spacing: -.03em;
+      font-family:Fraunces,Georgia,serif; font-weight:500;
+      font-size:clamp(2.4rem,7vw,4.6rem); line-height:1.02; letter-spacing:-.03em;
     }
-    .hero h1 em { font-style: italic; color: #e8c56a; }
-    .hero p {
-      margin-top: 1.2rem; max-width: 36rem;
-      font-size: 1.05rem; line-height: 1.45; color: #cbbfa6;
-      font-weight: 500;
-    }
-    .meta {
-      margin-top: 1.4rem; font-size: .78rem; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--mute);
-    }
+    .hero h1 em { font-style:italic; color:#e8c56a; }
+    .hero p { margin-top:1.1rem; max-width:38rem; font-size:1.08rem; line-height:1.45; color:#d4cbb8; font-weight:500; }
+    .meta { margin-top:1.2rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
-      gap: .7rem;
-      padding: 0 6vw 4rem;
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(16.2rem,1fr));
+      gap:.7rem; padding:0 6vw 3.5rem;
     }
     .card {
-      min-height: 15.5rem;
-      padding: 1.25rem 1.2rem 1.1rem;
-      display: flex; flex-direction: column; justify-content: space-between;
-      border-radius: 4px;
-      transition: transform .18s ease, filter .18s ease;
+      min-height:15.2rem; padding:1.2rem 1.15rem 1.05rem;
+      display:flex; flex-direction:column; justify-content:space-between;
+      border-radius:6px; transition:transform .16s ease;
     }
-    .card:hover { transform: translateY(-3px); filter: brightness(1.06); }
-    .card .n { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; opacity: .7; }
-    .card h2 { font-size: 1.85rem; font-weight: 800; letter-spacing: -.03em; margin: .35rem 0 .4rem; }
-    .card p { font-size: .92rem; line-height: 1.35; font-weight: 500; opacity: .92; }
-    .c1 { background: #f3ead4; color: #1a1208; }
-    .c2 { background: #c45c32; color: #fff6ec; }
-    .c3 { background: #11151c; color: #f4efe4; border: 1px solid #3a3f4a; }
-    .c4 { background: #0065F1; color: #f5f8ff; }
-    .c5 { background: #1c1c1a; color: #e6d28a; }
-    .c6 { background: #2d2438; color: #f2e8ff; }
-    .c7 { background: #162033; color: #dce6f5; }
-    .c8 { background: #2c3a2a; color: #e8f0dc; }
-    .c9 { background: #d8d2c6; color: #2a2620; }
-    .c10{ background: #5c4634; color: #f4ead8; }
-    footer {
-      padding: 1.4rem 6vw 2.4rem;
-      font-size: .78rem; color: var(--mute); line-height: 1.5;
-    }
-    footer a { text-decoration: underline; text-underline-offset: 2px; }
+    .card:hover { transform:translateY(-3px); }
+    .card .n { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; opacity:.72; }
+    .card h2 { font-size:1.8rem; font-weight:800; letter-spacing:-.03em; margin:.3rem 0 .4rem; }
+    .card p { font-size:.92rem; line-height:1.35; font-weight:500; opacity:.94; }
+    .c1 { background:#f3ead4; color:#1a1208; }
+    .c2 { background:#c45c32; color:#fff6ec; }
+    .c3 { background:#11151c; color:#f4efe4; border:1px solid #3a3f4a; }
+    .c4 { background:#0065F1; color:#f5f8ff; }
+    .c5 { background:#1c1c1a; color:#e6d28a; }
+    .c6 { background:#2d2438; color:#f2e8ff; }
+    .c7 { background:#162033; color:#dce6f5; }
+    .c8 { background:#2c3a2a; color:#e8f0dc; }
+    .c9 { background:#d8d2c6; color:#2a2620; }
+    .c10{ background:#5c4634; color:#f4ead8; }
+    footer { padding:1.2rem 6vw 2.4rem; font-size:.78rem; color:var(--mute); line-height:1.5; }
   </style>
 </head>
 <body>
   <header>
     <span>Hverdagstinget · uoffisiell</span>
-    <nav>
-      <a href="avisa.html">Avisa</a>
-      <a href="naboen.html">Naboen</a>
-      <a href="utfall.html">Utfall</a>
-      <a href="hen.html">Hen</a>
-      <a href="desken.html">Desken</a>
-      <a href="pingen.html">Pingen</a>
-      <a href="salen.html">Salen</a>
-      <a href="loypa.html">Løypa</a>
-      <a href="idag.html">I dag</a>
-      <a href="arkivet.html">Arkivet</a>
-    </nav>
+    <span>ikke en live-tjeneste</span>
   </header>
-
   <div class="hero">
-    <h1>Ti måter å se <em>Stortinget</em> på.</h1>
-    <p>Samme tall fra Stortinget, ti ulike produkter. Sesjon 2025–2026: 665 saker, 475 med votering. Siste votering 19. juni 2026. Denne uken: 0 voteringer.</p>
-    <p class="meta">Snapshot 2. sept 2026 · ikke en live-tjeneste</p>
+    <h1>Ti hele apper, samme <em>Stortinget-data</em>.</h1>
+    <p>Forrige runde var enkeltgrep; dette er ti produkter. Sesjon 2025–2026: 665 saker, 475 med votering. Siste votering 19. juni 2026. Denne uken: 0 voteringer, 0 spørsmål, 0 saker.</p>
+    <p class="meta">Snapshot 2. sept 2026 · tall fra Stortinget, data.stortinget.no</p>
   </div>
-
   <div class="grid">
     <a class="card c1" href="avisa.html">
       <span class="n">01</span>
       <div>
         <h2>Avisa</h2>
-        <p>Broadsheet. Én kjempesak øverst — klimaavgiftene 19. juni — og så resten av papiret.</p>
+        <p>Dagsavis over sesjonen. Forside, saker og folk i samme papir.</p>
       </div>
     </a>
     <a class="card c2" href="naboen.html">
       <span class="n">02</span>
       <div>
         <h2>Naboen</h2>
-        <p>Hordaland først. Dine 15 ansikter, og hvordan de stemte sist.</p>
+        <p>Valgdistriktet som produkt. Hordaland først, de 15 deretter.</p>
       </div>
     </a>
     <a class="card c3" href="utfall.html">
       <span class="n">03</span>
       <div>
         <h2>Utfall</h2>
-        <p>Voteringen er hele produktet. En setning, tre tall, ferdig.</p>
+        <p>Voteringen som eget produkt. Utfallet, partiene, ferdig.</p>
       </div>
     </a>
     <a class="card c4" href="hen.html">
       <span class="n">04</span>
       <div>
         <h2>Hen</h2>
-        <p>Én person i stort format. Erna Solberg, Høyre, Hordaland.</p>
+        <p>Én representant som app. Kort, stemmer, avvik — vår telling.</p>
       </div>
     </a>
     <a class="card c5" href="desken.html">
       <span class="n">05</span>
       <div>
         <h2>Desken</h2>
-        <p>Saksnummer, sitatblokk, Dok 8. For den som skal skrive om saken i kveld.</p>
+        <p>Saksmappe for den som skal skrive. Nummer, dokument, utfall.</p>
       </div>
     </a>
     <a class="card c6" href="pingen.html">
       <span class="n">06</span>
       <div>
         <h2>Pingen</h2>
-        <p>Følg saker og folk. Tom uke, siste votering 19. juni. Si ifra når det skjer igjen.</p>
+        <p>Innboks og følgerliste. Si ifra når salen voterer igjen.</p>
       </div>
     </a>
     <a class="card c7" href="salen.html">
       <span class="n">07</span>
       <div>
         <h2>Salen</h2>
-        <p>Partiene på rekke i votering 28509. Komiteen mot forslaget — ikke for mot mot.</p>
+        <p>Partigeografien i kammeret. Blokker, spor og Høyre-gruppen.</p>
       </div>
     </a>
     <a class="card c8" href="loypa.html">
       <span class="n">08</span>
       <div>
         <h2>Løypa</h2>
-        <p>Sak 200211 som sti: fremmet, komité, innstilling, votering, ferdigbehandlet.</p>
+        <p>Hver sak som sti. Fem stopp fra fremmet til ferdigbehandlet.</p>
       </div>
     </a>
     <a class="card c9" href="idag.html">
       <span class="n">09</span>
       <div>
         <h2>I dag</h2>
-        <p>Stille uke. 0 voteringer. Siste votering står igjen i vinduet.</p>
+        <p>Kalenderen når uken er stille. Luken nede, telleren står.</p>
       </div>
     </a>
     <a class="card c10" href="arkivet.html">
       <span class="n">10</span>
       <div>
         <h2>Arkivet</h2>
-        <p>Lesesal for sesjon 2025–2026. Saksnummer, status, ro.</p>
+        <p>Lesesal for sesjonen. Hyller, katalogkort og kolofon.</p>
       </div>
     </a>
   </div>
-
   <footer>
     Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-    <a href="index.html">Til toppen</a>
   </footer>
 </body>
 </html>
