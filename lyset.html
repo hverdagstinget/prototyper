@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>I lyset — hva som skjer i salen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#0c0b0a; --paper:#f4efe4; --mute:#8a8278; --gold:#e8c56a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--ink); color:var(--paper); font-family:Syne,system-ui,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    header {
+      padding:1.15rem 6vw 0; display:flex; justify-content:space-between; align-items:baseline;
+      font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mute);
+    }
+    header a { color:var(--gold); border-bottom:1px solid #5a4e2a; }
+    .hero { padding:2.6rem 6vw 1.8rem; max-width:62rem; }
+    .hero .k { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+    .hero h1 {
+      font-family:Fraunces,Georgia,serif; font-weight:500;
+      font-size:clamp(2.5rem,7.2vw,4.8rem); line-height:1.02; letter-spacing:-.03em; margin:.35rem 0 .7rem;
+    }
+    .hero h1 em { font-style:italic; color:var(--gold); }
+    .hero p { max-width:40rem; font-size:1.08rem; line-height:1.45; color:#d4cbb8; font-weight:500; }
+    .meta { margin-top:1.15rem; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .beam { height:2px; margin:0 6vw 1.6rem; background:linear-gradient(90deg, transparent, var(--gold), transparent); opacity:.7; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(16.2rem,1fr)); gap:.7rem; padding:0 6vw 3.2rem; }
+    .card {
+      min-height:15rem; padding:1.15rem 1.1rem 1rem;
+      display:flex; flex-direction:column; justify-content:space-between;
+      border-radius:6px; transition:transform .16s ease;
+    }
+    .card:hover { transform:translateY(-3px); }
+    .card .n { font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; opacity:.72; }
+    .card h2 { font-size:1.72rem; font-weight:800; letter-spacing:-.03em; margin:.28rem 0 .35rem; }
+    .card p { font-size:.9rem; line-height:1.35; font-weight:500; opacity:.94; }
+    .c1 { background:#f4ead0; color:#1a1408; }
+    .c2 { background:#2a2420; color:#f0e6d4; border:1px solid #4a4038; }
+    .c3 { background:#8b3a1a; color:#f8ece4; }
+    .c4 { background:#c45c32; color:#fff6ec; }
+    .c5 { background:#0065F1; color:#f5f8ff; }
+    .c6 { background:#3a3a38; color:#efe8d8; }
+    .c7 { background:#1e3a4a; color:#dceaf2; }
+    .c8 { background:#E30613; color:#fff5f4; }
+    .c9 { background:#f3ead4; color:#1a1208; }
+    .c10{ background:#3d4a38; color:#e8f0dc; }
+    .c11{ background:#162033; color:#dce6f5; }
+    .c12{ background:#d8d2c6; color:#2a2620; }
+    .c13{ background:#2d2438; color:#f2e8ff; }
+    .c14{ background:#11151c; color:#f4efe4; border:1px solid #3a3f4a; }
+    .c15{ background:#5c4634; color:#f4ead8; }
+    .c16{ background:#1c1012; color:#f6ebe6; border:1px solid #5a2a30; }
+    .c17{ background:#c4a074; color:#24180f; }
+    .c18{ background:#161310; color:#efe6d4; border:1px solid #c45c32; }
+    .c19{ background:#eef1f4; color:#2a3340; }
+    .c20{ background:#e8c56a; color:#1a2744; }
+    footer { padding:1.1rem 6vw 2.6rem; font-size:.78rem; color:var(--mute); line-height:1.55; }
+    footer a { color:var(--gold); }
+    .notlive { margin-top:.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Hverdagstinget · uoffisiell</span>
+    <a href="index.html">De første ti</a>
+  </header>
+  <div class="hero">
+    <p class="k">20 hele apper</p>
+    <h1>I lyset — hva som skjer i <em>salen</em>.</h1>
+    <p>Ingenting gjemt: vedtak, hvem som fremmet, hvem som stoppet, hvem som var borte. For folk. Snapshot, ikke live.</p>
+    <p class="meta">Snapshot 2. sept 2026 · tall fra Stortinget, data.stortinget.no · ikke test.hverdagstinget.no</p>
+  </div>
+  <div class="beam"></div>
+  <div class="grid">
+    <a class="card c1" href="galleriet.html">
+      <span class="n">01</span>
+      <div>
+        <h2>Galleriet</h2>
+        <p>Siste votering som om du satt der. 84 / 15 / 70.</p>
+      </div>
+    </a>
+    <a class="card c2" href="vedtakene.html">
+      <span class="n">02</span>
+      <div>
+        <h2>Vedtakene</h2>
+        <p>Bare utfall. Vedtatt, falt, eller ikke ferdig — og borte.</p>
+      </div>
+    </a>
+    <a class="card c3" href="fremmet.html">
+      <span class="n">03</span>
+      <div>
+        <h2>Fremmet</h2>
+        <p>Hvem som tok det opp. Navn først, så saken.</p>
+      </div>
+    </a>
+    <a class="card c4" href="stoppet.html">
+      <span class="n">04</span>
+      <div>
+        <h2>Stoppet</h2>
+        <p>Hvem som stanset forslaget. Flertallet, mindretallet, de 70.</p>
+      </div>
+    </a>
+    <a class="card c5" href="partilinja.html">
+      <span class="n">05</span>
+      <div>
+        <h2>Partilinja</h2>
+        <p>Ni partier, tre tall hver. Vår telling.</p>
+      </div>
+    </a>
+    <a class="card c6" href="borte.html">
+      <span class="n">06</span>
+      <div>
+        <h2>Borte</h2>
+        <p>70 av 169 hadde ingen registrert stemme.</p>
+      </div>
+    </a>
+    <a class="card c7" href="spor.html">
+      <span class="n">07</span>
+      <div>
+        <h2>Spor</h2>
+        <p>Spørsmålene som faktisk ble stilt. FrP 1757, A 24.</p>
+      </div>
+    </a>
+    <a class="card c8" href="ansvar.html">
+      <span class="n">08</span>
+      <div>
+        <h2>Ansvar</h2>
+        <p>Hva partiet slapp gjennom, og hva det stoppet.</p>
+      </div>
+    </a>
+    <a class="card c9" href="navnene.html">
+      <span class="n">09</span>
+      <div>
+        <h2>Navnene</h2>
+        <p>Aldri en sak uten folk. Hvem fremmet, hvem stemte.</p>
+      </div>
+    </a>
+    <a class="card c10" href="komiteen.html">
+      <span class="n">10</span>
+      <div>
+        <h2>Komiteen</h2>
+        <p>Porten: innstillingen som ble de 84.</p>
+      </div>
+    </a>
+    <a class="card c11" href="hendene.html">
+      <span class="n">11</span>
+      <div>
+        <h2>Hendene</h2>
+        <p>Én sak, alle hender. Tre fremmere, ni partier, Hordaland.</p>
+      </div>
+    </a>
+    <a class="card c12" href="ukeseddel.html">
+      <span class="n">12</span>
+      <div>
+        <h2>Ukeseddel</h2>
+        <p>Denne uka 0. Siste votering 19. juni står likevel.</p>
+      </div>
+    </a>
+    <a class="card c13" href="finn.html">
+      <span class="n">13</span>
+      <div>
+        <h2>Finn</h2>
+        <p>Klimaavgift: hvem fremmet, hvem stoppet, hvem var borte.</p>
+      </div>
+    </a>
+    <a class="card c14" href="janei.html">
+      <span class="n">14</span>
+      <div>
+        <h2>Ja nei</h2>
+        <p>Partikartet. Tre kolonner: komiteen, forslag, borte.</p>
+      </div>
+    </a>
+    <a class="card c15" href="gjerning.html">
+      <span class="n">15</span>
+      <div>
+        <h2>Gjerning</h2>
+        <p>Hva hen gjorde: stemmer, spørsmål, forslag.</p>
+      </div>
+    </a>
+    <a class="card c16" href="avvik.html">
+      <span class="n">16</span>
+      <div>
+        <h2>Avvik</h2>
+        <p>Hvem brøt partilinja. Vår telling, navn, vedtak.</p>
+      </div>
+    </a>
+    <a class="card c17" href="loftet.html">
+      <span class="n">17</span>
+      <div>
+        <h2>Loftet</h2>
+        <p>Dok 8 mot regjeringen. Hvem satte det på dagsorden.</p>
+      </div>
+    </a>
+    <a class="card c18" href="falt.html">
+      <span class="n">18</span>
+      <div>
+        <h2>Falt</h2>
+        <p>Forslagene som døde. Klimaavgift, kontant, energi.</p>
+      </div>
+    </a>
+    <a class="card c19" href="stillhet.html">
+      <span class="n">19</span>
+      <div>
+        <h2>Stillhet</h2>
+        <p>Det som ikke står: 0 voteringer, 1121 borte, A 24 spørsmål.</p>
+      </div>
+    </a>
+    <a class="card c20" href="folket.html">
+      <span class="n">20</span>
+      <div>
+        <h2>Folket</h2>
+        <p>Hva ble bestemt? Av hvem? Hvem var borte?</p>
+      </div>
+    </a>
+  </div>
+  <footer>
+    Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.<br>
+    <span class="notlive">Ikke en live-tjeneste. Ikke test.hverdagstinget.no.</span><br>
+    <a href="index.html">De første ti apper →</a>
+  </footer>
+</body>
+</html>
