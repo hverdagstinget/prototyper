@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mindretallet — Hverdagstinget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f4f0e8; --ink:#1a1612; --mute:#6e675c; --line:#ddd4c6; --mdg:#6A8F00; --r:#980C1E; --sv:#C8102E; --paper:#fffdf8; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { background:var(--bg); color:var(--ink); }
+    body { font-family:Outfit,system-ui,sans-serif; min-height:100vh; padding-bottom:5rem; }
+    a { color:inherit; }
+    [data-view][hidden] { display:none !important; }
+    .top { display:flex; justify-content:space-between; align-items:baseline; padding:1rem 1.15rem .2rem; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); }
+    .top b { color:var(--sv); font-weight:700; letter-spacing:.18em; }
+    .top a { text-decoration:none; border-bottom:1px solid var(--mdg); color:var(--mdg); font-weight:700; }
+    .wrap { max-width:40rem; margin:0 auto; padding:0 1.15rem 2rem; }
+    h1 { font-family:Fraunces,Georgia,serif; font-weight:500; font-size:clamp(2.2rem,8vw,3.5rem); line-height:1.02; margin:.45rem 0 .4rem; }
+    h1 em { font-style:italic; color:var(--sv); }
+    h2 { font-family:Fraunces,Georgia,serif; font-size:1.4rem; font-weight:500; margin:1.25rem 0 .4rem; }
+    .lede { font-family:Fraunces,Georgia,serif; font-size:1.2rem; line-height:1.38; margin:0 0 1rem; }
+    .k { font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); font-weight:600; }
+    .quiet { font-size:.84rem; color:var(--mute); line-height:1.45; margin:.45rem 0 1rem; }
+    .trip { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .trip div { padding:.8rem .2rem; color:#fff; }
+    .trip b { display:block; font-family:Fraunces,serif; font-size:2.3rem; line-height:.9; }
+    .trip span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; }
+    .wall { display:grid; grid-template-columns:repeat(5,1fr); gap:.4rem; margin:.8rem 0 1.1rem; }
+    .wall a, .wall div { text-align:center; text-decoration:none; font-size:.62rem; color:var(--mute); line-height:1.15; }
+    .wall img { width:100%; aspect-ratio:3/4; object-fit:cover; background:#ddd; display:block; margin-bottom:.2rem; filter:grayscale(.15) contrast(1.05); }
+    .wall b { display:block; color:var(--ink); font-weight:600; font-size:.68rem; }
+    .card { display:block; text-decoration:none; background:var(--paper); border:1px solid var(--line); padding:1rem .95rem; margin:.7rem 0; }
+    .card h3 { font-family:Fraunces,serif; font-size:1.35rem; margin:.15rem 0 .3rem; }
+    .x { display:inline-block; border:2px solid var(--sv); color:var(--sv); padding:0 .35rem; transform:rotate(-3deg); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; }
+    .who { display:grid; grid-template-columns:5.8rem 1fr; gap:.85rem; margin:1rem 0; }
+    .who img { width:5.8rem; height:7.3rem; object-fit:cover; background:#ddd; }
+    .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.8rem 0; }
+    .nums div { border-top:2px solid var(--sv); padding-top:.35rem; }
+    .nums b { display:block; font-family:Fraunces,serif; font-size:1.8rem; }
+    .nums span { font-size:.68rem; color:var(--mute); text-transform:uppercase; }
+    .list a, .list article { display:block; padding:.75rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .list h3 { font-family:Fraunces,serif; font-size:1.22rem; }
+    .faces { display:flex; flex-wrap:wrap; gap:.35rem; margin:.4rem 0 .9rem; }
+    .faces span, .faces a { display:flex; align-items:center; gap:.3rem; background:var(--paper); border:1px solid var(--line); padding:.18rem .45rem .18rem .18rem; font-size:.8rem; text-decoration:none; }
+    .faces img { width:1.5rem; height:1.5rem; object-fit:cover; background:#ccc; }
+    .note { border-left:3px solid var(--mdg); padding:.1rem 0 .1rem .75rem; margin:1rem 0; font-family:Fraunces,serif; font-size:1.08rem; line-height:1.4; }
+    .eq { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.4rem; margin:.9rem 0; text-align:center; }
+    .eq div { background:var(--paper); border:1px solid var(--line); padding:.7rem .2rem; }
+    .eq b { display:block; font-family:Fraunces,serif; font-size:2rem; line-height:.9; }
+    .eq span { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+    .band { display:flex; height:1.4rem; overflow:hidden; margin:.5rem 0 1rem; }
+    .band i { display:block; height:100%; }
+    nav.bar { position:fixed; left:0; right:0; bottom:0; display:grid; grid-template-columns:repeat(5,1fr); background:#1a1612; }
+    nav.bar a { text-align:center; text-decoration:none; padding:.85rem .1rem; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:#9a9084; font-weight:600; }
+    nav.bar a.on { color:#f4f0e8; }
+    footer.site { max-width:40rem; margin:0 auto; padding:1.1rem 1.15rem 5.4rem; font-size:.75rem; color:var(--mute); line-height:1.5; }
+    footer.site a { color:var(--ink); }
+    .row { display:grid; grid-template-columns:3.3rem 1fr auto; gap:.65rem; align-items:center; padding:.65rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+    .row img { width:3.3rem; height:4.15rem; object-fit:cover; background:#ddd; }
+    .row small { display:block; color:var(--mute); font-size:.78rem; }
+    .warn { font-size:.82rem; color:var(--mute); border:1px dashed var(--line); padding:.7rem .8rem; margin:.8rem 0; }
+    @media (max-width:420px) { .wall { grid-template-columns:repeat(3,1fr); } }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <b>Mindretallet</b>
+    <a href="borger.html">Alle</a>
+  </div>
+  <div class="wrap">
+
+    <section data-view="hjem">
+      <p class="k">Votering 28509 · de 15 som tok forslaget</p>
+      <h1>Fem + fem + fem. <em>Navngitt.</em></h1>
+      <p class="lede">MDG, Rødt, SV. Ikke «venstresiden» som tåke. Tre partier, fem stemmer hver, mot innstillingen. Forslaget falt. Sytti hadde ingen registrert stemme.</p>
+      <div class="trip">
+        <div style="background:var(--mdg)"><b>5</b><span>MDG</span></div>
+        <div style="background:var(--r)"><b>5</b><span>Rødt</span></div>
+        <div style="background:var(--sv)"><b>5</b><span>SV</span></div>
+      </div>
+      <div class="band"><i style="flex:5;background:var(--mdg)"></i><i style="flex:5;background:var(--r)"></i><i style="flex:5;background:var(--sv)"></i></div>
+      <p class="quiet">15 av 169. 15 av 99 som stemte. Komiteen 84. Borte 70. Alternativ: komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Uka: 0 voteringer. Siste 19. juni 2026.</p>
+      <h2>De 15, med ansikt</h2>
+      <p class="k">MDG · 5 forslag · 3 borte av 8</p>
+      <div class="wall">
+        <div><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="Oda Indgaard"><b>Oda Indgaard</b><span>MDG · skrev</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/UAB" alt="Une Bastholm"><b>Une Bastholm</b><span>MDG · Akershus</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/JULSTU" alt="Julie E. Stuestøl"><b>Julie E. Stuestøl</b><span>MDG · Vestfold</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/MARBYE" alt="Margit Bye"><b>Margit Bye</b><span>MDG · Oslo</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/MARDAL" alt="Marius Langballe Dalin"><b>Marius Dalin</b><span>MDG · Sogn og Fjordane</span></div>
+      </div>
+      <p class="k">Rødt · 5 forslag · 4 borte av 9</p>
+      <div class="wall">
+        <div><img src="https://test.hverdagstinget.no/api/photos/BJMO" alt="Bjørnar Moxnes"><b>Bjørnar Moxnes</b><span>R · Oslo</span></div>
+        <a href="#hen"><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="Sofie Marhaug"><b>Sofie Marhaug</b><span>R · Hordaland</span></a>
+        <div><img src="https://test.hverdagstinget.no/api/photos/MARMAR" alt="Marie Sneve Martinussen"><b>Marie Sneve Martinussen</b><span>R · Akershus</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/MMIKRI" alt="Mímir Kristjánsson"><b>Mímir Kristjánsson</b><span>R · Rogaland</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/SEA" alt="Seher Aydar"><b>Seher Aydar</b><span>R · Oslo</span></div>
+      </div>
+      <p class="k">SV · 5 forslag · 4 borte av 9</p>
+      <div class="wall">
+        <a href="#hen"><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="Marthe Hammer"><b>Marthe Hammer</b><span>SV · Hordaland</span></a>
+        <div><img src="https://test.hverdagstinget.no/api/photos/ANNFRE" alt="Anne Lise Gjerstad Fredlund"><b>Anne Lise Fredlund</b><span>SV · Oppland</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/INF" alt="Ingrid Fiskaa"><b>Ingrid Fiskaa</b><span>SV · Rogaland</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/MAAH" alt="Marian Hussein"><b>Marian Hussein</b><span>SV · Oslo</span></div>
+        <div><img src="https://test.hverdagstinget.no/api/photos/MIREHB" alt="Mirell Høyer-Berntsen"><b>Mirell Høyer-Berntsen</b><span>SV · Vest-Agder</span></div>
+      </div>
+      <div class="note">Hordaland i de 15: Marthe Hammer og Sofie Marhaug. Frøya Skjold Sjursæther skrev forslaget og var borte. Vi sier ikke hvorfor.</div>
+      <p><a href="#forsok" style="font-weight:700;border-bottom:1px solid var(--sv)">Tre forsøk som falt →</a></p>
+    </section>
+
+    <section data-view="forsok" hidden>
+      <p class="k">Ekstra · #forsok · tre falne forslag · hvem som prøvde</p>
+      <h1>De prøvde. Salen sa nei.</h1>
+      <p class="lede">Klima, kontant, energi. Tre representantforslag 19. juni. Tre ganger innstillingen. Tre ganger borte som felt. Vi finner ikke på hvorfor de falt utover tallene.</p>
+
+      <a class="card" href="#sak">
+        <p class="k">200211 · votering 28509 · MDG</p>
+        <h3>Klimaavgifter til befolkningen</h3>
+        <p><span class="x">Falt</span> Komiteen 84 · forslag 15 · 70 borte.</p>
+        <p class="quiet" style="margin-bottom:.4rem">Hvem prøvde: Ingrid Liland, Oda Indgaard, Frøya Skjold Sjursæther. MDG. Finanskomiteen. Tuva Moflag førte innstillingen som vant.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Liland · borte</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/ODAIND" alt="">Indgaard · forslag</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Sjursæther · borte</span>
+        </div>
+        <p class="quiet" style="margin:0">Forslag nr. 1 og 2 fra SV, R og MDG. 5+5+5. To av tre forslagsstillere uten registrert stemme.</p>
+      </a>
+
+      <article class="card">
+        <p class="k">200124 · votering 28505 · SV</p>
+        <h3>Kontantutbetaling til befolkningen</h3>
+        <p><span class="x">Falt</span> Komiteen 84 · forslag 17 · 68 borte.</p>
+        <p class="quiet" style="margin-bottom:.4rem">Hvem prøvde: Lars Haltbrekken, Marthe Hammer, Anne Lise Gjerstad Fredlund, Marian Hussein. SV. Alternativ: komiteen mot forslag nr. 1 fra SV, R, MDG og V.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/LAHA" alt="">Haltbrekken · borte i 28509</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="">Hammer · Hordaland</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/ANNFRE" alt="">Fredlund</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/MAAH" alt="">Hussein</span>
+        </div>
+        <p class="quiet" style="margin:0">17 mot 84. Venstre med i forslaget her, ikke i klimaavgiftene. Haltbrekken: borte i 28509, én av fire SV-borte.</p>
+      </article>
+
+      <article class="card">
+        <p class="k">200084 · votering 28502 · FrP</p>
+        <h3>Energi og levekostnader</h3>
+        <p><span class="x">Falt</span> Komiteen 68 · FrP-forslag 29 · 72 borte.</p>
+        <p class="quiet" style="margin-bottom:.4rem">Hvem prøvde: Hans Andreas Limi, Sylvi Listhaug, Tom Staahle, Hilde Grande, Martin Virkesdal Jonsterhaug. FrP. Jonsterhaug: Hordaland. I 28509 stemte han komiteen.</p>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/HLI" alt="">Limi · borte i 28509</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/SYL" alt="">Listhaug · borte i 28509</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/TSTA" alt="">Staahle · komiteen i 28509</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/HILGRA" alt="">Grande · komiteen i 28509</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="">Jonsterhaug · komiteen i 28509</span>
+        </div>
+        <p class="quiet" style="margin:0">Annen koalisjon. FrP alene mot innstillingen. 29, ikke 15. 72 borte. Samme dag, annet mindretall.</p>
+      </article>
+
+      <p class="quiet">Bensin og diesel (200155) gikk gjennom: 71–28–70. Vedum m.fl. Ikke blant de falne. Vår telling.</p>
+    </section>
+
+    <section data-view="hen" hidden>
+      <p class="k">Hordaland i de 15 · Hammer og Marhaug</p>
+      <h1>To fra Hordaland. Resten borte eller med 84.</h1>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="Marthe Hammer">
+        <div>
+          <h2 style="margin-top:0">Marthe Hammer</h2>
+          <p>SV · Hordaland. I 28509: forslag, med SV-linja. Avvik i 28524: mot, forslag nr. 30 Sp og KrF, vedtatt. Vår telling. Vi sier ikke hvorfor.</p>
+        </div>
+      </div>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="Sofie Marhaug">
+        <div>
+          <h2 style="margin-top:0">Sofie Marhaug</h2>
+          <p>Rødt · Hordaland. I 28509: forslag, med R-linja. 52 spørsmål fra Hordaland-toppen. Ingen avvik i denne voteringen.</p>
+        </div>
+      </div>
+      <h2>Hordaland utenfor de 15</h2>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt=""><div><b>Frøya Skjold Sjursæther</b><small>MDG · skrev 200211 · borte</small></div><span>Borte</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/ES" alt=""><div><b>Erna Solberg</b><small>H · 1121 borte · 8 avvik</small></div><span>Borte</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/OBT" alt=""><div><b>Ove Trellevik</b><small>H · med de 84</small></div><span>Komiteen</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/RUB" alt=""><div><b>Rune Bakervik</b><small>A · med de 84</small></div><span>Komiteen</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/LIM" alt=""><div><b>Linda Monsen Merkesdal</b><small>A · med de 84</small></div><span>Komiteen</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt=""><div><b>Martin Virkesdal Jonsterhaug</b><small>FrP · med de 84 her · avvik 28516</small></div><span>Komiteen</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/KJT" alt=""><div><b>Kjersti Toppe</b><small>Sp · borte</small></div><span>Borte</span></div>
+      <div class="row"><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt=""><div><b>Joel Ystebø</b><small>KrF · borte</small></div><span>Borte</span></div>
+      <p class="quiet">Peter Frølich er ikke i voteringen. Benjamin Jakobsen, Helge André Njåstad, Silje Hjemdal, Stig Atle Abrahamsen: borte. Hordaland heter Hordaland.</p>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <h2 style="margin-top:0">Erna Solberg</h2>
+          <p>Ikke i mindretallet. Ikke i de 84. Borte. 249 for · 350 mot · 1121 borte. 8 avvik. 19. juni borte ×3. Vår telling.</p>
+          <div class="nums">
+            <div><b>249</b><span>for</span></div>
+            <div><b>350</b><span>mot</span></div>
+            <div><b>1121</b><span>borte</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-view="partier" hidden>
+      <p class="k">Tre partier · tre felt hver</p>
+      <h1>5 er ikke 8. 5 er ikke 9.</h1>
+      <p class="lede">MDG har 8 seter: 5 forslag, 3 borte. Rødt 9: 5 og 4. SV 9: 5 og 4. Borte skjules ikke bak de fem.</p>
+      <div class="eq">
+        <div><b>0/5/3</b><span>MDG</span></div>
+        <div><b>0/5/4</b><span>Rødt</span></div>
+        <div><b>0/5/4</b><span>SV</span></div>
+      </div>
+      <p class="k">MDG borte · ikke i de 15</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/INGLIL" alt="">Ingrid Liland · skrev</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther · skrev · Hordaland</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/SIRJEN" alt="">Siren Julianne Jensen</span>
+      </div>
+      <p class="k">Rødt borte</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/GEIRAJ" alt="">Geir Jørgensen</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/HANSTE" alt="">Hanne Beate Stenvaag</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/HEGNYH" alt="">Hege Bae Nyholt</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/REMSLV" alt="">Remi Sølvberg</span>
+      </div>
+      <p class="k">SV borte</p>
+      <div class="faces">
+        <span><img src="https://test.hverdagstinget.no/api/photos/KATLIE" alt="">Kathy Lie</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/KIB" alt="">Kirsti Bergstø</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/LAHA" alt="">Lars Haltbrekken</span>
+        <span><img src="https://test.hverdagstinget.no/api/photos/SUNEID" alt="">Sunniva Holmås Eidsvoll</span>
+      </div>
+      <div class="warn">Borte = ingen registrert stemme. Stortinget advarer mot oppmøte som aktivitet. Vi gjetter ikke. Avvik er noe annet: Moxnes for i 28531, Hammer mot i 28524. Vår telling.</div>
+      <p class="quiet">A 31/0/22 · FrP 29/0/18 · H 14/0/10 · Sp 5/0/4 · KrF 3/0/4 · V 2/0/1. A i regjering: 24 spørsmål. FrP: 1757.</p>
+    </section>
+
+    <section data-view="sak" hidden>
+      <p class="k">Sak 200211 · mindretallets votering</p>
+      <h1>Forslaget. Femten. Falt.</h1>
+      <p class="lede">Representantforslag om å dele ut statens inntekter fra klimaavgifter. Liland, Indgaard, Sjursæther. Ferdigbehandlet. Vedtas ikke.</p>
+      <div class="eq">
+        <div><b>84</b><span>Komiteen</span></div>
+        <div><b>15</b><span>Forslag</span></div>
+        <div><b>70</b><span>Borte</span></div>
+      </div>
+      <p class="quiet">Dok 8:256 S · Innst. 458 S. Fremmet 26. mars. Referat 9. april. Sendt komité 9. april. Innstilling 12. juni. Debatt og votering 19. juni. Tuva Moflag (A) førte innstillingen og stemte med den.</p>
+      <p class="quiet">Forslag nr. 1: klimabelønningsordning, CO₂-avgift på bensin og autodiesel utbetalt til innbyggere. Forslag nr. 2: utrede utvidelse til andre CO₂-avgifter. Begge fra SV, R, MDG. Begge i den tapende pakken.</p>
+    </section>
+
+    <section data-view="saker" hidden>
+      <p class="k">Saker · hvem som prøvde, hva som venter</p>
+      <h1>Falt, vedtatt, mottatt.</h1>
+      <p class="lede">Tre falne 19. juni. Én som gikk gjennom. Fem som bare er mottatt. Denne uken: 0 voteringer, 0 spørsmål, 0 saker.</p>
+      <div class="list">
+        <a href="#sak"><p class="k">200211 · MDG · falt</p><h3>Klimaavgifter</h3><p class="quiet">84 · 15 · 70. De 15 er her.</p></a>
+        <a href="#forsok"><p class="k">200124 · SV · falt</p><h3>Kontant</h3><p class="quiet">84 · 17 · 68. Hammer blant dem som prøvde.</p></a>
+        <a href="#forsok"><p class="k">200084 · FrP · falt</p><h3>Energi</h3><p class="quiet">68 · 29 · 72. Jonsterhaug blant dem som prøvde.</p></a>
+        <article><p class="k">200155 · Sp · 71–28–70</p><h3>Bensin og diesel</h3><p class="quiet">Vedum m.fl. Gikk gjennom. Ikke blant de falne.</p></article>
+        <article><p class="k">200400 · SV · mottatt</p><h3>Prediksjonsmarkeder</h3><p class="quiet">Høyer-Berntsen, Eidsvoll, Fiskaa, Lie. 0 voteringer.</p></article>
+        <article><p class="k">200399 · Sp · mottatt</p><h3>Hammerfest</h3><p class="quiet">Vedum, Bentzen, Sveian.</p></article>
+        <article><p class="k">200398 · FrP · mottatt</p><h3>Bolig</h3><p class="quiet">Wiborg, Limi, Njåstad, Larsen, Midtun.</p></article>
+        <article><p class="k">200397 · KrF · mottatt</p><h3>Abortplan</h3><p class="quiet">Ystebø, Røse, Lossius. Ystebø: Hordaland, borte i 28509.</p></article>
+        <article><p class="k">200396 · SV · mottatt</p><h3>Palestina</h3><p class="quiet">Hammer, Fiskaa, Hussein. Hammer: i de 15 den 19. juni.</p></article>
+      </div>
+      <p class="quiet">144 saker ikke ferdigbehandlet. PACE i Strasbourg er ikke et stortingsmøte. Siste stortingsmøte 1. september. Snapshot 2. sept 2026.</p>
+    </section>
+
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026. <a href="borger.html">Alle skisser</a></footer>
+  <nav class="bar">
+    <a href="#hjem" data-tab="hjem">15</a>
+    <a href="#forsok" data-tab="forsok">Forsøk</a>
+    <a href="#hen" data-tab="hen">Hordaland</a>
+    <a href="#partier" data-tab="partier">Partier</a>
+    <a href="#sak" data-tab="sak">Sak</a>
+  </nav>
+  <script>
+    (function () {
+      var alias = {hjem:'hjem',forsok:'forsok',hen:'hen',hordaland:'hen',erna:'hen',partier:'partier',sak:'sak','200211':'sak',saker:'saker'};
+      function go() {
+        var h = (location.hash || '#hjem').slice(1).toLowerCase() || 'hjem';
+        h = alias[h] || (document.querySelector('[data-view="'+h+'"]') ? h : 'hjem');
+        document.querySelectorAll('[data-view]').forEach(function (el) { el.hidden = el.dataset.view !== h; });
+        var tab = {saker:'sak'}[h] || h;
+        document.querySelectorAll('nav.bar a').forEach(function (a) { a.classList.toggle('on', a.dataset.tab === tab); });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
+</body>
+</html>
