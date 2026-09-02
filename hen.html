@@ -3,115 +3,378 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hen — Erna Solberg — Hverdagstinget</title>
+  <title>Hen — Hverdagstinget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root { --bg:#f7f4ef; --ink:#1c1a17; --mute:#7a7368; --line:#e4ddd2; --h:#0065F1; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #f7f4ee; color: #121418; font-family: Outfit, system-ui, sans-serif; }
+    html, body { background: var(--bg); color: var(--ink); }
+    body { font-family: Inter, system-ui, sans-serif; min-height: 100vh; padding-bottom: 4.8rem; }
     a { color: inherit; }
-    .page {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
-      min-height: 100vh;
+    [data-view][hidden] { display: none !important; }
+    .bar-top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 1rem 1.2rem 0; font-size: .8rem; color: var(--mute);
     }
-    .photo {
-      position: relative;
-      background: #0065F1;
-      min-height: 28rem;
+    .bar-top strong { color: var(--ink); font-weight: 600; letter-spacing: -.02em; }
+    .bar-top a { text-decoration: none; }
+    .wrap { max-width: 34rem; margin: 0 auto; padding: 0 1.2rem 2rem; }
+    h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(2.4rem, 9vw, 3.6rem); line-height: .95; letter-spacing: -.03em; }
+    h2 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.7rem; font-weight: 600; margin: 1.3rem 0 .5rem; }
+    .lede { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; line-height: 1.3; margin: .5rem 0 1.1rem; }
+    .searchish {
+      border-bottom: 1px solid var(--ink); padding: .55rem 0; color: var(--mute); font-size: .95rem; margin-bottom: 1.1rem;
     }
-    .photo img {
-      width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%;
-      display: block; filter: grayscale(.15) contrast(1.05);
+    .dir { display: flex; flex-direction: column; }
+    .ppl {
+      display: grid; grid-template-columns: 4.1rem 1fr; gap: .85rem; align-items: center;
+      padding: .85rem 0; border-bottom: 1px solid var(--line); text-decoration: none;
     }
-    .photo .cap {
-      position: absolute; left: 1rem; bottom: 1rem;
-      background: #0065F1; color: #fff; padding: .35rem .65rem;
-      font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+    .ppl img { width: 4.1rem; height: 5.2rem; object-fit: cover; background: #ddd8ce; }
+    .ppl h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.55rem; font-weight: 600; line-height: 1; }
+    .ppl small { color: var(--mute); display: block; margin-top: .2rem; font-size: .82rem; }
+    .ppl.feat { grid-template-columns: 5.6rem 1fr; padding: 1rem 0 1.15rem; }
+    .ppl.feat img { width: 5.6rem; height: 7.1rem; }
+    .ppl.feat h3 { font-size: 2rem; }
+    .who {
+      display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; margin: 1rem 0 1.2rem; align-items: start;
     }
-    .copy { padding: 1.4rem 7vw 3rem; }
-    .back { font-size: .82rem; text-decoration: none; color: #5a6270; }
-    h1 {
-      font-family: Fraunces, Georgia, serif;
-      font-weight: 400; font-style: italic;
-      font-size: clamp(2.6rem, 7vw, 4.6rem);
-      line-height: .92; letter-spacing: -.03em;
-      margin: 1.1rem 0 .4rem;
+    .who img { width: 8.5rem; height: 10.8rem; object-fit: cover; background: #ddd8ce; }
+    .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin: 1rem 0; }
+    .nums div { border-top: 1px solid var(--ink); padding-top: .45rem; }
+    .nums b { display: block; font-family: "Cormorant Garamond", serif; font-size: 2rem; line-height: 1; }
+    .nums span { font-size: .75rem; color: var(--mute); }
+    .vote {
+      padding: .8rem 0; border-bottom: 1px solid var(--line); text-decoration: none; display: block;
     }
-    .who { font-size: 1.05rem; color: #3a4250; margin-bottom: 1.4rem; }
-    .who a { color: #0065F1; }
-    h2 { font-family: Fraunces, serif; font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 .6rem; }
-    .votes { display: grid; gap: .7rem; }
-    .v { border-top: 1px solid #d8d2c6; padding-top: .55rem; }
-    .v .d { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: #6a7280; }
-    .v h3 { font-family: Fraunces, serif; font-size: 1.15rem; font-weight: 400; margin: .15rem 0; }
-    .borte {
-      display: inline-block; margin-top: .2rem;
-      font-size: .82rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-      border-bottom: 2px solid #121418;
+    .vote .k { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+    .vote h3 { font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 600; margin: .1rem 0; }
+    .group { margin: 1rem 0; }
+    .group h3 { font-family: "Cormorant Garamond", serif; font-size: 1.3rem; margin-bottom: .35rem; }
+    .faces { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .faces a, .faces span {
+      display: flex; align-items: center; gap: .4rem; font-size: .85rem;
+      background: #efebe3; padding: .25rem .5rem .25rem .25rem; border-radius: 999px; text-decoration: none;
     }
-    .nums {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem;
-      margin: .4rem 0 1rem;
+    .faces img { width: 1.6rem; height: 1.6rem; object-fit: cover; border-radius: 50%; background: #ddd; }
+    nav.bar {
+      position: fixed; left: 0; right: 0; bottom: 0; background: var(--bg);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
     }
-    .nums div { border-top: 2px solid #121418; padding-top: .4rem; }
-    .nums b { display: block; font-family: Fraunces, serif; font-size: 2.1rem; font-weight: 600; line-height: 1; }
-    .nums span { font-size: .78rem; color: #5a6270; }
-    .fine { font-size: .95rem; line-height: 1.45; color: #2a3140; max-width: 34rem; }
-    footer { margin-top: 2.4rem; font-size: .78rem; color: #6a7280; }
-    footer a { color: #121418; }
-    @media (max-width: 820px) {
-      .page { grid-template-columns: 1fr; }
-      .photo { height: 58vw; min-height: 16rem; }
-      .nums { grid-template-columns: 1fr 1fr; }
+    nav.bar a {
+      text-align: center; text-decoration: none; padding: .85rem .2rem;
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute);
     }
+    nav.bar a.on { color: var(--ink); font-weight: 600; }
+    footer.site { max-width: 34rem; margin: 0 auto; padding: 1.4rem 1.2rem 5.2rem; font-size: .78rem; color: var(--mute); }
+    footer.site a { color: var(--ink); }
+    .tl { list-style: none; }
+    .tl li { display: grid; grid-template-columns: 6.8rem 1fr; gap: .5rem; padding: .4rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+    .mail { color: var(--h); text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="page">
-    <div class="photo">
-      <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
-      <span class="cap">Høyre · Hordaland</span>
-    </div>
-    <div class="copy">
-      <a class="back" href="index.html">Alle ti forslag</a>
-      <h1>Erna Solberg</h1>
-      <p class="who">Høyre, Hordaland. <a href="mailto:erna.solberg@stortinget.no">erna.solberg@stortinget.no</a>. <a href="https://www.stortinget.no/no/Representanter-og-komiteer/Representantene/Representant/?perid=ES">stortinget.no</a></p>
-
-      <h2>Sist vi så henne stemme — 19. juni</h2>
-      <div class="votes">
-        <div class="v">
-          <p class="d">Votering 28509 · klimaavgifter</p>
-          <h3>Dele ut inntekter fra klimaavgifter</h3>
-          <span class="borte">Borte</span>
-        </div>
-        <div class="v">
-          <p class="d">Votering 28508 · bensinpriser</p>
-          <h3>Lavere bensin- og dieselpriser</h3>
-          <span class="borte">Borte</span>
-        </div>
-        <div class="v">
-          <p class="d">Votering 28505 · kontantutbetaling</p>
-          <h3>Kontantutbetaling til befolkningen</h3>
-          <span class="borte">Borte</span>
-        </div>
-      </div>
-
-      <h2>Sesjonen, vår telling</h2>
-      <p class="fine" style="margin-bottom:.8rem">1720 voteringer registrert. 599 til stede. 8 avvik fra partilinje.</p>
-      <div class="nums">
-        <div><b>249</b><span>for</span></div>
-        <div><b>350</b><span>mot</span></div>
-        <div><b>1121</b><span>borte</span></div>
-      </div>
-      <p class="fine">Åtte spørsmål stilt: fem skriftlige, tre i spørretime. Høyre har 24 representanter, deriblant Henrik Asheim fra Akershus. Hennes farge i salen er blå #0065F1.</p>
-
-      <footer>
-        Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.
-        <a href="index.html">Til oversikten</a>
-      </footer>
-    </div>
+  <div class="bar-top">
+    <strong>Hen</strong>
+    <a href="index.html">Alle ti</a>
   </div>
+  <div class="wrap">
+    <section data-view="hjem">
+      <h1 style="margin-top:.8rem">Folk først.</h1>
+      <p class="lede">Stortinget er 169 navn. Her er noen du kan kjenne igjen — Hordaland, et par avvik, og hen som alle kjenner.</p>
+      <p class="searchish">Søk i folk… Erna, Frøya, Marthe</p>
+      <div class="dir">
+        <a class="ppl feat" href="#hen">
+          <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+          <div>
+            <h3>Erna Solberg</h3>
+            <small>Høyre · Hordaland · 1720 voteringer, 1121 borte · vår telling</small>
+          </div>
+        </a>
+        <a class="ppl" href="#sak">
+          <img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="Frøya Skjold Sjursæther">
+          <div>
+            <h3>Frøya Skjold Sjursæther</h3>
+            <small>MDG · Hordaland · forslagsstiller 200211 · borte i 28509</small>
+          </div>
+        </a>
+        <a class="ppl" href="#votering">
+          <img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="Marthe Hammer">
+          <div>
+            <h3>Marthe Hammer</h3>
+            <small>SV · Hordaland · mot i 28509 · avvik mot partilinje, vår telling</small>
+          </div>
+        </a>
+        <a class="ppl" href="#votering">
+          <img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="Sofie Marhaug">
+          <div>
+            <h3>Sofie Marhaug</h3>
+            <small>Rødt · Hordaland · mot i 28509</small>
+          </div>
+        </a>
+        <a class="ppl" href="#votering">
+          <img src="https://test.hverdagstinget.no/api/photos/RUB" alt="Rune Bakervik">
+          <div>
+            <h3>Rune Bakervik</h3>
+            <small>Arbeiderpartiet · Hordaland · komiteen i 28509</small>
+          </div>
+        </a>
+        <a class="ppl" href="#votering">
+          <img src="https://test.hverdagstinget.no/api/photos/LIM" alt="Linda Monsen Merkesdal">
+          <div>
+            <h3>Linda Monsen Merkesdal</h3>
+            <small>Arbeiderpartiet · Hordaland · komiteen i 28509</small>
+          </div>
+        </a>
+        <a class="ppl" href="#votering">
+          <img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="Martin Virkesdal Jonsterhaug">
+          <div>
+            <h3>Martin Virkesdal Jonsterhaug</h3>
+            <small>FrP · Hordaland · komiteen i 28509 · avvik, vår telling</small>
+          </div>
+        </a>
+        <a class="ppl" href="#votering">
+          <img src="https://test.hverdagstinget.no/api/photos/OBT" alt="Ove Trellevik">
+          <div>
+            <h3>Ove Trellevik</h3>
+            <small>Høyre · Hordaland · komiteen i 28509</small>
+          </div>
+        </a>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/PCF" alt="Peter Frølich">
+          <div>
+            <h3>Peter Frølich</h3>
+            <small>Høyre · Hordaland · ingen registrert stemme i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/KJT" alt="Kjersti Toppe">
+          <div>
+            <h3>Kjersti Toppe</h3>
+            <small>Senterpartiet · Hordaland · borte i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="Helge André Njåstad">
+          <div>
+            <h3>Helge André Njåstad</h3>
+            <small>FrP · Hordaland · borte i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt="Silje Hjemdal">
+          <div>
+            <h3>Silje Hjemdal</h3>
+            <small>FrP · Hordaland · borte i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/STIA" alt="Stig Atle Abrahamsen">
+          <div>
+            <h3>Stig Atle Abrahamsen</h3>
+            <small>FrP · Hordaland · borte i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt="Benjamin Jakobsen">
+          <div>
+            <h3>Benjamin Jakobsen</h3>
+            <small>Arbeiderpartiet · Hordaland · borte i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt="Joel Ystebø">
+          <div>
+            <h3>Joel Ystebø</h3>
+            <small>KrF · Hordaland · borte i 28509</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/BJMO" alt="Bjørnar Moxnes">
+          <div>
+            <h3>Bjørnar Moxnes</h3>
+            <small>Rødt · avvik mot partilinje, vår telling</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/JONSAY" alt="Jonas Andersen Sayed">
+          <div>
+            <h3>Jonas Andersen Sayed</h3>
+            <small>KrF · avvik mot partilinje, vår telling</small>
+          </div>
+        </div>
+        <div class="ppl">
+          <img src="https://test.hverdagstinget.no/api/photos/KONALV" alt="Konstanse Marie Alvær">
+          <div>
+            <h3>Konstanse Marie Alvær</h3>
+            <small>Arbeiderpartiet · avvik mot partilinje, vår telling</small>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-view="hen" hidden>
+      <div class="who">
+        <img src="https://test.hverdagstinget.no/api/photos/ES" alt="Erna Solberg">
+        <div>
+          <p style="font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--h);margin-bottom:.2rem">Høyre</p>
+          <h1>Erna Solberg</h1>
+          <p style="margin-top:.35rem">Hordaland</p>
+          <p><a class="mail" href="mailto:erna.solberg@stortinget.no">erna.solberg@stortinget.no</a></p>
+        </div>
+      </div>
+      <p class="lede">Hun er hen i denne appen. Tallene er vår telling. Vi forklarer ikke borte.</p>
+      <div class="nums">
+        <div><b>249</b><span>For</span></div>
+        <div><b>350</b><span>Mot</span></div>
+        <div><b>1121</b><span>Borte</span></div>
+      </div>
+      <p style="color:var(--mute)">1720 voteringer · 8 avvik · 8 spørsmål · sesjon og perioder samlet i tellingen</p>
+      <h2>Siste voteringer 19. juni</h2>
+      <p style="color:var(--mute);margin-bottom:.4rem">Alle tre: ingen registrert stemme.</p>
+      <a class="vote" href="#sak">
+        <p class="k">200211 · votering 28509</p>
+        <h3>Klimaavgifter · borte</h3>
+        <p>Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte.</p>
+      </a>
+      <article class="vote">
+        <p class="k">200155 · votering 28508</p>
+        <h3>Bensin og diesel · borte</h3>
+        <p>71 for, 28 mot, 70 borte.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200124 · votering 28505</p>
+        <h3>Kontantutbetaling · borte</h3>
+        <p>Komiteen 84, forslag 17, 68 borte.</p>
+      </article>
+    </section>
+    <section data-view="saker" hidden>
+      <h1 style="margin-top:.8rem">Saker hen rører</h1>
+      <p class="lede">19. juni: ingen registrert stemme. Under: det som er ferdig, og det som bare er mottatt.</p>
+      <a class="vote" href="#sak">
+        <p class="k">200211 · ferdigbehandlet · 1 votering</p>
+        <h3>Klimaavgifter til befolkningen</h3>
+        <p>Hens stemme: borte. Utfallet: forslaget ble ikke vedtatt.</p>
+      </a>
+      <article class="vote">
+        <p class="k">200155 · ferdigbehandlet · 2 voteringer</p>
+        <h3>Lavere bensin- og dieselpriser</h3>
+        <p>Hens stemme: borte. 71 for.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200124 · ferdigbehandlet · 2 voteringer</p>
+        <h3>Kontantutbetaling</h3>
+        <p>Hens stemme: borte. Komiteen 84 mot forslag 17.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200313 · ferdigbehandlet · 31 voteringer</p>
+        <h3>Skatte- og avgiftslovgivinga</h3>
+        <p>52 for, 49 mot. Fra Regjeringen.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200315 · ferdigbehandlet · 0 voteringer</p>
+        <h3>Tilleggsbevilgninger statsbudsjettet 2026</h3>
+        <p>Regjeringen. Budsjett.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200314 · ferdigbehandlet · 0 voteringer</p>
+        <h3>Revidert nasjonalbudsjett 2026</h3>
+        <p>Regjeringen. Melding.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200084 · ferdigbehandlet · 1 votering</p>
+        <h3>Energipriser og levekostnader</h3>
+        <p>Komiteen 68 mot FrP 29.</p>
+      </article>
+      <article class="vote">
+        <p class="k">200400 · mottatt · 0 voteringer</p>
+        <h3>Prediksjonsmarkeder</h3>
+        <p>Fra SV. Mottatt er ikke ferdigbehandlet. Ingen stemme å vise.</p>
+      </article>
+      <p style="margin-top:1rem;color:var(--mute)">Uka: 0 voteringer, 0 spørsmål, 0 saker. Siste votering 19. juni.</p>
+    </section>
+    <section data-view="sak" hidden>
+      <p class="k" style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-top:.9rem">Sak 200211</p>
+      <h1>Tre navn på forslaget. Ett vedtak: nei.</h1>
+      <p class="lede">Ingrid Liland, Oda Indgaard og Frøya Skjold Sjursæther. Finanskomiteen. Saksordfører Tuva Moflag. Ferdigbehandlet 19. juni.</p>
+      <p>Dok 8:256 S (2025–2026), Innst. 458 S. Alternativ votering 28509: Komiteen 84, forslag nr. 1 og 2 fra SV, R og MDG 15, 70 borte. Forslaget ble ikke vedtatt.</p>
+      <h2>Saksgang</h2>
+      <ul class="tl">
+        <li><b>26. mars</b><span>Fremmet</span></li>
+        <li><b>9. april</b><span>Referat, sendt komité</span></li>
+        <li><b>12. juni</b><span>Innstilling avgitt</span></li>
+        <li><b>19. juni</b><span>Debatt, votering, ferdigbehandlet</span></li>
+      </ul>
+      <p style="margin-top:1rem"><a href="#votering">Se hvem som var borte, for og mot →</a></p>
+    </section>
+    <section data-view="votering" hidden>
+      <h1 style="margin-top:.8rem">Hvem var der.</h1>
+      <p class="lede">Votering 28509 sett gjennom folk. Alternativ: Komiteen mot forslag nr. 1 og 2 fra SV, R og MDG. Ikke grønt mot rødt.</p>
+      <p style="margin-bottom:.8rem"><a href="#sak">Sak 200211</a> · 84 / 15 / 70</p>
+      <div class="group">
+        <h3>Borte — ingen registrert stemme</h3>
+        <div class="faces">
+          <a href="#hen"><img src="https://test.hverdagstinget.no/api/photos/ES" alt="">Erna Solberg</a>
+          <span><img src="https://test.hverdagstinget.no/api/photos/FRYSJU" alt="">Frøya Skjold Sjursæther</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/BENJAK" alt="">Benjamin Jakobsen</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/HNJ" alt="">Helge André Njåstad</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/SIHJE" alt="">Silje Hjemdal</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/STIA" alt="">Stig Atle Abrahamsen</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/KJT" alt="">Kjersti Toppe</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/JOEYST" alt="">Joel Ystebø</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--mute);margin-top:.4rem">Hordaland-utdrag. 70 borte i salen totalt.</p>
+      </div>
+      <div class="group">
+        <h3>Komiteen</h3>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/RUB" alt="">Rune Bakervik</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/LIM" alt="">Linda Monsen Merkesdal</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/MARJON" alt="">Martin Virkesdal Jonsterhaug</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/OBT" alt="">Ove Trellevik</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Forslag nr. 1 og 2</h3>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/MARHAM" alt="">Marthe Hammer</span>
+          <span><img src="https://test.hverdagstinget.no/api/photos/SOFMAR" alt="">Sofie Marhaug</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Ikke i voteringen</h3>
+        <div class="faces">
+          <span><img src="https://test.hverdagstinget.no/api/photos/PCF" alt="">Peter Frølich</span>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer class="site">Uoffisiell. Tall fra Stortinget, data.stortinget.no. Snapshot 2. sept 2026.</footer>
+  <nav class="bar">
+    <a href="#hjem" data-nav="hjem">Folk</a>
+    <a href="#hen" data-nav="hen">Hen</a>
+    <a href="#saker" data-nav="saker">Saker</a>
+    <a href="#votering" data-nav="votering">Votering</a>
+  </nav>
+  <script>
+    (function () {
+      var home = 'hjem';
+      var parent = { hjem: 'hjem', hen: 'hen', saker: 'saker', sak: 'saker', votering: 'votering' };
+      function go() {
+        var id = (location.hash || '#' + home).slice(1) || home;
+        document.querySelectorAll('[data-view]').forEach(function (v) {
+          v.hidden = v.getAttribute('data-view') !== id;
+        });
+        document.querySelectorAll('nav.bar a').forEach(function (a) {
+          a.classList.toggle('on', a.getAttribute('data-nav') === (parent[id] || id));
+        });
+        window.scrollTo(0, 0);
+      }
+      addEventListener('hashchange', go);
+      go();
+    })();
+  </script>
 </body>
 </html>
